@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#07070d"/>
+<title>Meu Álbum · Copa 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1d4ed8;--blue2:#2563eb;--blue3:#3b82f6;
+  --dark:#05080f;--dark2:#0b1120;--dark3:#0f1929;--dark4:#162038;
+  --bg:#05080f;--bg2:#0b1120;--bg3:#0f1929;
+  --text:rgba(255,255,255,.88);--text2:rgba(255,255,255,.55);--muted:rgba(255,255,255,.32);
+  --border:rgba(37,99,235,.1);--border2:rgba(255,255,255,.07);
+  --glass:rgba(255,255,255,.03);--glass2:rgba(255,255,255,.06);
+  --surface:rgba(255,255,255,.035);--surface2:rgba(255,255,255,.02);
+  --pink:#f472b6;--cyan:#22d3ee;--violet:#2563eb;--gold:#F4C752;--green:#2563eb;
+  --holo:linear-gradient(115deg,#1d4ed8 0%,#2563eb 35%,#3b82f6 65%,#1d4ed8 100%);
+  --sxs:0 1px 4px rgba(0,0,0,.3);--sm:0 2px 14px rgba(0,0,0,.5);
+  --md:0 6px 28px rgba(0,0,0,.6);--lg:0 20px 60px rgba(0,0,0,.7);
+  --r:14px;--r2:20px;--bnH:62px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100svh;}
+body.noscroll{overflow:hidden;}
+/* GRID BG idêntico ao index_mobile-3 */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(37,99,235,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.06) 1px,transparent 1px);
+  background-size:60px 60px;}
+/* Vignette */
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 80% 80% at 50% 0%,rgba(29,78,216,.08),transparent 60%),radial-gradient(ellipse at center,transparent 30%,rgba(5,8,15,.95) 100%);}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+input,textarea,select{color-scheme:dark;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px;position:relative;z-index:2;}
+
+/* sem aurora — visual limpo como index_mobile-3 */
+
+/* ─── TOPBAR ─── */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(7,7,13,.9);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:1px solid var(--border);}
+.tb-row{display:flex;align-items:center;gap:10px;padding:10px 0 9px;}
+.tb-logo{width:36px;height:36px;border-radius:10px;background:var(--blue2);display:grid;place-items:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 20px rgba(37,99,235,.4);}
+.tb-brand{flex:1;min-width:0;}
+.tb-brand b{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;display:block;line-height:1.15;color:#fff;}
+.tb-brand small{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.04em;}
+.tb-acts{display:flex;gap:6px;}
+.ib{width:36px;height:36px;border-radius:9px;background:var(--glass2);border:1px solid var(--border2);display:grid;place-items:center;color:var(--text2);transition:background .14s,border-color .14s,transform .1s;}
+.ib:hover{background:rgba(37,99,235,.07);border-color:var(--border);}
+.ib:active{transform:scale(.91);}
+.ib svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ─── TABS ─── */
+.tabs-wrap{position:relative;}
+.tabs{display:flex;}
+.tab{flex:1;padding:10px 4px;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.2px;color:var(--muted);transition:color .2s;user-select:none;}
+.tab.active{color:var(--blue2);}
+.tab-cnt{font-family:'Inter',sans-serif;font-size:9px;font-weight:800;background:rgba(37,99,235,.08);color:rgba(37,99,235,.5);padding:1px 5px;border-radius:99px;margin-left:3px;vertical-align:1px;}
+.tab.active .tab-cnt{background:rgba(37,99,235,.15);color:var(--blue2);}
+.tab-line{position:absolute;bottom:0;height:2.5px;background:var(--blue2);border-radius:2px 2px 0 0;box-shadow:0 0 12px rgba(37,99,235,.5);transition:left .25s cubic-bezier(.2,.7,.2,1),width .25s cubic-bezier(.2,.7,.2,1);pointer-events:none;}
+
+/* ─── SEARCH ─── */
+.search-bar{padding:6px 0 2px;display:none;}
+.search-bar.show{display:block;}
+.search-inner{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1.5px solid var(--border2);border-radius:12px;padding:8px 12px;transition:border-color .15s,box-shadow .15s;}
+.search-inner:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+.search-inner svg{width:15px;height:15px;stroke:var(--muted);flex-shrink:0;}
+.search-inner input{flex:1;border:none;background:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--text);outline:none;}
+.search-inner input::placeholder{color:var(--muted);}
+
+/* ─── PROGRESS STRIP ─── */
+.prog-strip{padding:8px 0 10px;}
+.prog-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;position:relative;}
+.prog-fill{position:absolute;inset:0;width:0%;border-radius:99px;background:var(--holo);background-size:200% 200%;animation:holoS 10s linear infinite;transition:width .6s cubic-bezier(.2,.7,.2,1);}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:11.5px;color:var(--muted);font-weight:600;}
+.prog-meta b{color:var(--text2);font-variant-numeric:tabular-nums;}
+.prog-pct{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--blue2);}
+
+/* ─── PAGES ─── */
+.page{display:block;padding:12px 0 calc(var(--bnH) + 16px);position:relative;z-index:2;}
+.page.hidden{display:none!important;}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:60;background:rgba(7,7,13,.94);backdrop-filter:saturate(200%) blur(18px);-webkit-backdrop-filter:saturate(200%) blur(18px);border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);height:var(--bnH);}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.2px;color:var(--muted);padding:0 4px;transition:color .18s;}
+.bn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .18s;}
+.bn.active{color:var(--blue2);}
+.bn.active svg{filter:drop-shadow(0 0 6px rgba(37,99,235,.5));}
+
+/* ─── GROUP / SECTION CARDS ─── */
+.section{margin-bottom:10px;}
+.gc{background:var(--bg2);border-radius:var(--r2);border:1px solid var(--border2);overflow:hidden;position:relative;
+  content-visibility:auto;contain-intrinsic-size:auto 520px;
+  transition:border-color .3s,transform .3s,box-shadow .3s;}
+.gc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s;z-index:3;pointer-events:none;}
+.gc:hover{background:var(--glass2);border-color:rgba(37,99,235,.22);box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 0 1px rgba(37,99,235,.08);}
+.gc:hover::before{transform:scaleX(1);}
+/* reveal */
+.gc{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease,border-color .3s,background .3s;}
+.gc.in{opacity:1;transform:none;}
+.group-hd{padding:13px 16px 9px;display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--border2);}
+.group-ltr{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(37,99,235,.12);flex-shrink:0;}
+.group-info b{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:block;color:#fff;}
+.group-info small{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
+.sp-hd{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;user-select:none;border-bottom:1px solid var(--border2);}
+.sp-hd h2{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:800;flex:1;color:#fff;}
+.sp-cnt{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-right:6px;}
+.sp-chev{color:var(--muted);font-size:11px;transition:transform .22s;}
+.sp-hd.coll .sp-chev{transform:rotate(-90deg);}
+
+/* ─── TEAM BLOCK ─── */
+.team-blk{border-top:1px solid var(--border2);}
+.team-blk:first-child{border-top:none;}
+.team-hd{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;user-select:none;position:relative;transition:background .14s;}
+.team-hd:hover{background:rgba(37,99,235,.025);}
+.team-hd::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:2.5px;border-radius:0 2px 2px 0;background:var(--blue2);opacity:.55;}
+.team-flag{font-size:21px;line-height:1;flex-shrink:0;}
+.team-nw{flex:1;min-width:0;}
+.team-nw b{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;display:block;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;}
+.team-stat{font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;color:var(--muted);display:flex;gap:6px;margin-top:2px;align-items:center;}
+.team-stat .tn{color:var(--blue2);}
+.team-stat .tf{color:var(--pink);}
+.team-stat .sep{color:var(--border2);}
+.tpbar{flex-shrink:0;text-align:right;}
+.tppct{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--blue2);display:block;}
+.tp-b{width:52px;height:3px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:5px;}
+.tp-b i{display:block;height:100%;width:0%;border-radius:99px;background:var(--blue2);box-shadow:0 0 6px rgba(37,99,235,.3);transition:width .4s ease;}
+.team-chev{color:var(--muted);font-size:10px;margin-left:4px;transition:transform .22s;flex-shrink:0;}
+.team-blk.coll .team-chev{transform:rotate(-90deg);}
+.team-body{padding:4px 12px 14px;}
+.team-body.hidden{display:none;}
+.fill-row{padding:3px 16px 1px;display:flex;gap:6px;}
+.fill-btn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;color:rgba(37,99,235,.5);background:rgba(37,99,235,.05);border:1px solid rgba(37,99,235,.15);padding:4px 9px;border-radius:6px;transition:background .14s,color .14s,border-color .14s;}
+.fill-btn:hover{background:rgba(37,99,235,.1);color:var(--blue2);border-color:rgba(37,99,235,.3);}
+
+/* ─── STICKER GRID ─── */
+.st-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;}
+@media(min-width:460px){.st-grid{grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:11px;}}
+@media(min-width:900px){.st-grid{grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:13px;}}
+
+/* ─── STICKER ─── */
+.st{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;}
+.st.hide{display:none!important;}
+.st-disk{
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+  box-shadow:0 2px 7px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08);
+  border:1.5px solid rgba(255,255,255,.1);
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  transform:perspective(260px) rotateX(0) rotateY(0);
+  transition:transform .16s cubic-bezier(.2,.7,.2,1),box-shadow .16s ease;
+}
+@media(min-width:460px){.st-disk{width:60px;height:60px;}}
+@media(min-width:900px){.st-disk{width:66px;height:66px;}}
+.st-holo{position:absolute;inset:-2px;border-radius:50%;background:var(--holo);background-size:250% 250%;mix-blend-mode:overlay;opacity:0;transition:opacity .18s;pointer-events:none;}
+.st-glare{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at var(--gx,40%) var(--gy,25%),rgba(255,255,255,.9),transparent 65%);opacity:0;transition:opacity .16s;pointer-events:none;}
+
+.st-ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:1;}
+.st-ph-name{position:absolute;bottom:0;left:0;right:0;background:rgba(7,7,13,.75);backdrop-filter:blur(2px);font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.2px;color:rgba(255,255,255,.9);text-align:center;z-index:2;padding:2px 2px 3px;border-radius:0 0 50% 50%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2;}
+
+.st-num{font-family:'Space Mono',monospace;font-size:14px;color:rgba(255,255,255,.3);position:relative;z-index:2;user-select:none;line-height:1;}
+.st-chk{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;z-index:3;opacity:0;transform:scale(.4);transition:opacity .2s,transform .24s cubic-bezier(.2,.7,.2,1);}
+.st-chk svg{width:22px;height:22px;stroke:rgba(255,255,255,.96);stroke-width:3.5;fill:none;}
+.dup-dot{position:absolute;top:-3px;right:-3px;width:17px;height:17px;border-radius:50%;background:var(--blue2);border:2px solid var(--dark2);font-size:8px;font-weight:800;color:var(--dark);display:grid;place-items:center;z-index:5;}
+/* GOT — azul */
+.st.got .st-disk{background:linear-gradient(140deg,#2563EB,#1d4ed8);border-color:rgba(37,99,235,.55);box-shadow:0 3px 14px rgba(37,99,235,.28);}
+.st.got .st-num{opacity:0;}
+.st.got .st-chk{opacity:1;transform:scale(1);}
+/* FOIL */
+.st.foil:not(.got) .st-disk{background:linear-gradient(140deg,#1a0a30,#0d0620);border-color:rgba(124,92,255,.45);box-shadow:0 3px 14px rgba(124,92,255,.2);}
+.st.foil:not(.got) .st-num{color:rgba(200,200,255,.7);}
+.st.foil:not(.got) .st-holo{opacity:.18;}
+.st.got.foil .st-disk{background:var(--blue2);border-color:var(--blue2);box-shadow:0 4px 22px rgba(37,99,235,.45);}
+.st:hover .st-disk{border-color:rgba(37,99,235,.45);box-shadow:0 7px 20px rgba(0,0,0,.5),0 0 12px rgba(37,99,235,.1);transform:perspective(260px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(1.07);}
+.st.got:hover .st-disk{box-shadow:0 6px 18px rgba(37,99,235,.38);}
+.st:hover .st-holo{animation:holoS 4s linear infinite;opacity:.28;}
+.st.got:hover .st-holo{opacity:.1;}
+.st:hover .st-glare{opacity:.6;}
+.st-label{font-family:'Space Mono',monospace;font-size:8px;font-weight:400;color:var(--muted);text-align:center;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none;}
+.st.got .st-label{color:rgba(59,130,246,.7);}
+.st.foil:not(.got) .st-label{color:rgba(150,120,255,.8);}
+
+/* ─── CONTEXT MENU ─── */
+.ctx{position:fixed;background:var(--dark2);border-radius:15px;box-shadow:var(--lg);border:1px solid var(--border2);min-width:190px;z-index:91;overflow:hidden;display:none;transform-origin:top left;}
+.ctx.show{display:block;animation:ctxIn .16s cubic-bezier(.2,.7,.2,1);}
+@keyframes ctxIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.ctx-it{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:13px;font-weight:700;cursor:pointer;width:100%;color:var(--text);}
+.ctx-it:hover{background:rgba(255,255,255,.04);}
+.ctx-it svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;}
+.ctx-sep{height:1px;background:var(--border);margin:2px 0;}
+.ctx-dupes{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--border);}
+.ctx-dupes label{font-size:12px;color:var(--muted);font-weight:700;flex:1;}
+.ctx-dc{display:flex;align-items:center;gap:7px;}
+.ctx-dc button{width:27px;height:27px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid var(--border);font-size:15px;font-weight:800;display:grid;place-items:center;color:var(--text2);}
+.ctx-dv{font-size:13px;font-weight:800;min-width:20px;text-align:center;font-variant-numeric:tabular-nums;}
+#ctxBg{position:fixed;inset:0;z-index:90;display:none;}
+
+/* ─── STATS PAGE ─── */
+.stats-page{padding-top:4px;}
+.sp-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;padding:14px 16px 10px;color:#fff;}
+.stat-icon-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-radius:var(--r2);overflow:hidden;background:var(--bg2);border:1px solid var(--border2);margin-bottom:12px;position:relative;}
+.stat-icon-grid::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);z-index:2;pointer-events:none;}
+.sig-item{padding:16px;display:flex;align-items:center;gap:12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);transition:background .2s;}
+.sig-item:hover{background:rgba(37,99,235,.025);}
+.sig-item:nth-child(2n){border-right:none;}
+.sig-item:nth-last-child(-n+2){border-bottom:none;}
+.sig-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;border:1px solid rgba(255,255,255,.07);}
+.sig-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;}
+.sig-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;display:block;line-height:1;font-variant-numeric:tabular-nums;}
+.sig-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:.2px;}
+.chart-card{background:var(--bg2);border-radius:var(--r2);border:1px solid var(--border2);padding:16px;margin-bottom:12px;position:relative;overflow:hidden;}
+.chart-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);pointer-events:none;}
+.chart-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;margin-bottom:12px;color:#fff;}
+.period-tabs{display:flex;gap:0;background:rgba(255,255,255,.04);border-radius:10px;padding:3px;margin-bottom:14px;border:1px solid var(--border2);}
+.pt{flex:1;padding:7px 6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;color:var(--muted);border-radius:8px;text-align:center;transition:background .15s,color .15s;}
+.pt.active{background:rgba(37,99,235,.08);color:var(--blue2);box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.chart-empty{text-align:center;padding:32px 16px;color:var(--muted);}
+.chart-empty svg{width:36px;height:36px;stroke:var(--muted);fill:none;stroke-width:1.5;opacity:.4;display:block;margin:0 auto 10px;}
+.chart-empty p{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.2px;line-height:1.7;}
+.radar-card{background:var(--bg2);border-radius:var(--r2);border:1px solid var(--border2);padding:16px;margin-bottom:12px;position:relative;overflow:hidden;}
+.radar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);pointer-events:none;}
+.radar-head{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+.radar-head h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;flex:1;color:#fff;}
+.radar-head .info-ico{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:11px;color:var(--muted);}
+.radar-wrap{display:flex;gap:16px;align-items:center;justify-content:center;}
+#radarSVG{width:200px;height:200px;flex-shrink:0;}
+.radar-legend{display:flex;flex-direction:column;gap:10px;}
+.rl-item{display:flex;align-items:center;gap:8px;}
+.rl-dot{width:10px;height:10px;border-radius:50%;background:var(--violet);flex-shrink:0;}
+.rl-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.3px;flex:1;color:var(--text2);}
+.rl-val{font-family:'Anton',sans-serif;font-size:16px;color:var(--violet);font-variant-numeric:tabular-nums;}
+
+/* ─── GASTOS PAGE ─── */
+.gastos-page{padding-top:4px;}
+.gastos-sum{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:0 16px;margin-bottom:14px;}
+.gs-t{background:var(--bg2);border-radius:var(--r);padding:14px;border:1px solid var(--border2);position:relative;overflow:hidden;transition:border-color .3s,background .3s,transform .3s;}
+.gs-t:hover{border-color:rgba(37,99,235,.25);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+.gs-t .gsv{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;display:block;line-height:1;font-variant-numeric:tabular-nums;color:#fff;}
+.gs-t .gsl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;color:var(--muted);text-transform:uppercase;margin-top:3px;display:block;}
+.gs-t.hi{background:rgba(37,99,235,.07);border-color:rgba(37,99,235,.3);}
+.gs-t.hi::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);}
+.gs-t.hi .gsv{color:var(--blue2);}
+.gs-t.hi .gsl{color:rgba(37,99,235,.5);}
+.gs-t.g .gsv{color:var(--blue2);}
+.gs-t.r .gsv{color:var(--pink);}
+.gs-add-btn{display:flex;align-items:center;gap:10px;background:rgba(37,99,235,.04);border:1px dashed rgba(37,99,235,.25);border-radius:var(--r);padding:13px 16px;margin:0 16px 12px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--blue2);transition:background .14s,border-color .14s,transform .2s;}
+.gs-add-btn:hover{background:rgba(255,255,255,.06);}
+.gs-add-btn svg{width:20px;height:20px;stroke:var(--violet);fill:none;stroke-width:2;}
+.gastos-list{display:flex;flex-direction:column;gap:9px;padding:0 16px;}
+.gastos-empty{text-align:center;padding:40px 16px;color:var(--muted);}
+.gastos-empty .big{font-size:36px;margin-bottom:8px;}
+.gastos-empty p{font-size:13px;font-weight:600;line-height:1.55;}
+.gasto-item{background:var(--surface);border-radius:14px;padding:14px;border:1px solid var(--border);box-shadow:var(--sxs);}
+.gi-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.gi-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:.2px;}
+.gi-price{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--blue2);margin-left:auto;}
+.gi-del{width:28px;height:28px;border-radius:8px;background:rgba(255,45,120,.1);color:var(--pink);display:grid;place-items:center;}
+.gi-del svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+.gi-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.gi-pill{font-size:11px;font-weight:700;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);}
+.gi-pill.green{background:rgba(47,203,122,.1);border-color:rgba(47,203,122,.25);color:var(--blue2);}
+.gi-pill.pink{background:rgba(255,45,120,.1);border-color:rgba(255,45,120,.22);color:var(--pink);}
+.gi-pill.blue{background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.2);color:var(--violet);}
+.gi-eff{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.gi-eff-label{font-size:11px;font-weight:700;color:var(--muted);}
+.gi-eff-bar{flex:1;height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;}
+.gi-eff-fill{height:100%;border-radius:99px;background:var(--green);transition:width .4s ease;}
+.gi-eff-pct{font-size:11px;font-weight:800;color:var(--blue2);font-variant-numeric:tabular-nums;}
+
+/* ─── OVERLAYS / SHEETS ─── */
+.ov{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;}
+.ov.open{display:flex;}
+@media(min-width:640px){.ov{align-items:center;padding:20px;}}
+.sheet{width:100%;max-width:580px;background:var(--dark2);border-radius:22px 22px 0 0;box-shadow:0 -5px 36px rgba(0,0,0,.5);max-height:92svh;overflow:auto;-webkit-overflow-scrolling:touch;}
+@media(min-width:640px){.sheet{border-radius:22px;}}
+.sh-head{position:sticky;top:0;background:rgba(7,7,13,.95);backdrop-filter:blur(10px);padding:14px 17px;display:flex;align-items:center;border-bottom:1px solid var(--border2);z-index:2;}
+.sh-head h2{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;flex:1;}
+.sh-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);display:grid;place-items:center;color:var(--muted);font-size:14px;}
+.sh-close:hover{background:rgba(255,255,255,.1);color:var(--text);}
+.sh-body{padding:16px 17px;}
+.field{margin-bottom:13px;}
+.field label{display:block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
+.field input,.field textarea{width:100%;padding:11px 12px;border-radius:11px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--text);font-family:inherit;font-size:14px;font-weight:600;outline:none;transition:border-color .15s,box-shadow .15s;}
+.field textarea{resize:vertical;min-height:90px;line-height:1.5;}
+.field input:focus,.field textarea:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+.calc-row{background:var(--bg3);border-radius:10px;padding:10px 12px;margin:-6px 0 13px;font-size:13px;font-weight:700;color:var(--muted);border:1px solid var(--border);}
+.calc-row b{color:var(--violet);font-size:16px;}
+.lead{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:14px;}
+.lead b{color:var(--text2);}
+.lead code{font-family:'Space Mono',monospace;font-size:11px;background:rgba(37,99,235,.08);color:var(--violet);padding:1px 5px;border-radius:4px;border:1px solid rgba(37,99,235,.15);}
+.urow{display:flex;gap:12px;align-items:center;}
+.uprev{width:56px;height:56px;border-radius:11px;border:1.5px dashed var(--border2);background:var(--bg3);display:grid;place-items:center;overflow:hidden;flex-shrink:0;font-size:20px;color:var(--muted);}
+.uprev img{width:100%;height:100%;object-fit:cover;}
+
+/* ─── ADD RESULT ─── */
+.add-result{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--border);font-size:13px;font-weight:700;margin-bottom:10px;line-height:1.6;}
+
+/* ─── BUTTONS ─── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 15px;border-radius:11px;border:1.5px solid var(--border2);background:rgba(255,255,255,.05);color:var(--text);font-size:13px;font-weight:700;transition:background .13s,transform .1s;}
+.btn:hover{background:rgba(255,255,255,.08);}
+.btn:active{transform:scale(.96);}
+.btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;}
+.btn.prim{background:var(--blue2);border-color:var(--blue2);color:#fff;font-family:'Syne',sans-serif;font-weight:800;box-shadow:0 4px 20px rgba(37,99,235,.35);}
+.btn.prim:hover{background:var(--blue3);box-shadow:0 6px 28px rgba(37,99,235,.5);}
+.btn.cyan{background:var(--cyan);border-color:var(--cyan);color:#063A36;}
+.btn.full{width:100%;justify-content:center;}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;}
+
+/* Menu sheet */
+.menu-list{display:flex;flex-direction:column;gap:7px;}
+.mb{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:12px;border:1px solid var(--border2);background:var(--glass);width:100%;text-align:left;transition:background .13s,border-color .13s;}
+.mb:hover{background:var(--glass2);border-color:var(--border);}
+.mb svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;}
+.mb b{font-family:'Syne',sans-serif;font-size:13px;display:block;color:#fff;}.mb small{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
+.mb.danger{color:var(--pink);border-color:rgba(255,45,120,.2);background:rgba(255,45,120,.04);}
+.trow{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.03);}
+.trow-l b{font-family:'Syne',sans-serif;font-size:13px;display:block;color:#fff;}.trow-l small{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
+.sw{width:44px;height:26px;border-radius:99px;background:rgba(255,255,255,.15);position:relative;flex-shrink:0;border:none;transition:background .2s;}
+.sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .2s cubic-bezier(.2,.7,.2,1);}
+.sw[aria-pressed=true]{background:var(--cyan);}
+.sw[aria-pressed=true]::after{transform:translateX(18px);}
+
+/* Missing list */
+.miss-list{display:flex;flex-direction:column;gap:11px;}
+.miss-g h4{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;color:var(--blue2);text-transform:uppercase;margin-bottom:5px;}
+.miss-codes{display:flex;flex-wrap:wrap;gap:5px;}
+.miss-code{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.3px;color:rgba(37,99,235,.8);background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.15);padding:3px 8px;border-radius:6px;}
+.all-got{text-align:center;padding:28px;}
+.all-got .big{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--blue2);}
+.all-got p{color:var(--muted);font-size:13px;margin-top:7px;}
+
+/* ─── TOAST / FPS ─── */
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(10px);z-index:96;background:var(--dark3);color:var(--text);border:1px solid rgba(37,99,235,.2);padding:9px 15px;border-radius:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2px;font-weight:700;box-shadow:0 6px 22px rgba(0,0,0,.6);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap;max-width:90vw;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.win{background:rgba(37,99,235,.1);border-color:rgba(37,99,235,.35);color:var(--blue2);}
+.fps{position:fixed;right:10px;top:10px;z-index:90;font-size:10.5px;font-weight:800;color:var(--violet);background:rgba(15,15,24,.92);border:1px solid var(--border);padding:4px 8px;border-radius:7px;display:none;backdrop-filter:blur(6px);}
+.fps.show{display:block;}
+#confetti{position:fixed;inset:0;z-index:100;pointer-events:none;display:none;}
+
+/* ─── MISC ─── */
+.gone,.section.gone{display:none!important;}
+@media(max-width:400px){.tb-brand small{display:none;}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+  .gc{opacity:1!important;transform:none!important;}
+}
+
+/* ── SHIMMER + SPOTLIGHT (desktop only) — idêntico ao index_mobile-3 ── */
+@media(min-width:768px){
+  .shimmer-el{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(130deg,transparent 0%,transparent 40%,rgba(37,99,235,.05) 50%,transparent 60%,transparent 100%);background-size:200% 200%;opacity:0;transition:opacity .4s;pointer-events:none;z-index:10;}
+  .spotlight-el{position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(37,99,235,.07),transparent 60%);pointer-events:none;z-index:9;}
+  .gc,.gasto-item,.gs-t{position:relative;}
+}
+
+/* ── ADD STICKERS TEXTAREA ── */
+#addCodesInput{width:100%;min-height:100px;padding:11px 12px;border-radius:11px;border:1px solid var(--border2);background:var(--glass);color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;resize:vertical;transition:border-color .15s;}
+#addCodesInput:focus{border-color:rgba(37,99,235,.4);box-shadow:0 0 0 2px rgba(37,99,235,.07);}
+#addCodesInput::placeholder{color:var(--muted);}
+.add-result{padding:8px 12px;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid var(--border2);font-family:'Space Mono',monospace;font-size:10px;margin-top:2px;}
+p.lead{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.3px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+p.lead b{color:var(--blue2);font-weight:700;}
+p.lead code{background:rgba(37,99,235,.08);color:var(--blue2);padding:1px 5px;border-radius:4px;border:1px solid rgba(37,99,235,.15);}
+
+/* ── QUICK PHOTO PROMPT ── */
+.photo-quick{position:fixed;z-index:88;background:var(--dark3);border:1px solid rgba(37,99,235,.35);border-radius:14px;padding:13px 14px;min-width:210px;max-width:260px;box-shadow:0 12px 40px rgba(0,0,0,.7),0 0 0 1px rgba(37,99,235,.1);animation:ctxIn .2s cubic-bezier(.2,.7,.2,1);}
+.pq-flag{font-size:22px;display:block;margin-bottom:4px;}
+.pq-team{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.2px;color:rgba(37,99,235,.5);text-transform:uppercase;margin-bottom:2px;}
+.pq-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pq-btn{width:100%;background:var(--blue2);color:var(--dark);font-family:'Syne',sans-serif;font-size:12px;font-weight:800;padding:9px 12px;border-radius:9px;border:none;cursor:pointer;display:block;text-align:center;margin-bottom:6px;transition:opacity .15s;}
+.pq-btn:hover{opacity:.85;}
+.pq-skip{width:100%;background:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;padding:4px;border:none;cursor:pointer;display:block;text-align:center;}
+.pq-skip:hover{color:var(--text2);}
+.pq-backdrop{position:fixed;inset:0;z-index:87;}
+
+/* ── COPY BAR ── */
+.copy-bar{display:none;align-items:center;gap:10px;padding:7px 0 5px;border-bottom:1px solid var(--border2);}
+.copy-bar.show{display:flex;}
+.cb-count{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.15px;color:var(--muted);flex:1;}
+.cb-count b{color:var(--text2);}
+.cb-btn{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2px;color:var(--blue2);background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.22);padding:5px 11px;border-radius:8px;cursor:pointer;transition:background .14s;}
+.cb-btn:hover{background:rgba(37,99,235,.13);}
+.cb-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* ── ACTION CARDS ── */
+.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:4px 0 8px;}
+.action-card{background:var(--dark3);border:1px solid rgba(37,99,235,.2);border-radius:16px;padding:20px 14px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:border-color .2s,background .2s,transform .18s;position:relative;overflow:hidden;}
+.action-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue2);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.action-card:hover{border-color:rgba(37,99,235,.5);background:rgba(37,99,235,.06);transform:translateY(-3px);}
+.action-card:hover::before{transform:scaleX(1);}
+.action-card:active{transform:scale(.97);}
+.ac-icon{width:50px;height:50px;border-radius:14px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);display:grid;place-items:center;}
+.ac-icon svg{width:22px;height:22px;stroke:var(--blue3);}
+.action-card b{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:800;color:#fff;text-align:center;}
+.action-card small{font-size:11px;color:var(--muted);text-align:center;line-height:1.4;}
+/* Photo ref */
+.photo-ref-area{background:var(--dark3);border:1px dashed rgba(37,99,235,.25);border-radius:13px;padding:14px;text-align:center;}
+.photo-ref-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;color:var(--blue3);background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.22);padding:10px 18px;border-radius:10px;cursor:pointer;transition:background .14s;}
+.photo-ref-btn:hover{background:rgba(37,99,235,.18);}
+.photo-ref-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;}
+.add-input-result{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.18);border-radius:10px;padding:10px 13px;font-size:11.5px;line-height:1.6;margin-bottom:12px;}
+
+/* ── OCR SCANNER ── */
+.ocr-spinner{width:36px;height:36px;border:3px solid rgba(37,99,235,.2);border-top-color:var(--blue3);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+#ocrOverlay{display:flex!important;}
+#ocrOverlay[style*="display:none"]{display:none!important;}
+.ocr-tag{display:inline-block;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);color:var(--blue3);font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;margin:2px;}
+.ocr-warn{color:rgba(244,114,182,.85);font-size:11px;margin-top:4px;}
+
+/* ── STICKER COM FOTO (visual de figurinha Panini) ── */
+.st-disk{border-radius:10px!important;} /* card shape, não círculo */
+.st{gap:0!important;}
+/* foto cobre o disco, com nome na base */
+.st-ph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:10px;z-index:1;}
+.st-ph-name{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.82));padding:3px 3px 4px;font-family:'Inter',sans-serif;font-size:7px;font-weight:700;color:#fff;text-align:center;z-index:2;border-radius:0 0 10px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2;}
+.st-ph-code{position:absolute;top:3px;left:4px;font-family:'Space Mono',monospace;font-size:7px;color:rgba(255,255,255,.7);background:rgba(0,0,0,.45);padding:1px 4px;border-radius:4px;z-index:3;line-height:1.3;}
+/* sticker sem foto → placeholder colorido com código */
+.st-disk{background:var(--tc,var(--dark3))!important;opacity:.55;}
+.st.has-photo .st-disk{opacity:1;}
+/* dim para os que não tem */
+.st:not(.has-photo) .st-num{font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,.5);}
+/* got = anel azul brilhante */
+.st.got .st-disk{opacity:1;box-shadow:0 0 0 3px var(--blue2),0 4px 16px rgba(37,99,235,.5)!important;border-color:var(--blue2)!important;}
+.st.got:not(.has-photo) .st-disk{background:linear-gradient(140deg,#1a2f5e,#1d4ed8)!important;}
+/* foil tem borda especial */
+.st.foil .st-disk{box-shadow:0 0 0 2px rgba(255,215,0,.5),0 2px 10px rgba(37,99,235,.3);}
+.st.got.foil .st-disk{box-shadow:0 0 0 3px gold,0 4px 20px rgba(255,215,0,.4)!important;}
+/* checkmark só aparece no got sem foto */
+.st.got:not(.has-photo) .st-chk{opacity:1!important;transform:scale(1)!important;}
+.st.got.has-photo .st-chk{opacity:0!important;}
+/* label embaixo do card (nome do time/tipo) */
+.st-label{font-size:8px;font-weight:600;color:var(--muted);text-align:center;max-width:100%;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none;padding:0 2px;}
+.st.got .st-label{color:rgba(37,99,235,.7);}
+/* Tamanho em formato cartão (aspect ratio ~1:1.3) */
+@media(max-width:459px){
+  .st-disk{width:58px!important;height:74px!important;}
+  .st-grid{grid-template-columns:repeat(4,1fr)!important;gap:8px!important;}
+}
+@media(min-width:460px){
+  .st-disk{width:64px!important;height:82px!important;}
+}
+@media(min-width:900px){
+  .st-disk{width:72px!important;height:92px!important;}
+}
+/* Hover: leve zoom */
+.st:hover .st-disk{transform:scale(1.07) perspective(260px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))!important;z-index:5;}
+</style>
+
+</head>
+<body>
+
+
+<!-- TOPBAR -->
+<header class="topbar">
+<div class="wrap">
+  <div class="tb-row">
+    <div class="tb-logo">26</div>
+    <div class="tb-brand"><b id="pageTitle">Copa do Mundo 2026</b><small id="pageSubtitle">EUA · Canadá · México · Panini</small></div>
+    <div class="tb-acts" id="albumActs">
+      <button class="ib" id="addBtn" title="Marcar figurinhas"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <button class="ib" id="searchToggle"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="ib" id="menuBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>
+    </div>
+  </div>
+  <div id="albumHeader">
+    <div class="tabs-wrap">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-f="all">Todas <span class="tab-cnt" id="cAll">0</span></button>
+        <button class="tab" data-f="got">Tenho <span class="tab-cnt" id="cGot">0</span></button>
+        <button class="tab" data-f="miss">Me faltam <span class="tab-cnt" id="cMiss">0</span></button>
+        <button class="tab" data-f="dup">Repetidas <span class="tab-cnt" id="cDup">0</span></button>
+      </div>
+      <div class="tab-line" id="tabLine"></div>
+    </div>
+    <div class="copy-bar" id="copyBar">
+      <span class="cb-count" id="cbCount"></span>
+      <button class="cb-btn" id="cbCopyBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copiar lista</button>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="search-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" type="text" inputmode="search" placeholder="Pesquisar jogador ou número…" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="prog-strip">
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+      <div class="prog-meta"><span>Tenho <b id="pmGot">0</b> de <b>980</b></span><span class="prog-pct" id="pmPct">0%</span><span>Faltam <b id="pmMiss">980</b></span></div>
+    </div>
+  </div>
+</div>
+</header>
+
+<!-- PAGE: ALBUM -->
+<div class="page" id="page-album">
+  <div class="wrap"><main id="album"></main></div>
+</div>
+
+<!-- PAGE: ESTATÍSTICAS -->
+<div class="page hidden" id="page-stats">
+<div class="wrap">
+<div class="stats-page">
+  <div class="stat-icon-grid">
+    <div class="sig-item">
+      <div class="sig-icon" style="background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.2)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <div class="sig-info"><span class="sig-val" id="si-completado" style="color:var(--blue2)">0%</span><span class="sig-lbl">Completado</span></div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-icon" style="background:rgba(124,92,255,.08);border-color:rgba(124,92,255,.2)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="sig-info"><span class="sig-val">980</span><span class="sig-lbl">Total</span></div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-icon" style="background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.15)">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/></svg>
+      </div>
+      <div class="sig-info"><span class="sig-val" id="si-tenho">0</span><span class="sig-lbl">Tenho</span></div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-icon" style="background:rgba(244,114,182,.08);border-color:rgba(244,114,182,.2)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      </div>
+      <div class="sig-info"><span class="sig-val" id="si-faltam">980</span><span class="sig-lbl">Me faltam</span></div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-icon" style="background:rgba(244,199,82,.08);border-color:rgba(244,199,82,.2)">
+        <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      </div>
+      <div class="sig-info"><span class="sig-val" id="si-repetidas">0</span><span class="sig-lbl">Repetidas</span></div>
+    </div>
+    <div class="sig-item">
+      <div class="sig-icon" style="background:rgba(34,211,238,.08);border-color:rgba(34,211,238,.2)">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="sig-info"><span class="sig-val" id="si-brilhantes">0/68</span><span class="sig-lbl">Brilhantes</span></div>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Progresso</div>
+    <div class="period-tabs" id="periodTabs">
+      <button class="pt active" data-p="week">Semana</button>
+      <button class="pt" data-p="month">Mês</button>
+      <button class="pt" data-p="year">Ano</button>
+    </div>
+    <div id="progressChartWrap">
+      <div class="chart-empty" id="chartEmpty">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <p>Ainda não há dados.<br>Comece a adicionar figurinhas!</p>
+      </div>
+      <canvas id="progressChart" width="340" height="140" style="display:none;width:100%;border-radius:8px;"></canvas>
+    </div>
+  </div>
+  <div class="radar-card">
+    <div class="radar-head">
+      <h3>Habilidades do Colecionador</h3>
+      <div class="info-ico" title="Calculado com base na sua coleção">ⓘ</div>
+    </div>
+    <div class="radar-wrap">
+      <svg id="radarSVG" viewBox="0 0 260 260"></svg>
+      <div class="radar-legend">
+        <div class="rl-item"><div class="rl-dot"></div><span class="rl-label">Completado</span><span class="rl-val" id="rl-comp">0</span></div>
+        <div class="rl-item"><div class="rl-dot" style="background:var(--green)"></div><span class="rl-label">Sequência</span><span class="rl-val" id="rl-seq" style="color:var(--blue2)">0</span></div>
+        <div class="rl-item"><div class="rl-dot" style="background:var(--gold)"></div><span class="rl-label">Sorte</span><span class="rl-val" id="rl-sorte" style="color:var(--gold)">0</span></div>
+        <div class="rl-item"><div class="rl-dot" style="background:var(--pink)"></div><span class="rl-label">Velocidade</span><span class="rl-val" id="rl-vel" style="color:var(--pink)">0</span></div>
+        <div class="rl-item"><div class="rl-dot" style="background:var(--cyan)"></div><span class="rl-label">Equilíbrio</span><span class="rl-val" id="rl-eq" style="color:var(--cyan)">0</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 0 4px">
+    <button class="btn full" id="missBtn2">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+      Ver lista de faltantes
+    </button>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- PAGE: GASTOS -->
+<div class="page hidden" id="page-gastos">
+<div class="gastos-page">
+  <div class="gastos-sum">
+    <div class="gs-t hi"><span class="gsv" id="gs-total">R$&nbsp;0</span><span class="gsl">Total gasto</span></div>
+    <div class="gs-t"><span class="gsv" id="gs-packs">0</span><span class="gsl">Pacotinhos</span></div>
+    <div class="gs-t g"><span class="gsv" id="gs-unicas">0</span><span class="gsl">Figurinhas únicas</span></div>
+    <div class="gs-t"><span class="gsv" id="gs-custo">0</span><span class="gsl">Repetidas</span></div>
+  </div>
+  <button class="gs-add-btn" id="addGastosBtn">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    Adicionar compra de pacotinhos
+  </button>
+  <div class="gastos-list" id="gastosList">
+    <div class="gastos-empty" id="gastosEmpty">
+      <div class="big">💸</div>
+      <p>Nenhuma compra registrada ainda.<br>Adicione sua primeira compra!</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bn active" data-page="album" id="bn-album">
+    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+    <span>Álbum</span>
+  </button>
+  <button class="bn" data-page="stats" id="bn-stats">
+    <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    <span>Estatísticas</span>
+  </button>
+  <button class="bn" data-page="gastos" id="bn-gastos">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="19" cy="5" r="3"/><line x1="19" y1="3" x2="19" y2="5"/><line x1="17" y1="5" x2="19" y2="5"/></svg>
+    <span>Gastos</span>
+  </button>
+</nav>
+
+<!-- CONTEXT MENU -->
+<div class="ctx" id="ctx">
+  <button class="ctx-it" id="ctxToggle"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/></svg><span id="ctxToggleLbl">Marcar como tenho</span></button>
+  <button class="ctx-it" id="ctxPhoto"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Adicionar foto</button>
+  <button class="ctx-it" id="ctxEdit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>Editar nome</button>
+  <button class="ctx-it" id="ctxRemovePhoto" style="color:var(--pink);display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Remover foto</button>
+  <div class="ctx-sep"></div>
+  <div class="ctx-dupes"><label>Repetidas</label><div class="ctx-dc"><button id="ctxDm">−</button><span class="ctx-dv" id="ctxDv">0</span><button id="ctxDp">+</button></div></div>
+</div>
+<div id="ctxBg"></div>
+
+<!-- GASTOS SHEET -->
+<div class="ov" id="ov-gastos">
+<div class="sheet">
+  <div class="sh-head"><h2>Nova compra</h2><button class="sh-close" data-cl="ov-gastos">✕</button></div>
+  <div class="sh-body">
+    <div class="field"><label>Quantos pacotinhos comprou?</label><input id="g-packs" type="number" min="1" placeholder="ex: 40"/></div>
+    <div class="field"><label>Preço por pacote (R$)</label><input id="g-price" type="number" step="0.01" min="0" placeholder="7.00"/></div>
+    <div class="calc-row">Total estimado: <b id="g-calc">R$ 0,00</b></div>
+    <div class="field"><label>Figurinhas recebidas <span style="color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0">(pacotes × 5)</span></label><input id="g-received" type="number" min="0" placeholder="auto"/></div>
+    <div class="field"><label>Quantas eram repetidas?</label><input id="g-dupes" type="number" min="0" placeholder="0"/></div>
+    <div class="field"><label>Data</label><input id="g-date" type="date"/></div>
+    <div class="btn-row"><button class="btn prim" id="g-save" style="flex:1;justify-content:center">Salvar compra</button></div>
+  </div>
+</div>
+</div>
+
+<!-- ADD STICKERS SHEET -->
+<div class="ov" id="ov-add">
+<div class="sheet">
+  <div class="sh-head"><h2>Marcar figurinhas</h2><button class="sh-close" data-cl="ov-add">✕</button></div>
+  <div class="sh-body">
+    <p class="lead">Cole os <b>códigos</b> das figurinhas que você tem, separados por vírgula, espaço ou linha.<br>Ex: <code>BRA2</code> <code>ARG5</code> <code>FWC1</code> <code>MEX14</code></p>
+    <div class="field">
+      <label>Códigos das figurinhas</label>
+      <textarea id="addCodesInput" placeholder="BRA2, BRA5, ARG3&#10;MEX7 ESP12&#10;FWC1 FWC3 00"></textarea>
+    </div>
+    <div class="add-result" id="addResult" style="display:none"></div>
+    <div class="btn-row">
+      <button class="btn prim full" id="addMarkGotBtn">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/></svg>
+        Marcar como tenho
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ACTION SHEET (+) -->
+<div class="ov" id="ov-action">
+<div class="sheet">
+  <div class="sh-head"><h2>Adicionar figurinhas</h2><button class="sh-close" data-cl="ov-action">✕</button></div>
+  <div class="sh-body">
+    <div class="action-grid">
+      <button class="action-card" id="actNewBtn">
+        <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <b>Novas figurinhas</b>
+        <small>Marcar as que você tem</small>
+      </button>
+      <button class="action-card" id="actDupBtn">
+        <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></div>
+        <b>Repetidas</b>
+        <small>Duplicatas para trocar</small>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- ADD INPUT SHEET (novas e repetidas) -->
+<div class="ov" id="ov-add-input">
+<div class="sheet">
+  <div class="sh-head"><h2 id="addInputTitle">Novas figurinhas</h2><button class="sh-close" data-cl="ov-add-input">✕</button></div>
+  <div class="sh-body">
+    <div class="photo-ref-area" id="addPhotoRefArea">
+      <button class="photo-ref-btn" id="addPhotoRefBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        📸 Fotografar frente da figurinha
+      </button>
+      <div id="ocrWrap" style="display:none;margin-top:10px;position:relative;">
+        <img id="addPhotoRefImg" style="width:100%;border-radius:10px;max-height:220px;object-fit:cover;display:block;"/>
+        <div id="ocrOverlay" style="display:none;position:absolute;inset:0;background:rgba(5,8,15,.82);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+          <div class="ocr-spinner"></div>
+          <span id="ocrStatus" style="font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.8);text-align:center;padding:0 16px;"></span>
+        </div>
+      </div>
+      <div id="ocrResult" style="display:none;margin-top:8px;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.25);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--blue3);font-family:'Inter',sans-serif;line-height:1.5;"></div>
+    </div>
+    <div class="field" style="margin-top:12px">
+      <label>Digite os códigos das figurinhas</label>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5">Ex: <code style="background:rgba(37,99,235,.1);color:var(--blue3);padding:1px 5px;border-radius:4px">BRA2 BRA5 ARG3 MEX14 FWC1</code></p>
+      <textarea id="addInputCodes" placeholder="Digite ou cole os códigos aqui...&#10;BRA2, BRA5, ARG3&#10;MEX7 ESP12&#10;FWC1 FWC3 00" style="width:100%;min-height:110px;background:var(--dark3);border:1px solid rgba(37,99,235,.2);border-radius:11px;padding:12px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;resize:vertical;outline:none;"></textarea>
+    </div>
+    <div class="add-input-result" id="addInputResult" style="display:none"></div>
+    <button class="btn prim full" id="addInputConfirmBtn">Confirmar</button>
+  </div>
+</div>
+</div>
+
+<!-- MISSING SHEET -->
+<div class="ov" id="ov-miss">
+<div class="sheet">
+  <div class="sh-head"><h2>Me faltam <span id="missTotHd"></span></h2><button class="sh-close" data-cl="ov-miss">✕</button></div>
+  <div class="sh-body">
+    <div style="margin-bottom:13px"><button class="btn cyan" id="copyMissBtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copiar lista</button></div>
+    <div class="miss-list" id="missListContent"></div>
+  </div>
+</div>
+</div>
+
+<!-- EDIT SHEET -->
+<div class="ov" id="ov-edit">
+<div class="sheet">
+  <div class="sh-head"><h2>Editar figurinha</h2><button class="sh-close" data-cl="ov-edit">✕</button></div>
+  <div class="sh-body">
+    <div class="field"><label>Nome</label><input id="editName" type="text"/></div>
+    <div id="editExtraW" style="display:none"><div class="field"><label>Número</label><input id="editNum" type="text"/></div></div>
+    <div class="btn-row"><button class="btn prim" id="editSave" style="flex:1;justify-content:center">Salvar</button><button class="btn" id="editRm" style="display:none;color:var(--pink)">Remover</button></div>
+  </div>
+</div>
+</div>
+
+<!-- MENU SHEET -->
+<div class="ov" id="ov-menu">
+<div class="sheet">
+  <div class="sh-head"><h2>Opções</h2><button class="sh-close" data-cl="ov-menu">✕</button></div>
+  <div class="sh-body">
+    <div class="menu-list">
+      <div class="trow"><div class="trow-l"><b>Medidor de FPS</b><small>Quadros por segundo</small></div><button class="sw" id="fpsSwitch" aria-pressed="false"></button></div>
+      <button class="mb" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 21h16"/></svg><span><b>Exportar backup</b><small>Salva coleção em JSON</small></span></button>
+      <button class="mb" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 21V9M8 13l4-4 4 4"/><path d="M4 3h16"/></svg><span><b>Importar backup</b><small>Restaura coleção salva</small></span></button>
+      <button class="mb danger" id="resetBtn"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg><span><b>Zerar tudo</b><small>Apaga todas as marcações</small></span></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="fps" id="fpsEl">FPS <b id="fpsVal">–</b></div>
+<canvas id="confetti"></canvas>
+<input type="file" id="filePicker" accept="image/*" hidden/>
+
+<script>
+/* ═══ DADOS ═══ */
+const INTRO=[
+  {code:'00',name:'Logo Panini',foil:true},
+  {code:'FWC1',name:'Emblema Oficial',foil:true},
+  {code:'FWC2',name:'Emblema Oficial 2',foil:true},
+  {code:'FWC3',name:'Mascotes Oficiais',foil:true},
+  {code:'FWC4',name:'Slogan Oficial',foil:true},
+  {code:'FWC5',name:'Bola Oficial',foil:true},
+  {code:'FWC6',name:'Canadá — Sedes',foil:true},
+  {code:'FWC7',name:'México — Sedes',foil:true},
+  {code:'FWC8',name:'EUA — Sedes',foil:true},
+];
+const HISTORY=[
+  {code:'FWC9',name:'Itália 1934',foil:true},
+  {code:'FWC10',name:'Uruguai 1950',foil:true},
+  {code:'FWC11',name:'Alemanha Oc. 1954',foil:true},
+  {code:'FWC12',name:'Brasil 1962',foil:true},
+  {code:'FWC13',name:'Alemanha Oc. 1974',foil:true},
+  {code:'FWC14',name:'Argentina 1986',foil:true},
+  {code:'FWC15',name:'Brasil 1994',foil:true},
+  {code:'FWC16',name:'Brasil 2002',foil:true},
+  {code:'FWC17',name:'Itália 2006',foil:true},
+  {code:'FWC18',name:'Alemanha 2014',foil:true},
+  {code:'FWC19',name:'Argentina 2022',foil:true},
+];
+const GROUPS=[['A',['MEX','RSA','KOR','CZE']],['B',['CAN','BIH','QAT','SUI']],['C',['BRA','MAR','HAI','SCO']],['D',['USA','PAR','AUS','TUR']],['E',['GER','CUW','CIV','ECU']],['F',['NED','JPN','SWE','TUN']],['G',['BEL','EGY','IRN','NZL']],['H',['ESP','CPV','KSA','URU']],['I',['FRA','SEN','IRQ','NOR']],['J',['ARG','ALG','AUT','JOR']],['K',['POR','COD','UZB','COL']],['L',['ENG','CRO','GHA','PAN']]];
+const TEAMS={
+MEX:{n:'México',f:'🇲🇽',col:'#1FA15B',p:['Luis Malagón','Johan Vasquez','Jorge Sánchez','Cesar Montes','Jesus Gallardo','Israel Reyes','Diego Lainez','Carlos Rodriguez','Edson Alvarez','Orbelin Pineda','Marcel Ruiz','Érick Sánchez','Hirving Lozano','Santiago Giménez','Raúl Jiménez','Alexis Vega','Roberto Alvarado','Cesar Huerta']},
+RSA:{n:'África do Sul',f:'🇿🇦',col:'#2FA35A',p:['Ronwen Williams','Sipho Chaine','Aubrey Modiba','Samukele Kabini','Mbekezeli Mbokazi','Khulumani Ndamane','Siyabonga Ngezana','Khuliso Mudau','Nkosinathi Sibisi','Teboho Mokoena','Thalente Mbatha','Bathasi Aubaas','Yaya Sithole','Sipho Mbule','Lyle Foster','Iqraam Rayners','Mohau Nkota','Oswin Appollis']},
+KOR:{n:'Coreia do Sul',f:'🇰🇷',col:'#D64541',p:['Hyeon-woo Jo','Seung-Gyu Kim','Min-jae Kim','Yu-min Cho','Young-woo Seol','Han-beom Lee','Tae-seok Lee','Myung-jae Lee','Jae-sung Lee','In-beom Hwang','Kang-in Lee','Seung-ho Paik','Jens Castrop','Dong-gyeong Lee','Gue-sung Cho','Heung-min Son','Hee-chan Hwang','Hyeon-Gyu Oh']},
+CZE:{n:'Tchéquia',f:'🇨🇿',col:'#3D6FD0',p:['Matej Kovar','Jindrich Stanek','Ladislav Krejci','Vladimir Coufal','Jaroslav Zeleny','Tomas Holes','David Zima','Michal Sadilek','Lukas Provod','Lukas Cerv','Tomas Soucek','Pavel Sulc','Matej Vydra','Vasil Kusej','Tomas Chory','Vaclav Cerny','Adam Hlozek','Patrik Schick']},
+CAN:{n:'Canadá',f:'🇨🇦',col:'#E0473F',p:['Dayne St.Clair','Alphonso Davies','Alistair Johnston','Samuel Adekugbe','Richie Laryea','Derek Cornelius','Moïse Bombito','Kamal Miller','Stephen Eustáquio','Ismaël Koné','Jonathan Osorio','Jacob Shaffelburg','Mathieu Choinière','Niko Sigur','Tajon Buchanan','Liam Millar','Cyle Larin','Jonathan David']},
+BIH:{n:'Bósnia e Herzeg.',f:'🇧🇦',col:'#3A7BD5',p:['Nikola Vasilj','Amer Dedic','Sead Kolasinac','Tarik Muharemovic','Nihad Mujakic','Nikola Katic','Amir Hadziahmetovic','Benjamin Tahirovic','Armin Gigovic','Ivan Sunjic','Ivan Basic','Dzenis Burnic','Esmir Bajraktarevic','Amar Memic','Ermedin Demirovic','Edin Dzeko','Samed Bazdar','Haris Tabakovic']},
+QAT:{n:'Catar',f:'🇶🇦',col:'#8E2148',p:['Meshaal Barsham','Sultan Albrake','Lucas Mendes','Homam Ahmed','Boualem Khoukhi','Pedro Miguel','Tarek Salman','Mohamed Al-Mannai','Karim Boudiaf','Assim Madibo','Ahmed Fatehi','Mohammed Waad','Abdulaziz Hatem','Hassan Al-Haydos','Edmilson Junior','Akram Afif','Ahmed Al Ganehi','Almoez Ali']},
+SUI:{n:'Suíça',f:'🇨🇭',col:'#E0473F',p:['Gregor Kobel','Yvon Mvogo','Manuel Akanji','Ricardo Rodriguez','Nico Elvedi','Aurèle Amenda','Silvan Widmer','Granit Xhaka','Denis Zakaria','Remo Freuler','Fabian Rieder','Ardon Jashari','Johan Manzambi','Michel Aebischer','Breel Embolo','Ruben Vargas','Dan Ndoye','Zeki Amdouni']},
+BRA:{n:'Brasil',f:'🇧🇷',col:'#F4C20D',p:['Alisson','Bento','Marquinhos','Éder Militão','Gabriel Magalhães','Danilo','Wesley','Lucas Paquetá','Casemiro','Bruno Guimarães','Luiz Henrique','Vinícius Júnior','Rodrygo','João Pedro','Matheus Cunha','Gabriel Martinelli','Raphinha','Estêvão']},
+MAR:{n:'Marrocos',f:'🇲🇦',col:'#C1453B',p:['Yassine Bounou','Munir El Kajoui','Achraf Hakimi','Noussair Mazraoui','Nayef Aguerd','Romain Saïss','Jawad El Yamiq','Adam Masina','Sofyan Amrabat','Azzedine Ounahi','Eliesse Ben Seghir','Bilal El Khannouss','Ismael Saibari','Youssef En-Nesyri','Abde Ezzalzouli','Soufiane Rahimi','Brahim Díaz','Ayoub El Kaabi']},
+HAI:{n:'Haiti',f:'🇭🇹',col:'#2A5BC7',p:['Johny Placide','Carlens Arcus','Martin Expérience','Jean-Kevin Duverne','Ricardo Adé','Duke Lacroix','Garven Metusala','Hannes Delcroix','Leverton Pierre','Danley Jean Jacques','Jean-Ricner Bellegarde','Christopher Attys','Derrick Etienne Jr','Josue Casimir','Ruben Providence','Duckens Nazon','Louicius Deedson','Frantzdy Pierrot']},
+SCO:{n:'Escócia',f:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',col:'#3461A8',p:['Angus Gunn','Jack Hendry','Kieran Tierney','Aaron Hickey','Andrew Robertson','Scott McKenna','John Souttar','Anthony Ralston','Grant Hanley','Scott McTominay','Billy Gilmour','Lewis Ferguson','Ryan Christie','Kenny McLean','John McGinn','Lyndon Dykes','Che Adams','Ben Doak']},
+USA:{n:'Estados Unidos',f:'🇺🇸',col:'#4F86C6',p:['Matt Freese','Chris Richards','Tim Ream','Mark McKenzie','Alex Freeman','Antonee Robinson','Tyler Adams','Tanner Tessmann','Weston McKennie','Christian Roldan','Timothy Weah','Diego Luna','Malik Tillman','Christian Pulisic','Brenden Aaronson','Ricardo Pepi','Haji Wright','Folarin Balogun']},
+PAR:{n:'Paraguai',f:'🇵🇾',col:'#D5483A',p:['Roberto Fernández','Orlando Gill','Gustavo Gómez','Fabián Balbuena','Juan José Cáceres','Omar Alderete','Junior Alonso','Mathías Villasanti','Diego Gómez','Damián Bobadilla','Andrés Cubas','Matías Galarza','Julio Enciso','Alejandro Romero Gamarra','Miguel Almirón','Ramón Sosa','Ángel Romero','Antonio Sanabria']},
+AUS:{n:'Austrália',f:'🇦🇺',col:'#2FA35A',p:['Mathew Ryan','Joe Gauci','Harry Souttar','Alessandro Circati','Jordan Bos','Aziz Behich','Cameron Burgess','Lewis Miller','Milos Degenek','Jackson Irvine','Riley McGree','Aiden O\'Neill','Connor Metcalfe','Patrick Yazbek','Craig Goodwin','Kusini Yengi','Nestory Irankunda','Mohamed Touré']},
+TUR:{n:'Türkiye',f:'🇹🇷',col:'#E0473F',p:['Ugurcan Cakir','Mert Muldur','Zeki Celik','Abdulkerim Bardakci','Caglar Soyuncu','Merih Demiral','Ferdi Kadioglu','Kaan Ayhan','Ismail Yuksek','Hakan Calhanoglu','Orkun Kokcu','Arda Guler','Irfan Can Kahveci','Yunus Akgun','Can Uzun','Baris Alper Yilmaz','Kerem Akturkoglu','Kenan Yildiz']},
+GER:{n:'Alemanha',f:'🇩🇪',col:'#D4A537',p:['Marc-André ter Stegen','Jonathan Tah','David Raum','Nico Schlotterbeck','Antonio Rüdiger','Waldemar Anton','Ridle Baku','Maximilian Mittelstädt','Joshua Kimmich','Florian Wirtz','Felix Nmecha','Leon Goretzka','Jamal Musiala','Serge Gnabry','Kai Havertz','Leroy Sané','Karim Adeyemi','Nick Woltemade']},
+CUW:{n:'Curaçao',f:'🇨🇼',col:'#2F7BD4',p:['Eloy Room','Armando Obispo','Sherel Floranus','Jurien Gaari','Joshua Brenet','Roshon van Eijma','Shurandy Sambo','Livano Comenencia','Godfried Roemeratoe','Juninho Bacuna','Leandro Bacuna','Tahith Chong','Kenji Gorre','Jearl Margaritha','Jürgen Locadia','Jeremy Antonisse','Gervane Kastaneer','Sontje Hansen']},
+CIV:{n:'Costa do Marfim',f:'🇨🇮',col:'#E8772A',p:['Yahia Fofana','Ghislain Konan','Wilfried Singo','Odilon Kossounou','Evan Ndicka','Willy Boly','Emmanuel Agbadou','Ousmane Diomande','Franck Kessié','Seko Fofana','Ibrahim Sangaré','Jean-Philippe Gbamin','Amad Diallo','Sébastien Haller','Simon Adingra','Yan Diomande','Evann Guessand','Oumar Diakité']},
+ECU:{n:'Equador',f:'🇪🇨',col:'#F0C24A',p:['Hernán Galíndez','Gonzalo Valle','Piero Hincapié','Pervis Estupiñán','Willian Pacho','Ángelo Preciado','Joel Ordóñez','Moisés Caicedo','Alan Franco','Kendry Páez','Pedro Vite','John Yeboah','Leonardo Campana','Gonzalo Plata','Nilson Angulo','Alan Minda','Kevin Rodríguez','Enner Valencia']},
+NED:{n:'Países Baixos',f:'🇳🇱',col:'#F2772A',p:['Bart Verbruggen','Virgil van Dijk','Micky van de Ven','Jurriën Timber','Denzel Dumfries','Nathan Aké','Jeremie Frimpong','Jan Paul van Hecke','Tijjani Reijnders','Ryan Gravenberch','Teun Koopmeiners','Frenkie de Jong','Xavi Simons','Justin Kluivert','Memphis Depay','Donyell Malen','Wout Weghorst','Cody Gakpo']},
+JPN:{n:'Japão',f:'🇯🇵',col:'#2F4FA0',p:['Zion Suzuki','Henry Mochizuki','Ayumu Seko','Junnosuke Suzuki','Shogo Taniguchi','Tsuyoshi Watanabe','Kaishu Sano','Yuki Soma','Ao Tanaka','Daichi Kamada','Takefusa Kubo','Ritsu Doan','Keito Nakamura','Takumi Minamino','Shuto Machino','Junya Ito','Koki Ogawa','Ayase Ueda']},
+SWE:{n:'Suécia',f:'🇸🇪',col:'#3A7BD5',p:['Victor Johansson','Isak Hien','Gabriel Gudmundsson','Emil Holm','Victor Nilsson Lindelöf','Gustaf Lagerbielke','Lucas Bergvall','Hugo Larsson','Jesper Karlström','Yasin Ayari','Mattias Svanberg','Daniel Svensson','Ken Sema','Roony Bardghji','Dejan Kulusevski','Anthony Elanga','Alexander Isak','Viktor Gyökeres']},
+TUN:{n:'Tunísia',f:'🇹🇳',col:'#D14B41',p:['Bechir Ben Said','Aymen Dahmen','Yan Valery','Montassar Talbi','Yassine Meriah','Ali Abdi','Dylan Bronn','Ellyes Skhiri','Aïssa Laïdouni','Ferjani Sassi','Mohamed Ali Ben Romdhane','Hannibal Mejbri','Elias Achouri','Elias Saad','Hazem Mastouri','Ismael Gharbi','Sayfallah Ltaief','Naïm Sliti']},
+BEL:{n:'Bélgica',f:'🇧🇪',col:'#E0A82E',p:['Thibaut Courtois','Arthur Theate','Timothy Castagne','Zeno Debast','Brandon Mechele','Maxim De Cuyper','Thomas Meunier','Youri Tielemans','Amadou Onana','Nicolas Raskin','Alexis Saelemaekers','Hans Vanaken','Kevin De Bruyne','Jérémy Doku','Charles De Ketelaere','Leandro Trossard','Loïs Openda','Romelu Lukaku']},
+EGY:{n:'Egito',f:'🇪🇬',col:'#D64541',p:['Mohamed El Shenawy','Mohamed Hany','Mohamed Hamdy','Yasser Ibrahim','Khaled Sobhi','Ramy Rabia','Hossam Abdelmaguid','Ahmed Fatouh','Marwan Attia','Zizo','Hamdy Fathy','Mohamed Lasheen','Emam Ashour','Osama Faisal','Mohamed Salah','Mostafa Mohamed','Trezeguet','Omar Marmoush']},
+IRN:{n:'Irã',f:'🇮🇷',col:'#2FA35A',p:['Alireza Beiranvand','Morteza Pouraliganji','Ehsan Hajsafi','Milad Mohammadi','Shojae Khalilzadeh','Ramin Rezaeian','Hossein Kanaani','Sadegh Moharrami','Saleh Hardani','Saeid Ezatolahi','Saman Ghoddos','Omid Noorafkan','Roozbeh Cheshmi','Mohammad Mohebi','Sardar Azmoun','Mehdi Taremi','Alireza Jahanbakhsh','Ali Gholizadeh']},
+NZL:{n:'Nova Zelândia',f:'🇳🇿',col:'#45597A',p:['Max Crocombe','Alex Paulsen','Michael Boxall','Liberato Cacace','Tim Payne','Tyler Bindon','Francis de Vries','Finn Surman','Joe Bell','Sarpreet Singh','Ryan Thomas','Matthew Garbett','Marko Stamenić','Ben Old','Chris Wood','Elijah Just','Callum McCowatt','Kosta Barbarouses']},
+ESP:{n:'Espanha',f:'🇪🇸',col:'#D11C3A',p:['Unai Simón','Robin Le Normand','Aymeric Laporte','Dean Huijsen','Pedro Porro','Dani Carvajal','Marc Cucurella','Martín Zubimendi','Rodri','Pedri','Fabián Ruiz','Mikel Merino','Lamine Yamal','Dani Olmo','Nico Williams','Ferran Torres','Álvaro Morata','Mikel Oyarzabal']},
+CPV:{n:'Cabo Verde',f:'🇨🇻',col:'#2F5AA8',p:['Vozinha','Logan Costa','Pico','Diney','Steven Moreira','Wagner Pina','João Paulo','Yannick Semedo','Kevin Pina','Patrick Andrade','Jamiro Monteiro','Deroy Duarte','Garry Rodrigues','Jovane Cabral','Ryan Mendes','Dailon Livramento','Willy Semedo','Bebé']},
+KSA:{n:'Arábia Saudita',f:'🇸🇦',col:'#1F8A4C',p:['Nawaf Alaqidi','Abdulrahman Al-Sanbi','Saud Abdulhamid','Nawaf Boushal','Jihad Thakri','Moteb Al-Harbi','Hassan Altambakti','Musab Aljuwayr','Ziyad Aljohani','Abdullah Alkhaibari','Nasser Al-Dawsari','Saleh Abu Alshamat','Marwan Alsahafi','Salem Al-Dawsari','Abdulrahman Al-Aboud','Firas Al-Buraikan','Saleh Al-Shehri','Abdullah Al-Hamdan']},
+URU:{n:'Uruguai',f:'🇺🇾',col:'#5BA3DD',p:['Sergio Rochet','Santiago Mele','Ronald Araújo','José María Giménez','Sebastián Cáceres','Mathías Olivera','Guillermo Varela','Nahitan Nández','Federico Valverde','Giorgian De Arrascaeta','Rodrigo Bentancur','Manuel Ugarte','Nicolás de la Cruz','Maxi Araújo','Darwin Núñez','Federico Viñas','Rodrigo Aguirre','Facundo Pellistri']},
+FRA:{n:'França',f:'🇫🇷',col:'#2F55B0',p:['Mike Maignan','Theo Hernández','William Saliba','Jules Koundé','Ibrahima Konaté','Dayot Upamecano','Lucas Digne','Aurélien Tchouaméni','Eduardo Camavinga','Manu Koné','Adrien Rabiot','Michael Olise','Ousmane Dembélé','Bradley Barcola','Désiré Doué','Kingsley Coman','Hugo Ekitike','Kylian Mbappé']},
+SEN:{n:'Senegal',f:'🇸🇳',col:'#2FA35A',p:['Édouard Mendy','Yehvann Diouf','Moussa Niakhaté','Abdoulaye Seck','Ismail Jakobs','El Hadji Malick Diouf','Kalidou Koulibaly','Idrissa Gana Gueye','Pape Matar Sarr','Pape Gueye','Habib Diarra','Lamine Camara','Sadio Mané','Ismaïla Sarr','Boulaye Dia','Iliman Ndiaye','Nicolas Jackson','Krépin Diatta']},
+IRQ:{n:'Iraque',f:'🇮🇶',col:'#D64541',p:['Jalal Hassan','Rebin Sulaka','Hussein Ali','Akam Hashem','Merchas Doski','Zaid Tahseen','Manaf Younis','Zidane Iqbal','Amir Al-Ammari','Ibrahim Bayesh','Ali Jasim','Youssef Amyn','Aimar Sher','Marko Farji','Osama Rashid','Ali Al-Hamadi','Aymen Hussein','Mohanad Ali']},
+NOR:{n:'Noruega',f:'🇳🇴',col:'#D11C3A',p:['Ørjan Nyland','Julian Ryerson','Leo Østigård','Kristoffer Ajer','Marcus Holmgren Pedersen','David Møller Wolfe','Torbjørn Heggem','Morten Thorsby','Martin Ødegaard','Sander Berge','Andreas Schjelderup','Patrick Berg','Erling Haaland','Alexander Sørloth','Aron Dønnum','Jørgen Strand Larsen','Antonio Nusa','Oscar Bobb']},
+ARG:{n:'Argentina',f:'🇦🇷',col:'#75AADB',p:['Emiliano Martínez','Nahuel Molina','Cristian Romero','Nicolás Otamendi','Nicolás Tagliafico','Leonardo Balerdi','Enzo Fernández','Alexis Mac Allister','Rodrigo De Paul','Exequiel Palacios','Leandro Paredes','Nico Paz','Franco Mastantuono','Nico González','Lionel Messi','Lautaro Martínez','Julián Álvarez','Giuliano Simeone']},
+ALG:{n:'Argélia',f:'🇩🇿',col:'#2FA35A',p:['Alexis Guendouz','Ramy Bensebaini','Youcef Atal','Rayan Aït-Nouri','Mohamed Amine Tougai','Aïssa Mandi','Ismaël Bennacer','Houssem Aouar','Hicham Boudaoui','Ramiz Zerrouki','Nabil Bentaleb','Farès Chaïbi','Riyad Mahrez','Saïd Benrahma','Anis Hadj Moussa','Amine Gouiri','Baghdad Bounedjah','Mohamed Amoura']},
+AUT:{n:'Áustria',f:'🇦🇹',col:'#E0473F',p:['Alexander Schlager','Patrick Pentz','David Alaba','Kevin Danso','Philipp Lienhart','Stefan Posch','Phillipp Mwene','Alexander Prass','Xaver Schlager','Marcel Sabitzer','Konrad Laimer','Florian Grillitsch','Nicolas Seiwald','Romano Schmid','Patrick Wimmer','Christoph Baumgartner','Michael Gregoritsch','Marko Arnautović']},
+JOR:{n:'Jordânia',f:'🇯🇴',col:'#D64541',p:['Yazeed Abulaila','Ihsan Haddad','Mohammad Abu Hashish','Yazan Al-Arab','Abdallah Nasib','Saleem Obaid','Mohammad Abualnadi','Ibrahim Saadeh','Nizar Al-Rashdan','Noor Al-Rawabdeh','Mohannad Abu Taha','Amer Jamous','Mousa Al-Taamari','Yazan Al-Naimat','Mahmoud Al-Mardi','Ali Olwan','Mohammad Abu Zrayq','Ibrahim Sabra']},
+POR:{n:'Portugal',f:'🇵🇹',col:'#C8102E',p:['Diogo Costa','José Sá','Rúben Dias','João Cancelo','Diogo Dalot','Nuno Mendes','Gonçalo Inácio','Bernardo Silva','Bruno Fernandes','Rúben Neves','Vitinha','João Neves','Cristiano Ronaldo','Francisco Trincão','João Félix','Gonçalo Ramos','Pedro Neto','Rafael Leão']},
+COD:{n:'Congo (RD)',f:'🇨🇩',col:'#3A7BD5',p:['Lionel Mpasi','Aaron Wan-Bissaka','Axel Tuanzebe','Arthur Masuaku','Chancel Mbemba','Joris Kayembe','Charles Pickel','Ngal\'ayel Mukau','Edo Kayembe','Samuel Moutoussamy','Noah Sadiki','Théo Bongonda','Meschak Elia','Yoane Wissa','Brian Cipenga','Fiston Mayele','Cédric Bakambu','Nathanaël Mbuku']},
+UZB:{n:'Uzbequistão',f:'🇺🇿',col:'#2F8FD0',p:['Utkir Yusupov','Farrukh Sayfiev','Sherzod Nasrullaev','Umar Eshmurodov','Husniddin Aliqulov','Rustamjon Ashurmatov','Khojiakbar Alijonov','Abdukodir Khusanov','Odiljon Hamrobekov','Otabek Shukurov','Jamshid Iskanderov','Azizbek Turgunboev','Khojimat Erkinov','Eldor Shomurodov','Oston Urunov','Jaloliddin Masharipov','Igor Sergeev','Abbosbek Fayzullaev']},
+COL:{n:'Colômbia',f:'🇨🇴',col:'#F0C24A',p:['Camilo Vargas','David Ospina','Dávinson Sánchez','Yerry Mina','Daniel Muñoz','Johan Mojica','Jhon Lucumí','Santiago Arias','Jefferson Lerma','Kevin Castaño','Richard Ríos','James Rodríguez','Juan Fernando Quintero','Jorge Carrascal','Jhon Arias','Jhon Córdoba','Luis Suárez','Luis Díaz']},
+ENG:{n:'Inglaterra',f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',col:'#C8102E',p:['Jordan Pickford','John Stones','Marc Guéhi','Ezri Konsa','Trent Alexander-Arnold','Reece James','Dan Burn','Jordan Henderson','Declan Rice','Jude Bellingham','Cole Palmer','Morgan Rogers','Anthony Gordon','Phil Foden','Bukayo Saka','Harry Kane','Marcus Rashford','Ollie Watkins']},
+CRO:{n:'Croácia',f:'🇭🇷',col:'#D64541',p:['Dominik Livaković','Duje Ćaleta-Car','Joško Gvardiol','Josip Stanišić','Luka Vušković','Josip Šutalo','Kristijan Jakić','Luka Modrić','Mateo Kovačić','Martin Baturina','Lovro Majer','Mario Pašalić','Petar Sučić','Ivan Perišić','Marco Pašalić','Ante Budimir','Andrej Kramarić','Franjo Ivanović']},
+GHA:{n:'Gana',f:'🇬🇭',col:'#E0A82E',p:['Lawrence Ati-Zigi','Tariq Lamptey','Mohammed Salisu','Alidu Seidu','Alexander Djiku','Gideon Mensah','Caleb Yirenkyi','Fatawu Issahaku','Thomas Partey','Salis Abdul Samed','Kamaldeen Sulemana','Mohammed Kudus','Iñaki Williams','Jordan Ayew','André Ayew','Joseph Paintsil','Osman Bukari','Antoine Semenyo']},
+PAN:{n:'Panamá',f:'🇵🇦',col:'#2F55B0',p:['Orlando Mosquera','Luis Mejía','Fidel Escobar','Andrés Andrade','Michael Amir Murillo','Eric Davis','José Córdoba','César Blackman','Cristian Martínez','Aníbal Godoy','Adalberto Carrasquilla','Édgar Bárcenas','Carlos Harvey','Ismael Díaz','José Fajardo','Cecilio Waterman','José Luis Rodríguez','Alberto Quintero']},
+};
+
+/* ═══ UTILS ═══ */
+var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+function qi(s){return document.querySelector(s);}
+function qa(s){return[].slice.call(document.querySelectorAll(s));}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+function norm(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function st(s,v){var e=qi(s);if(e)e.textContent=v;}
+function fmtBRL(v){return'R$ '+v.toFixed(2).replace('.',',');}
+function numLabel(s){if(s.kind==='custom')return(s.num||'EX').replace(/\s/g,'').slice(0,6);var m=String(s.code).match(/^[A-Z]+(\d+)$/);if(m)return m[1];return String(s.code).slice(0,6);}
+function shortN(n){var p=String(n).trim().split(/\s+/).filter(Boolean);if(p.length<=1)return n;return p[0].slice(0,1)+'. '+p[p.length-1];}
+
+/* ═══ MODEL ═══ */
+var BASE=[],AMAP={},TMODEL={},INTRO_S=[],HIST_S=[];
+function buildModel(){
+  INTRO.forEach(function(x){var s={id:x.code,code:x.code,base:x.name,foil:x.foil,kind:'special'};BASE.push(s);AMAP[s.id]=s;INTRO_S.push(s);});
+  GROUPS.forEach(function(g){g[1].forEach(function(code){
+    var t=TEAMS[code],arr=[];
+    arr.push({id:code+'1',code:code+'1',base:'Escudo',foil:true,kind:'logo',team:code});
+    t.p.forEach(function(name,i){var n=(i<11?i+2:i+3);arr.push({id:code+n,code:code+n,base:name,foil:false,kind:'player',team:code});});
+    arr.push({id:code+'13',code:code+'13',base:'Foto da seleção',foil:false,kind:'photo',team:code});
+    arr.sort(function(a,b){return parseInt(a.code.replace(/\D/g,''),10)-parseInt(b.code.replace(/\D/g,''),10);});
+    TMODEL[code]={code:code,n:t.n,f:t.f,col:t.col,stickers:arr};
+    arr.forEach(function(s){BASE.push(s);AMAP[s.id]=s;});
+  });});
+  HISTORY.forEach(function(x){var s={id:x.code,code:x.code,base:x.name,foil:x.foil,kind:'special'};BASE.push(s);AMAP[s.id]=s;HIST_S.push(s);});
+}
+
+/* ═══ STATE ═══ */
+var LS='panini2026v3',LG='panini2026gastos3';
+var ST={got:new Set(),dupes:{},names:{},customs:[],history:[]};
+var GASTOS=[];
+var photos={};
+function save(){try{localStorage.setItem(LS,JSON.stringify({got:[...ST.got],dupes:ST.dupes,names:ST.names,customs:ST.customs,history:ST.history}));}catch(e){}}
+function saveGastos(){try{localStorage.setItem(LG,JSON.stringify(GASTOS));}catch(e){}}
+function load(){try{var r=localStorage.getItem(LS);if(r){var o=JSON.parse(r);ST.got=new Set(o.got||[]);ST.dupes=o.dupes||{};ST.names=o.names||{};ST.customs=o.customs||[];ST.history=o.history||[];}}catch(e){}}
+function loadGastos(){try{var r=localStorage.getItem(LG);if(r)GASTOS=JSON.parse(r)||[];}catch(e){}}
+var db=null;
+function idbOpen(){return new Promise(function(res){try{var r=indexedDB.open('panini26v3',1);r.onupgradeneeded=function(e){e.target.result.createObjectStore('photos');};r.onsuccess=function(e){db=e.target.result;res(db);};r.onerror=function(){res(null);};}catch(e){res(null);}});}
+function idbAll(){return new Promise(function(res){if(!db)return res({});try{var tx=db.transaction('photos','readonly'),ss=tx.objectStore('photos'),out={};var cur=ss.openCursor();cur.onsuccess=function(e){var c=e.target.result;if(c){out[c.key]=c.value;c.continue();}else res(out);};cur.onerror=function(){res(out);};}catch(e){res({});}});}
+function idbPut(k,v){try{if(db)db.transaction('photos','readwrite').objectStore('photos').put(v,k);}catch(e){}}
+function idbDel(k){try{if(db)db.transaction('photos','readwrite').objectStore('photos').delete(k);}catch(e){}}
+function idbClear(){try{if(db)db.transaction('photos','readwrite').objectStore('photos').clear();}catch(e){}}
+function dispN(s){return ST.names[s.id]||s.base;}
+function findSt(id){var c=ST.customs.find(function(x){return x.id===id;});if(c)return{id:c.id,code:c.num,base:c.name,foil:false,kind:'custom',num:c.num};return AMAP[id];}
+function logDay(){var today=new Date().toISOString().slice(0,10),last=ST.history[ST.history.length-1];if(last&&last.d===today)last.n=ST.got.size;else ST.history.push({d:today,n:ST.got.size});}
+
+/* ═══ RENDER ALBUM ═══ */
+function cellH(s){
+  var name=dispN(s),got=ST.got.has(s.id),d=ST.dupes[s.id]||0,ph=photos[s.id];
+  var nl=numLabel(s),sn=shortN(name),tc=s.team?TEAMS[s.team].col:'var(--violet)';
+  return '<div class="st'+(got?' got':'')+(s.foil?' foil':'')+'" data-id="'+s.id+'" data-srch="'+norm(name+' '+(s.code||'')+' '+nl)+'" tabindex="0">'
+    +'<div class="st-disk" style="--tc:'+tc+'">'
+    +'<span class="st-holo"></span><span class="st-glare"></span>'
+    +(ph?'<img class="st-ph-img" src="'+ph+'" alt=""><span class="st-ph-name">'+esc(shortN(name))+'</span>':'')
+    +'<span class="st-num">'+esc(nl)+'</span>'
+    +'<div class="st-chk"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>'
+    +(d>0?'<span class="dup-dot">'+d+'</span>':'')
+    +'</div><span class="st-label">'+esc(sn)+'</span></div>';
+}
+function teamGot(code){return TMODEL[code]?TMODEL[code].stickers.filter(function(s){return ST.got.has(s.id);}).length:0;}
+function teamH(code){
+  var tm=TMODEL[code],got=teamGot(code),tot=tm.stickers.length,miss=tot-got,pct=Math.round(got/tot*100);
+  return '<div class="team-blk coll" data-team="'+code+'" style="--tc:'+tm.col+'">'
+    +'<div class="team-hd">'
+    +'<span class="team-flag">'+tm.f+'</span>'
+    +'<div class="team-nw"><b>'+esc(tm.n)+'</b>'
+    +'<div class="team-stat"><span class="tn">✓ '+got+'</span><span class="sep">·</span><span class="tf">✗ '+miss+'</span></div></div>'
+    +'<div class="tpbar"><span class="tppct">'+pct+'%</span><div class="tp-b"><i style="width:'+pct+'%"></i></div></div>'
+    +'<span class="team-chev">▼</span>'
+    +'</div>'
+    +'<div class="fill-row"><button class="fill-btn" data-act="fill" data-team="'+code+'">✓ tudo</button></div>'
+    +'<div class="team-body hidden"><div class="st-grid">'+tm.stickers.map(cellH).join('')+'</div></div>'
+    +'</div>';
+}
+function spH(id,title,stickers){
+  var got=stickers.filter(function(s){return ST.got.has(s.id);}).length;
+  return '<section class="section"><div class="gc">'
+    +'<div class="sp-hd" data-collapse="'+id+'"><h2>'+esc(title)+'</h2><span class="sp-cnt">'+got+'/'+stickers.length+'</span><span class="sp-chev">▼</span></div>'
+    +'<div id="'+id+'" class="team-body hidden"><div class="st-grid">'+stickers.map(cellH).join('')+'</div></div>'
+    +'</div></section>';
+}
+function groupH(letter,codes){
+  var names=codes.map(function(c){return TEAMS[c].n;}).join(' · ');
+  return '<section class="section"><div class="gc">'
+    +'<div class="group-hd"><div class="group-ltr">'+letter+'</div><div class="group-info"><b>Grupo '+letter+'</b><small>'+esc(names)+'</small></div></div>'
+    +codes.map(teamH).join('')+'</div></section>';
+}
+function customsH(){
+  if(!ST.customs.length)return'';
+  var sts=ST.customs.map(function(c){return{id:c.id,code:c.num,base:c.name,foil:false,kind:'custom',num:c.num};});
+  var got=sts.filter(function(s){return ST.got.has(s.id);}).length;
+  return '<section class="section"><div class="gc">'
+    +'<div class="sp-hd" data-collapse="__extras"><h2>Extras</h2><span class="sp-cnt">'+got+'/'+sts.length+'</span><span class="sp-chev">▼</span></div>'
+    +'<div id="__extras" class="team-body"><div class="st-grid">'+sts.map(cellH).join('')+'</div></div>'
+    +'</div></section>';
+}
+function renderAlbum(){
+  var h=spH('__intro','FWC — Especiais 🏆',INTRO_S);
+  GROUPS.forEach(function(g){h+=groupH(g[0],g[1]);});
+  h+=spH('__hist','FWC — História 📜',HIST_S);
+  h+=customsH();
+  qi('#album').innerHTML=h;
+}
+
+/* ═══ STATS UPDATE ═══ */
+function calcStats(){
+  var bGot=ST.got.size,pct=Math.round(bGot/980*100),miss=980-bGot;
+  var dupCnt=0,dupTot=0;Object.keys(ST.dupes).forEach(function(k){if(ST.dupes[k]>0){dupCnt++;dupTot+=ST.dupes[k];}});
+  var shiny=BASE.filter(function(s){return s.foil&&ST.got.has(s.id);}).length;
+  var cGot=ST.customs.filter(function(c){return ST.got.has(c.id);}).length;
+  var tot=980+ST.customs.length,gotAll=bGot+cGot,missAll=miss+(ST.customs.length-cGot);
+  st('#pmGot',bGot);st('#pmMiss',miss);st('#pmPct',pct+'%');
+  var pf=qi('#progFill');if(pf)pf.style.width=pct+'%';
+  st('#cAll',tot);st('#cGot',gotAll);st('#cMiss',missAll);st('#cDup',dupCnt);
+  st('#si-completado',pct+'%');st('#si-tenho',bGot);st('#si-faltam',miss);st('#si-repetidas',dupTot);
+  if(qi('#si-brilhantes'))qi('#si-brilhantes').innerHTML=shiny+'<span style="font-size:14px">/68</span>';
+  return{bGot:bGot,pct:pct,miss:miss,dupTot:dupTot,dupCnt:dupCnt,shiny:shiny,cGot:cGot,gotAll:gotAll,missAll:missAll};
+}
+function updateTeamHd(code){
+  var el=document.querySelector('.team-blk[data-team="'+code+'"]');if(!el)return;
+  var got=teamGot(code),tot=TMODEL[code].stickers.length,miss=tot-got,pct=Math.round(got/tot*100);
+  var ts=el.querySelector('.team-stat');if(ts)ts.innerHTML='<span class="tn">✓ '+got+'</span><span class="sep">·</span><span class="tf">✗ '+miss+'</span>';
+  var pp=el.querySelector('.tppct');if(pp)pp.textContent=pct+'%';
+  var bi=el.querySelector('.tp-b i');if(bi)bi.style.width=pct+'%';
+}
+function updateSpHd(id,stickers){
+  var got=stickers.filter(function(s){return ST.got.has(s.id);}).length;
+  var hd=document.querySelector('[data-collapse="'+id+'"]');if(hd){var sc=hd.querySelector('.sp-cnt');if(sc)sc.textContent=got+'/'+stickers.length;}
+}
+
+/* ═══ SKILLS / RADAR ═══ */
+function calcSkills(){
+  var bGot=ST.got.size,pct=bGot/980*100;
+  var comp=Math.round(pct/10);
+  var seq=0,h=ST.history,i;
+  if(h.length>1){var streak=1,prev=null;for(i=h.length-1;i>=0;i--){var d=new Date(h[i].d);if(prev&&(prev-d)===86400000)streak++;else if(prev&&(prev-d)>86400000)break;prev=d;}seq=Math.min(10,streak);}
+  var sorte=0;
+  if(GASTOS.length){var totR=0,totD=0;GASTOS.forEach(function(g){totR+=g.received||0;totD+=g.dupes||0;});sorte=totR>0?Math.round(Math.max(0,100-(totD/totR*100))/10):0;}
+  else if(Object.keys(ST.dupes).length>0){var gotSz=bGot,dupSz=0;Object.keys(ST.dupes).forEach(function(k){dupSz+=ST.dupes[k];});sorte=gotSz>0?Math.round(Math.min(10,10-(dupSz/gotSz*5))):0;}
+  var vel=0;
+  if(h.length>=2){var days=(new Date(h[h.length-1].d)-new Date(h[0].d))/86400000+1;vel=Math.min(10,Math.round(bGot/days/2));}
+  var minPct=100,codes=Object.keys(TMODEL);
+  codes.forEach(function(c){var g=teamGot(c),t=TMODEL[c].stickers.length;var p=g/t*100;if(p<minPct)minPct=p;});
+  var eq=Math.round(minPct/10);
+  return{comp:comp,seq:seq,sorte:sorte,vel:vel,eq:eq};
+}
+function drawRadar(){
+  var sk=calcSkills();
+  st('#rl-comp',sk.comp);st('#rl-seq',sk.seq);st('#rl-sorte',sk.sorte);st('#rl-vel',sk.vel);st('#rl-eq',sk.eq);
+  var svg=qi('#radarSVG'),W=260,cx=130,cy=130,R=90;
+  var axes=[sk.comp,sk.sorte,sk.eq,sk.vel,sk.seq];
+  var N=5,baseAngle=-Math.PI/2,html='';
+  for(var r=1;r<=5;r++){var pts=[];for(var j=0;j<N;j++){var a=baseAngle+j*2*Math.PI/N,rad=R*r/5;pts.push((cx+Math.cos(a)*rad).toFixed(1)+','+(cy+Math.sin(a)*rad).toFixed(1));}html+='<polygon points="'+pts.join(' ')+'" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>';}
+  for(var j=0;j<N;j++){var a=baseAngle+j*2*Math.PI/N;html+='<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+Math.cos(a)*R).toFixed(1)+'" y2="'+(cy+Math.sin(a)*R).toFixed(1)+'" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>';}
+  var pts=[];for(var j=0;j<N;j++){var a=baseAngle+j*2*Math.PI/N,rad=R*Math.max(0,axes[j])/10;pts.push((cx+Math.cos(a)*rad).toFixed(1)+','+(cy+Math.sin(a)*rad).toFixed(1));}
+  html+='<polygon points="'+pts.join(' ')+'" fill="rgba(37,99,235,.12)" stroke="#2563eb" stroke-width="2"/>';
+  for(var j=0;j<N;j++){var a=baseAngle+j*2*Math.PI/N,rad=R*Math.max(0,axes[j])/10;html+='<circle cx="'+(cx+Math.cos(a)*rad).toFixed(1)+'" cy="'+(cy+Math.sin(a)*rad).toFixed(1)+'" r="4" fill="#2563eb"/>';}
+  var lbl=['Completado','Sorte','Equilíbrio','Velocidade','Sequência'],vals=[sk.comp,sk.sorte,sk.eq,sk.vel,sk.seq];
+  var colors=['#2563eb','#F4C752','#27E0D4','#FF2D78','#2563eb'];
+  for(var j=0;j<N;j++){var a=baseAngle+j*2*Math.PI/N,lx=(cx+Math.cos(a)*(R+18)).toFixed(1),ly=(cy+Math.sin(a)*(R+18)).toFixed(1);
+    html+='<text x="'+lx+'" y="'+ly+'" text-anchor="middle" dominant-baseline="central" font-size="9" font-weight="700" fill="'+colors[j%colors.length]+'" font-family="Inter,sans-serif">'+vals[j]+'</text>';}
+  svg.innerHTML=html;
+}
+
+/* ═══ PROGRESS CHART ═══ */
+var curPeriod='week';
+function drawProgressChart(){
+  var h=ST.history,empty=qi('#chartEmpty'),canvas=qi('#progressChart');
+  var today=new Date(),points=[];
+  if(curPeriod==='week'){for(var i=6;i>=0;i--){var d=new Date(today);d.setDate(d.getDate()-i);var ds=d.toISOString().slice(0,10);var found=h.filter(function(x){return x.d===ds;});points.push({label:ds.slice(5),val:found.length?found[found.length-1].n:null});}}
+  else if(curPeriod==='month'){for(var i=29;i>=0;i--){var d=new Date(today);d.setDate(d.getDate()-i);var ds=d.toISOString().slice(0,10);var found=h.filter(function(x){return x.d===ds;});points.push({label:String(d.getDate()),val:found.length?found[found.length-1].n:null});}}
+  else{for(var i=11;i>=0;i--){var d=new Date(today);d.setMonth(d.getMonth()-i);var ym=d.toISOString().slice(0,7);var mpts=h.filter(function(x){return x.d.slice(0,7)===ym;});var months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];points.push({label:months[d.getMonth()],val:mpts.length?mpts[mpts.length-1].n:null});}}
+  var hasData=points.some(function(p){return p.val!==null;});
+  if(!hasData){empty.style.display='';canvas.style.display='none';return;}
+  empty.style.display='none';canvas.style.display='block';
+  var last=0;points.forEach(function(p){if(p.val!==null)last=p.val;else p.val=last;});
+  var W=canvas.offsetWidth||340,H=140;canvas.width=W*2;canvas.height=H*2;canvas.style.height=H+'px';
+  var ctx=canvas.getContext('2d'),scale=2,pad=28,inner=W*scale-pad*2-10;
+  ctx.scale(scale,scale);ctx.clearRect(0,0,W,H);
+  var maxV=Math.max(980,Math.max.apply(null,points.map(function(p){return p.val;})));
+  var pw=inner/(points.length-1||1);
+  ctx.beginPath();ctx.strokeStyle='#2563eb';ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
+  points.forEach(function(p,i){var x=pad+i*pw,y=H-20-(p.val/maxV*(H-40));if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.stroke();
+  var grad=ctx.createLinearGradient(0,0,0,H);grad.addColorStop(0,'rgba(37,99,235,.18)');grad.addColorStop(1,'rgba(37,99,235,0)');
+  ctx.beginPath();ctx.fillStyle=grad;
+  points.forEach(function(p,i){var x=pad+i*pw,y=H-20-(p.val/maxV*(H-40));if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.lineTo(pad+(points.length-1)*pw,H-20);ctx.lineTo(pad,H-20);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='500 8px Inter,sans-serif';ctx.textAlign='center';
+  points.forEach(function(p,i){if(i%(Math.ceil(points.length/7))===0||i===points.length-1){var x=pad+i*pw;ctx.fillText(p.label,x,H-6);}});
+}
+
+/* ═══ GASTOS ═══ */
+function calcGastos(){
+  var total=0,packs=0,received=0,dupes=0;
+  GASTOS.forEach(function(g){total+=g.packs*g.pricePer;packs+=g.packs;received+=g.received||0;dupes+=g.dupes||0;});
+  var unicas=received-dupes;
+  st('#gs-total',total>0?fmtBRL(total):'R$ 0');
+  st('#gs-packs',packs);
+  st('#gs-unicas',unicas>0?unicas:0);
+  st('#gs-custo',dupes||'0');
+  renderGastosList();
+}
+function renderGastosList(){
+  var el=qi('#gastosList'),em=qi('#gastosEmpty');
+  if(!GASTOS.length){em.style.display='';el.innerHTML='<div class="gastos-empty" id="gastosEmpty"><div class="big">💸</div><p>Nenhuma compra registrada ainda.<br>Adicione sua primeira compra!</p></div>';return;}
+  em&&(em.style.display='none');
+  var sorted=[].concat(GASTOS).sort(function(a,b){return b.date.localeCompare(a.date);});
+  el.innerHTML=sorted.map(function(g){
+    var total=g.packs*g.pricePer,unicas=(g.received||0)-(g.dupes||0),effPct=g.received>0?Math.round(unicas/g.received*100):0;
+    var d=new Date(g.date+'T12:00:00');var months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    var dateStr=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+    return '<div class="gasto-item" data-gid="'+g.id+'">'
+      +'<div class="gi-top"><span class="gi-date">📅 '+dateStr+'</span><span class="gi-price">'+fmtBRL(total)+'</span>'
+      +'<button class="gi-del" data-del="'+g.id+'"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>'
+      +'<div class="gi-pills">'
+      +'<span class="gi-pill blue">'+g.packs+' pacote'+(g.packs!==1?'s':'')+'</span>'
+      +'<span class="gi-pill blue">R$ '+g.pricePer.toFixed(2).replace('.',',')+'/un</span>'
+      +(g.received?'<span class="gi-pill green">'+g.received+' figurinhas</span>':'')
+      +(g.dupes?'<span class="gi-pill pink">'+g.dupes+' repetidas</span>':'')
+      +'</div>'
+      +(g.received>0?'<div class="gi-eff"><span class="gi-eff-label">Eficiência</span><div class="gi-eff-bar"><div class="gi-eff-fill" style="width:'+effPct+'%"></div></div><span class="gi-eff-pct">'+effPct+'%</span></div>':'')
+      +'</div>';
+  }).join('');
+}
+
+
+
+
+/* ═══ NOMES INDEX para matching ═══ */
+var namesIdx=null;
+function normStr(s){return s.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Z0-9 ]/g,' ').replace(/ +/g,' ').trim();}
+function buildNamesIdx(){
+  if(namesIdx)return;
+  namesIdx=[];
+  BASE.forEach(function(s){
+    if(s.kind!=='player'&&s.kind!=='logo'&&s.kind!=='photo')return;
+    var nm=dispN(s),nn=normStr(nm);
+    var parts=nn.split(' ').filter(function(p){return p.length>=3;});
+    namesIdx.push({id:s.id,norm:nn,parts:parts,code:s.code,team:s.team||''});
+  });
+}
+function matchNames(text){
+  buildNamesIdx();
+  var nt=normStr(text),found=[],seen={};
+  namesIdx.forEach(function(e){
+    if(seen[e.id])return;
+    if(e.norm.length>3&&nt.indexOf(e.norm)>=0){found.push(e.id);seen[e.id]=1;return;}
+    var last=e.parts[e.parts.length-1];
+    if(last&&last.length>=4&&nt.indexOf(last)>=0){found.push(e.id);seen[e.id]=1;}
+  });
+  return found;
+}
+
+/* ═══ OCR — via Anthropic Artifacts API proxy (sem CORS, sem API key no front) ═══ */
+function setOcrStatus(msg){var el=qi('#ocrStatus');if(el)el.textContent=msg;}
+function showOcrOverlay(show){var ov=qi('#ocrOverlay');if(ov)ov.style.display=show?'flex':'none';}
+
+function imgToBase64(imgEl,maxW){
+  var iw=imgEl.naturalWidth||imgEl.width,ih=imgEl.naturalHeight||imgEl.height;
+  var sc=Math.min(1,(maxW||1200)/Math.max(iw,1));
+  var cv=document.createElement('canvas');cv.width=Math.round(iw*sc);cv.height=Math.round(ih*sc);
+  cv.getContext('2d').drawImage(imgEl,0,0,cv.width,cv.height);
+  return cv.toDataURL('image/jpeg',0.85).split(',')[1];
+}
+
+function buildAlbumRoster(){
+  var lines=[];
+  BASE.forEach(function(s){
+    if(s.kind==='player'){
+      var t=s.team&&TEAMS[s.team]?TEAMS[s.team].n:'';
+      lines.push(s.code+': '+s.base+(t?' ('+t+')':''));
+    }
+  });
+  return lines.join('\n');
+}
+
+function normalizeStr(s){
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+}
+function findPlayerByName(nome){
+  var norm=normalizeStr(nome);
+  var words=norm.split(' ').filter(function(w){return w.length>=3;});
+  var best=null,bestScore=0;
+  BASE.forEach(function(s){
+    if(s.kind!=='player')return;
+    var sn=normalizeStr(s.base);
+    var score=0;
+    words.forEach(function(w){if(sn.indexOf(w)>=0)score+=2;});
+    if(score>bestScore){bestScore=score;best=s;}
+  });
+  return bestScore>=2?best:null;
+}
+function getSquadNumber(s){
+  if(!s||!s.team)return '?';
+  var tm=TMODEL[s.team];if(!tm)return '?';
+  var players=tm.stickers.filter(function(x){return x.kind==='player';});
+  var idx=players.findIndex(function(x){return x.id===s.id;});
+  return idx>=0?idx+1:'?';
+}
+
+function runOCR(imgEl){
+  showOcrOverlay(true);
+  setOcrStatus('Lendo figurinha...');
+  var resEl=qi('#ocrResult');
+  resEl.style.display='none';
+
+  var cv=document.createElement('canvas');
+  var iw=imgEl.naturalWidth||imgEl.width,ih=imgEl.naturalHeight||imgEl.height;
+  var scale=Math.min(1,1200/Math.max(iw,1));
+  cv.width=Math.round(iw*scale);cv.height=Math.round(ih*scale);
+  cv.getContext('2d').drawImage(imgEl,0,0,cv.width,cv.height);
+  var b64=cv.toDataURL('image/jpeg',0.9).split(',')[1];
+
+  fetch('https://api.mistral.ai/v1/chat/completions',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer CqOPXvi3Mbe9Fa5lYdHr71IRqkzRx6he'
+    },
+    body:JSON.stringify({
+      model:'pixtral-12b-2409',
+      max_tokens:200,
+      messages:[{
+        role:'user',
+        content:[
+          {type:'image_url',image_url:{url:'data:image/jpeg;base64,'+b64}},
+          {type:'text',text:'Esta é uma figurinha do álbum Panini Copa 2026. Leia APENAS o nome do jogador impresso na figurinha (geralmente embaixo da foto ou embaixo do escudo da seleção). Responda SOMENTE com o nome, nada mais. Se não conseguir ler, responda NULL.'}
+        ]
+      }]
+    })
+  })
+  .then(function(r){
+    if(!r.ok)return r.json().then(function(e){throw new Error(e.message||r.status);});
+    return r.json();
+  })
+  .then(function(data){
+    var nome='';
+    if(data.choices&&data.choices[0]&&data.choices[0].message)
+      nome=data.choices[0].message.content.trim();
+    if(!nome||nome==='NULL'||nome.toLowerCase()==='null'){
+      showOcrOverlay(false);
+      resEl.innerHTML='<div class="ocr-warn">⚠ Não consegui ler o nome.<br>Tente com boa luz e foco no nome do jogador.</div>';
+      resEl.style.display='block';
+      return;
+    }
+    setOcrStatus('Buscando na seleção...');
+    /* busca número de camisa na Wikipedia */
+    var nomeBusca=nome.replace(/\s+/g,'_');
+    var wikiUrl='https://pt.wikipedia.org/w/api.php?action=query&titles='+encodeURIComponent(nome)+'&prop=revisions&rvprop=content&rvslots=main&format=json&origin=*&rvsection=0';
+    return fetch(wikiUrl)
+    .then(function(r2){return r2.json();})
+    .then(function(wd){
+      showOcrOverlay(false);
+      /* tenta achar o jogador no álbum */
+      var found=findPlayerByName(nome);
+      var numAlbum=found?getSquadNumber(found):'?';
+      var teamName=found&&found.team&&TEAMS[found.team]?TEAMS[found.team].n:'';
+
+      /* tenta extrair número de camisa do conteúdo da Wikipedia */
+      var wikiNum='?';
+      try{
+        var pages=wd.query&&wd.query.pages;
+        if(pages){
+          var pg=Object.values(pages)[0];
+          var txt=pg&&pg.revisions&&pg.revisions[0]&&pg.revisions[0].slots&&pg.revisions[0].slots.main['*']||'';
+          var m=txt.match(/número.*?=.*?(\d{1,2})/i)||txt.match(/camisa.*?(\d{1,2})/i)||txt.match(/shirt.*?(\d{1,2})/i);
+          if(m)wikiNum=m[1];
+        }
+      }catch(e){}
+
+      var numFinal=wikiNum!=='?'?wikiNum:numAlbum;
+
+      resEl.innerHTML=
+        '<div style="text-align:center;padding:4px 0">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:4px">Nome identificado</div>'+
+        '<div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px">'+esc(nome)+'</div>'+
+        (teamName?'<div style="font-size:12px;color:var(--muted);margin-bottom:8px">'+esc(teamName)+'</div>':'')+
+        '<div style="display:inline-flex;align-items:center;gap:10px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:10px 22px">'+
+        '<span style="font-size:11px;color:var(--muted)">Nº na seleção</span>'+
+        '<span style="font-family:Syne,sans-serif;font-size:36px;font-weight:800;color:var(--blue2)">'+numFinal+'</span>'+
+        '</div>'+
+        (found?'<div style="margin-top:10px"><span class="ocr-tag">'+esc(found.code)+'</span></div>':'')+
+        '</div>';
+      resEl.style.display='block';
+      if(found)qi('#addInputCodes').value=found.code;
+      toast('✓ '+esc(nome)+' — Nº '+numFinal,true);
+    });
+  })
+  .catch(function(err){
+    showOcrOverlay(false);
+    resEl.innerHTML='<div class="ocr-warn">⚠ Erro: '+esc(String(err.message||err))+'<br>Verifique sua conexão e tente novamente.</div>';
+    resEl.style.display='block';
+  });
+}
+/* ═══ FOTOS — placeholder imediato + Wikipedia em background ═══ */
+var wikiCache={};
+
+function wikiSearch(title,lang,cb){
+  /* Wikipedia Action API com origin=* — único que funciona sem CORS no browser */
+  var url='https://'+lang+'.wikipedia.org/w/api.php'
+    +'?action=query&titles='+encodeURIComponent(title)
+    +'&prop=pageimages&pithumbsize=320&format=json&origin=*';
+  fetch(url,{signal:AbortSignal.timeout?AbortSignal.timeout(5000):undefined})
+    .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
+    .then(function(d){
+      var pages=d.query&&d.query.pages;
+      if(!pages)return cb(null);
+      var vals=Object.values(pages);
+      var found=null;
+      for(var i=0;i<vals.length;i++){
+        /* página missing tem pageid negativo */
+        if(vals[i].pageid>0&&vals[i].thumbnail&&vals[i].thumbnail.source){found=vals[i].thumbnail.source;break;}
+      }
+      cb(found);
+    })
+    .catch(function(){cb(null);});
+}
+
+/* nomes em inglês que o Wikipedia usa para cada seleção */
+var WIKI_TEAM_EN={
+  MEX:'Mexico',RSA:'South Africa',KOR:'South Korea',CZE:'Czech Republic',
+  CAN:'Canada',BIH:'Bosnia and Herzegovina',QAT:'Qatar',SUI:'Switzerland',
+  BRA:'Brazil',MAR:'Morocco',HAI:'Haiti',SCO:'Scotland',
+  USA:'United States',PAR:'Paraguay',AUS:'Australia',TUR:'Turkey',
+  GER:'Germany',CUW:'Curaçao',CIV:"Ivory Coast",ECU:'Ecuador',
+  NED:'Netherlands',JPN:'Japan',SWE:'Sweden',TUN:'Tunisia',
+  BEL:'Belgium',EGY:'Egypt',IRN:'Iran',NZL:'New Zealand',
+  ESP:'Spain',CPV:'Cape Verde',KSA:'Saudi Arabia',URU:'Uruguay',
+  FRA:'France',SEN:'Senegal',IRQ:'Iraq',NOR:'Norway',
+  ARG:'Argentina',ALG:'Algeria',AUT:'Austria',JOR:'Jordan',
+  POR:'Portugal',COD:'DR Congo',UZB:'Uzbekistan',COL:'Colombia',
+  ENG:'England',CRO:'Croatia',GHA:'Ghana',PAN:'Panama'
+};
+
+function fetchWikiPhoto(name,teamCode,cb){
+  var cacheKey=name+(teamCode||'');
+  if(wikiCache[cacheKey]!==undefined){cb(wikiCache[cacheKey]);return;}
+  function done(url){wikiCache[cacheKey]=url||null;cb(url||null);}
+
+  var slug=name.replace(/\s+/g,'_');
+  /* tenta nome + país em inglês primeiro para desambiguar */
+  var enCountry=teamCode&&WIKI_TEAM_EN[teamCode]?WIKI_TEAM_EN[teamCode]:'';
+  var tries=[
+    {t:slug,lang:'en'},
+    {t:slug+'_footballer',lang:'en'},
+    {t:slug+'_(footballer)',lang:'en'},
+  ];
+  if(enCountry){
+    tries.splice(1,0,{t:slug+'_('+enCountry+'_footballer)',lang:'en'});
+    tries.splice(1,0,{t:slug+'_footballer_from_'+enCountry.replace(/ /g,'_'),lang:'en'});
+  }
+  tries.push({t:slug,lang:'pt'});
+  tries.push({t:slug+'_(futebolista)',lang:'pt'});
+
+  function run(i){
+    if(i>=tries.length){done(null);return;}
+    wikiSearch(tries[i].t,tries[i].lang,function(url){if(url)done(url);else run(i+1);});
+  }
+  run(0);
+}
+
+function fetchTeamPhoto(teamCode,cb){
+  var key='__team__'+teamCode;
+  if(wikiCache[key]!==undefined){cb(wikiCache[key]);return;}
+  function done(url){wikiCache[key]=url||null;cb(url||null);}
+  var enName=WIKI_TEAM_EN[teamCode]||(TEAMS[teamCode]&&TEAMS[teamCode].n)||'';
+  var slug=enName.replace(/\s+/g,'_');
+  var tries=[
+    {t:slug+'_national_football_team',lang:'en'},
+    {t:slug+'_national_soccer_team',lang:'en'},
+    {t:(TEAMS[teamCode]&&TEAMS[teamCode].n||'').replace(/\s+/g,'_'),lang:'pt'},
+  ];
+  function run(i){if(i>=tries.length){done(null);return;}wikiSearch(tries[i].t,tries[i].lang,function(url){if(url)done(url);else run(i+1);});}
+  run(0);
+}
+
+function autoFetchPhoto(id){
+  if(photos[id])return;
+  var s2=findSt(id);if(!s2||s2.kind==='custom')return;
+  /* aplica placeholder imediatamente para não ficar em branco */
+  var ph=makePlaceholder(s2);if(ph)applyPhotoToCell(id,ph);
+  /* depois tenta buscar foto real em background */
+  if(s2.kind==='logo'&&s2.team){
+    fetchTeamPhoto(s2.team,function(url){if(url)applyPhotoToCell(id,url);});
+  } else if(s2.kind==='player'){
+    fetchWikiPhoto(s2.base,s2.team||'',function(url){if(url)applyPhotoToCell(id,url);});
+  }
+}
+
+/* fbCopy para copyTabList */
+function fbCopy(t){try{var ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;top:-999px;left:-999px;';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Lista copiada ✓');}catch(e){toast('Erro ao copiar');}}
+
+
+/* ═══ AUTO-FETCH FOTOS POR SCROLL ═══ */
+function makePlaceholder(s2){
+  try{
+    var cv=document.createElement('canvas');cv.width=100;cv.height=128;
+    var ctx=cv.getContext('2d');
+    var tc=s2&&s2.team&&TEAMS[s2.team]?TEAMS[s2.team].col:'#1a2f5e';
+    /* fundo com cor do time */
+    var grad=ctx.createLinearGradient(0,0,0,128);
+    grad.addColorStop(0,tc);grad.addColorStop(1,'#05080f');
+    ctx.fillStyle=grad;ctx.fillRect(0,0,100,128);
+    /* iniciais */
+    var nm=dispN(s2)||'';
+    var parts=nm.trim().split(/\s+/);
+    var ini=(parts[0]?parts[0][0]:'')+(parts.length>1?parts[parts.length-1][0]:'');
+    ctx.fillStyle='rgba(255,255,255,.85)';ctx.font='bold 38px Arial';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(ini.toUpperCase(),50,58);
+    /* bandeira */
+    if(s2.team&&TEAMS[s2.team]){
+      ctx.font='26px Arial';ctx.fillText(TEAMS[s2.team].f,50,105);
+    }
+    return cv.toDataURL('image/jpeg',.85);
+  }catch(e){return null;}
+}
+
+var fetchQ=[],fetchFlying=0,fetchDone={};
+function enqueue(id,name,kind,teamCode){
+  /* placeholder imediato para qualquer figurinha ainda sem imagem */
+  if(!photos[id]){
+    var s2ph=findSt(id);
+    if(s2ph&&s2ph.kind!=='custom'){var ph=makePlaceholder(s2ph);if(ph)applyPhotoToCell(id,ph);}
+  }
+  if(fetchDone[id])return;
+  fetchDone[id]=true;
+  if(kind==='player'||kind==='logo')fetchQ.push({id:id,kind:kind,teamCode:teamCode});
+  drainQ();
+}
+function drainQ(){
+  while(fetchFlying<2&&fetchQ.length>0){
+    var item=fetchQ.shift();
+    fetchFlying++;
+    (function(it){
+      function onWiki(url){
+        fetchFlying--;
+        if(url)applyPhotoToCell(it.id,url);
+        drainQ();
+      }
+      if(it.kind==='logo'&&it.teamCode){
+        fetchTeamPhoto(it.teamCode,onWiki);
+      } else {
+        var s2=AMAP[it.id];
+        fetchWikiPhoto(s2?s2.base:it.id,it.teamCode||'',onWiki);
+      }
+    })(item);
+  }
+}
+function applyPhotoToCell(id,url){
+  if(!url)return;
+  photos[id]=url;idbPut(id,url);
+  var cell=document.querySelector('.st[data-id="'+id+'"]');
+  if(!cell)return;
+  var disk=cell.querySelector('.st-disk');
+  var old=disk.querySelector('.st-ph-img');if(old)old.remove();
+  var onm=disk.querySelector('.st-ph-name');if(onm)onm.remove();
+  var ocd=disk.querySelector('.st-ph-code');if(ocd)ocd.remove();
+  var sn=disk.querySelector('.st-num');if(sn)sn.remove();
+  var s2=findSt(id);
+  var img=document.createElement('img');img.className='st-ph-img';img.src=url;disk.insertBefore(img,disk.firstChild);
+  var nm=document.createElement('span');nm.className='st-ph-name';nm.textContent=s2?shortN(dispN(s2)):'';disk.appendChild(nm);
+  var cd=document.createElement('span');cd.className='st-ph-code';cd.textContent=numLabel(s2||{code:id});disk.appendChild(cd);
+  cell.classList.add('has-photo');
+}
+function observeTeamPhotos(){
+  /* especiais: enfileira agora */
+  INTRO_S.forEach(function(s){enqueue(s.id,s.base,s.kind,'');});
+  HIST_S.forEach(function(s){enqueue(s.id,s.base,s.kind,'');});
+
+  var allCodes=[];
+  GROUPS.forEach(function(g){g[1].forEach(function(c){allCodes.push(c);});});
+
+  /* primeiros 8 times: enfileira imediatamente (estarão visíveis) */
+  allCodes.slice(0,8).forEach(function(code){
+    var tm=TMODEL[code];if(!tm)return;
+    tm.stickers.forEach(function(s){enqueue(s.id,s.base,s.kind,code);});
+  });
+
+  /* demais: quando o .gc (card do grupo) entrar na viewport */
+  if(!('IntersectionObserver' in window)){
+    allCodes.slice(8).forEach(function(code){
+      var tm=TMODEL[code];if(!tm)return;
+      tm.stickers.forEach(function(s){enqueue(s.id,s.base,s.kind,code);});
+    });
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      io.unobserve(e.target);
+      e.target.querySelectorAll('.team-blk[data-team]').forEach(function(blk){
+        var code=blk.dataset.team;
+        var tm=TMODEL[code];if(!tm)return;
+        tm.stickers.forEach(function(s){enqueue(s.id,s.base,s.kind,code);});
+      });
+    });
+  },{rootMargin:'500px 0px',threshold:0});
+  document.querySelectorAll('.section .gc').forEach(function(el){io.observe(el);});
+}
+
+/* ═══ TOGGLE ═══ */
+function shinePulse(disk){if(rm)return;try{disk.animate([{transform:'perspective(260px) scale(1)'},{transform:'perspective(260px) scale(1.15)'},{transform:'perspective(260px) scale(1)'}],{duration:300,easing:'cubic-bezier(.2,.7,.2,1)'});}catch(e){}}
+function toggleGot(cell){
+  var id=cell.dataset.id,now=!ST.got.has(id);
+  if(now)ST.got.add(id);else ST.got.delete(id);
+  logDay();save();
+  cell.classList.toggle('got',now);
+  if(now)shinePulse(cell.querySelector('.st-disk'));
+  var dd=cell.querySelector('.dup-dot');if(dd&&!now){dd.remove();}
+  calcStats();
+  if(now)checkComplete(AMAP[id]&&AMAP[id].team);
+  if(curF!=='all')cell.classList.toggle('hide',!matches(cell));
+  var tc=AMAP[id]&&AMAP[id].team;if(tc)updateTeamHd(tc);
+  updateSpHd('__intro',INTRO_S);updateSpHd('__hist',HIST_S);
+  /* auto photo + prompt */
+  if(now&&!photos[id]){autoFetchPhoto(id);setTimeout(function(){showPhotoQuick(cell,id);},600);}
+}
+function checkComplete(tc){
+  if(rm)return;
+  if(tc){var tm=TMODEL[tc];if(tm&&tm.stickers.every(function(s){return ST.got.has(s.id);})){confettiBurst(false);toast(TEAMS[tc].f+' '+TEAMS[tc].n+' completa! 🎉',true);}}
+  if(ST.got.size===980){confettiBurst(true);toast('ÁLBUM COMPLETO! 980/980 🏆',true);}
+}
+function fillTeam(code){
+  var tm=TMODEL[code];if(!tm)return;
+  var all=tm.stickers.every(function(s){return ST.got.has(s.id);});
+  tm.stickers.forEach(function(s){if(all)ST.got.delete(s.id);else ST.got.add(s.id);});
+  logDay();save();
+  var blk=document.querySelector('.team-blk[data-team="'+code+'"]');
+  if(blk)blk.querySelectorAll('.st').forEach(function(c){c.classList.toggle('got',ST.got.has(c.dataset.id));var dd=c.querySelector('.dup-dot');if(dd)dd.remove();});
+  updateTeamHd(code);calcStats();applyFilter();
+  if(!all&&!rm){confettiBurst(false);toast(TEAMS[code].f+' '+TEAMS[code].n+' completa!',true);}
+}
+
+/* ═══ FILTER ═══ */
+var curF='all',query='',fRAF=0;
+function matches(cell){
+  var id=cell.dataset.id,got=ST.got.has(id),d=(ST.dupes[id]||0)>0;
+  if(curF==='got'&&!got)return false;
+  if(curF==='miss'&&got)return false;
+  if(curF==='dup'&&!d)return false;
+  if(query){var s=cell.getAttribute('data-srch')||'';if(s.indexOf(query)===-1)return false;}
+  return true;
+}
+function applyFilter(){
+  qa('.st').forEach(function(c){c.classList.toggle('hide',!matches(c));});
+  qa('.team-blk').forEach(function(b){var any=b.querySelector('.st:not(.hide)');b.classList.toggle('gone',!any&&!!b.querySelector('.st'));});
+  qa('.section').forEach(function(s){var any=s.querySelector('.st:not(.hide)');s.classList.toggle('gone',!any);});
+}
+
+/* ═══ DUPES ═══ */
+function dChange(id,delta){
+  var v=(ST.dupes[id]||0)+delta;if(v<0)v=0;
+  if(!v)delete ST.dupes[id];else ST.dupes[id]=v;
+  save();
+  var cell=document.querySelector('.st[data-id="'+id+'"]');
+  if(cell){var disk=cell.querySelector('.st-disk');var dd=disk.querySelector('.dup-dot');
+    if(v>0){if(dd)dd.textContent=v;else{var sp=document.createElement('span');sp.className='dup-dot';sp.textContent=v;disk.appendChild(sp);}}
+    else if(dd)dd.remove();}
+  calcStats();if(curF==='dup'&&cell)cell.classList.toggle('hide',!matches(cell));
+}
+
+/* ═══ PHOTOS ═══ */
+function resizeImg(file,cb){try{var img=new Image(),u=URL.createObjectURL(file);img.onload=function(){var max=460,w=img.width,h=img.height,sc=Math.min(1,max/Math.max(w,h));w=Math.round(w*sc);h=Math.round(h*sc);var cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(u);try{cb(cv.toDataURL('image/jpeg',.82));}catch(e){cb(null);};};img.onerror=function(){URL.revokeObjectURL(u);cb(null);};img.src=u;}catch(e){cb(null);}}
+var pendPh=null;
+
+/* ═══ EDIT ═══ */
+var editId=null,editIsC=false;
+function openEdit(id){editId=id;var s=findSt(id);editIsC=!!(s&&s.kind==='custom');qi('#editName').value=dispN(s);qi('#editExtraW').style.display=editIsC?'block':'none';qi('#editRm').style.display=editIsC?'inline-flex':'none';if(editIsC)qi('#editNum').value=s.num||'';openOv('ov-edit');}
+function doEditSave(){var nm=qi('#editName').value.trim()||'—';if(editIsC){var c=ST.customs.find(function(x){return x.id===editId;});if(c){c.name=nm;c.num=qi('#editNum').value.trim()||c.num;}save();renderAlbum();afterRender();}else{var s=AMAP[editId];if(s&&nm===s.base)delete ST.names[editId];else ST.names[editId]=nm;save();var cell=document.querySelector('.st[data-id="'+editId+'"]');if(cell){var lb=cell.querySelector('.st-label');if(lb)lb.textContent=shortN(nm);cell.setAttribute('data-srch',norm(nm+' '+(s?s.code:'')));}}closeAll();toast('Nome atualizado ✓');}
+function doEditRm(){if(!editIsC)return;ST.customs=ST.customs.filter(function(x){return x.id!==editId;});delete photos[editId];idbDel(editId);save();renderAlbum();afterRender();closeAll();toast('Figurinha removida');}
+
+/* ═══ MISSING ═══ */
+function buildMiss(){var res=[];function push(title,sts){var codes=sts.filter(function(s){return s&&!ST.got.has(s.id);}).map(function(s){return String(s.code);});if(codes.length)res.push({title:title,codes:codes});}push('FWC — Especiais',INTRO_S);GROUPS.forEach(function(g){g[1].forEach(function(c){push('Grupo '+g[0]+' · '+TEAMS[c].n,TMODEL[c].stickers);});});push('FWC — História',HIST_S);return res;}
+function openMiss(){var gs=buildMiss(),tot=0,html='';gs.forEach(function(g){tot+=g.codes.length;html+='<div class="miss-g"><h4>'+esc(g.title)+' ('+g.codes.length+')</h4><div class="miss-codes">'+g.codes.map(function(c){return'<span class="miss-code">'+esc(c)+'</span>';}).join('')+'</div></div>';});if(!tot)html='<div class="all-got"><div class="big">🏆</div><p>Álbum completo! Parabéns!</p></div>';qi('#missListContent').innerHTML=html;st('#missTotHd',tot?'('+tot+')':'');openOv('ov-miss');}
+function copyMiss(){var gs=buildMiss(),lines=['Figurinhas faltando — Copa 2026',''];gs.forEach(function(g){lines.push(g.title+': '+g.codes.join(', '));});var txt=lines.join('\n');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast('Lista copiada ✓');});}else{try{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Lista copiada ✓');}catch(e){}}}
+
+/* ═══ BATCH ADD STICKERS ═══ */
+function batchAdd(){
+  var raw=qi('#addCodesInput').value;
+  if(!raw.trim()){toast('Digite os códigos das figurinhas');return;}
+  var tokens=raw.split(/[\s,;\n]+/).map(function(t){return t.trim().toUpperCase();}).filter(Boolean);
+  var found=0,already=0,notFound=[];
+  tokens.forEach(function(t){
+    var s=AMAP[t];
+    if(!s){var key=Object.keys(AMAP).find(function(k){return k.toUpperCase()===t;});if(key)s=AMAP[key];}
+    if(s){
+      if(ST.got.has(s.id)){already++;}
+      else{found++;ST.got.add(s.id);logDay();}
+      var cell=document.querySelector('.st[data-id="'+s.id+'"]');
+      if(cell&&!cell.classList.contains('got')){cell.classList.add('got');}
+    } else {notFound.push(t);}
+  });
+  if(found>0){save();calcStats();}
+  var res=qi('#addResult');res.style.display='block';
+  var msg='';
+  if(found>0)msg+='<span style="color:var(--blue2)">✓ '+found+' marcada'+(found!==1?'s':'')+'</span> ';
+  if(already>0)msg+='<span style="color:var(--muted)">· '+already+' já tinha</span> ';
+  if(notFound.length)msg+='<span style="color:var(--pink)">· '+notFound.length+' não encontrada'+(notFound.length!==1?'s':'')+'</span>';
+  res.innerHTML=msg;
+  if(found>0){confettiBurst(false);toast(found+' figurinha'+(found!==1?'s':'')+' marcada'+(found!==1?'s':'')+'! ✓',true);setTimeout(closeAll,900);}
+  else if(already>0&&!notFound.length){toast('Essas figurinhas já estão marcadas');}
+}
+
+/* ═══ BACKUP ═══ */
+function exportBk(){try{var d={v:3,got:[...ST.got],dupes:ST.dupes,names:ST.names,customs:ST.customs,history:ST.history,gastos:GASTOS,photos:photos};var b=new Blob([JSON.stringify(d)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='album-copa-2026.json';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(a.href);},1500);toast('Backup exportado ✓');}catch(e){toast('Erro ao exportar');}}
+function importBk(){var inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{var o=JSON.parse(rd.result);ST.got=new Set(o.got||[]);ST.dupes=o.dupes||{};ST.names=o.names||{};ST.customs=o.customs||[];ST.history=o.history||[];GASTOS=o.gastos||[];photos=o.photos||{};save();saveGastos();idbClear();for(var id in photos)idbPut(id,photos[id]);renderAlbum();afterRender();calcGastos();closeAll();toast('Backup importado ✓');}catch(e){toast('Arquivo inválido');}};rd.readAsText(f);};inp.click();}
+function resetAll(){if(!confirm('Apagar tudo? Marcações, fotos e gastos serão excluídos.'))return;ST={got:new Set(),dupes:{},names:{},customs:[],history:[]};GASTOS=[];photos={};try{localStorage.removeItem(LS);localStorage.removeItem(LG);}catch(e){}idbClear();renderAlbum();afterRender();calcGastos();closeAll();toast('Tudo zerado');}
+
+/* ═══ OVERLAYS ═══ */
+function openOv(id){qi('#'+id).classList.add('open');document.body.classList.add('noscroll');}
+function closeAll(){qa('.ov').forEach(function(o){o.classList.remove('open');});document.body.classList.remove('noscroll');}
+
+/* ═══ NAVIGATION ═══ */
+var curPage='album';
+function showPage(p){
+  curPage=p;
+  qa('.page').forEach(function(el){el.classList.toggle('hidden',el.id!=='page-'+p);});
+  qa('.bn').forEach(function(b){b.classList.toggle('active',b.dataset.page===p);});
+  var isAlbum=(p==='album');
+  qi('#albumHeader').style.display=isAlbum?'':'none';
+  qi('#albumActs').style.display=isAlbum?'':'none';
+  if(p==='stats'){calcStats();drawRadar();drawProgressChart();}
+  if(p==='gastos'){calcGastos();}
+}
+
+/* ═══ TAB LINE ═══ */
+function posTabLine(){var a=document.querySelector('.tab.active'),l=qi('#tabLine');if(!a||!l)return;var r=a.getBoundingClientRect(),p=a.parentElement.getBoundingClientRect();l.style.left=(r.left-p.left)+'px';l.style.width=r.width+'px';}
+
+/* ═══ 3D TILT ═══ */
+var tEl=null,tX=0,tY=0,tGx=50,tGy=30,tRAF=0;
+function applyTilt(){tRAF=0;if(!tEl)return;tEl.style.transform='perspective(260px) rotateX('+tX.toFixed(2)+'deg) rotateY('+tY.toFixed(2)+'deg) scale(1.07)';tEl.style.setProperty('--gx',tGx.toFixed(1)+'%');tEl.style.setProperty('--gy',tGy.toFixed(1)+'%');}
+function resetTilt(disk){if(!disk)return;disk.style.willChange='';disk.style.transform='perspective(260px) rotateX(0) rotateY(0)';}
+function onAlbumMove(e){if(e.pointerType==='touch')return;var cell=e.target.closest?e.target.closest('.st'):null;var disk=cell?cell.querySelector('.st-disk'):null;if(disk!==tEl){resetTilt(tEl);tEl=disk;if(disk)disk.style.willChange='transform';}if(!disk)return;var r=disk.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;tY=(px-.5)*15;tX=(.5-py)*16;tGx=px*100;tGy=py*100;if(!tRAF)tRAF=requestAnimationFrame(applyTilt);}
+
+/* ═══ REVEAL ═══ */
+function observeCards(){if(!('IntersectionObserver' in window)){qa('.gc').forEach(function(e){e.classList.add('in');});return;}var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -4% 0px',threshold:.04});qa('.gc').forEach(function(e){io.observe(e);});}
+
+/* ═══ COLLAPSE ═══ */
+function wireCollapse(){
+  document.addEventListener('click',function(e){
+    var hd=e.target.closest('[data-collapse]');if(!hd)return;var id=hd.dataset.collapse,body=qi('#'+id);if(!body)return;hd.classList.toggle('coll');body.classList.toggle('hidden');
+  });
+  document.addEventListener('click',function(e){
+    var hd=e.target.closest('.team-hd');if(!hd)return;var blk=hd.closest('.team-blk');if(!blk)return;if(e.target.closest('[data-act]'))return;blk.classList.toggle('coll');var body=blk.querySelector('.team-body');if(body)body.classList.toggle('hidden');
+  });
+}
+
+/* ═══ CONTEXT MENU ═══ */
+var ctxId=null,longT=null,justCtx=false;
+function openCtx(cell,x,y){ctxId=cell.dataset.id;var got=ST.got.has(ctxId);qi('#ctxToggleLbl').textContent=got?'Remover do álbum':'Marcar como tenho';st('#ctxDv',ST.dupes[ctxId]||0);var rmBtn=qi('#ctxRemovePhoto');if(rmBtn)rmBtn.style.display=photos[ctxId]?'flex':'none';var menu=qi('#ctx'),mw=200,mh=160;menu.style.left=Math.max(8,Math.min(x,window.innerWidth-mw-10))+'px';menu.style.top=Math.max(8,Math.min(y,window.innerHeight-mh-10))+'px';menu.classList.add('show');qi('#ctxBg').style.display='block';}
+function closeCtx(){qi('#ctx').classList.remove('show');qi('#ctxBg').style.display='none';ctxId=null;}
+
+/* ═══ TOAST ═══ */
+var toastT;
+function toast(msg,win){var el=qi('#toast');el.textContent=msg;el.classList.toggle('win',!!win);el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('show');},2600);}
+
+/* ═══ FPS ═══ */
+var fpsOn=false,fpsRAF=0,fpsLast=0,fpsFr=0;
+function fpsTick(t){fpsFr++;if(t-fpsLast>=500){st('#fpsVal',Math.round(fpsFr*1000/(t-fpsLast)));fpsFr=0;fpsLast=t;}fpsRAF=requestAnimationFrame(fpsTick);}
+function setFps(on){fpsOn=on;qi('#fpsEl').classList.toggle('show',on);qi('#fpsSwitch').setAttribute('aria-pressed',on?'true':'false');if(on){fpsLast=performance.now();fpsFr=0;if(!fpsRAF)fpsRAF=requestAnimationFrame(fpsTick);}else if(fpsRAF){cancelAnimationFrame(fpsRAF);fpsRAF=0;}}
+
+/* ═══ CONFETTI ═══ */
+var cvs,cctx,cp=[],cRAF=0;
+function confettiBurst(big){if(rm)return;cvs=qi('#confetti');cvs.style.display='block';cctx=cvs.getContext('2d');var w=cvs.width=innerWidth,h=cvs.height=innerHeight,cols=['#FF2D78','#27E0D4','#2563eb','#F4C752','#2563eb','#fff'],n=big?150:60,i;cp=[];for(i=0;i<n;i++)cp.push({x:w/2+(Math.random()-.5)*w*.3,y:h*.25,vx:(Math.random()-.5)*8,vy:Math.random()*-7-2,g:.2+Math.random()*.12,s:5+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[(Math.random()*cols.length)|0],life:55+Math.random()*40});if(!cRAF)cRAF=requestAnimationFrame(confTick);}
+function confTick(){cctx.clearRect(0,0,cvs.width,cvs.height);var alive=false;cp.forEach(function(p){if(p.life<=0)return;alive=true;p.life--;p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;cctx.save();cctx.translate(p.x,p.y);cctx.rotate(p.r);cctx.fillStyle=p.c;cctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cctx.restore();});cp=cp.filter(function(p){return p.life>0&&p.y<cvs.height+40;});if(alive&&cp.length)cRAF=requestAnimationFrame(confTick);else{cRAF=0;cvs.style.display='none';}}
+
+/* ═══ COPY BAR ═══ */
+function updateCopyBar(){
+  var bar=qi('#copyBar'),cnt=qi('#cbCount');
+  if(!bar)return;
+  /* show bar only when a specific filter is active (not "all") */
+  var show=(curF==='got'||curF==='miss'||curF==='dup');
+  bar.classList.toggle('show',show);
+  if(!show){return;}
+  var visible=qa('.st:not(.hide)');
+  var count=visible.length;
+  var label=curF==='got'?'tenho':curF==='miss'?'me faltam':'repetidas';
+  if(cnt)cnt.innerHTML='<b>'+count+'</b> figurinha'+(count!==1?'s':'')+' '+label;
+}
+function copyTabList(){
+  var visible=qa('.st:not(.hide)');
+  var codes=[];
+  visible.forEach(function(c){var s=AMAP[c.dataset.id];if(s)codes.push(s.code);else codes.push(c.dataset.id);});
+  var label=curF==='got'?'Tenho':curF==='miss'?'Me faltam':'Repetidas';
+  var txt=label+' — Copa 2026 ('+codes.length+')\n'+codes.join(', ');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){toast('Lista copiada ✓');});
+  } else {fbCopy(txt);}
+}
+
+/* ═══ AFTER RENDER ═══ */
+function afterRender(){calcStats();observeCards();applyFilter();posTabLine();updateCopyBar();observeTeamPhotos();}
+
+/* ═══ WIRE ═══ */
+function wire(){
+  var album=qi('#album');
+  album.addEventListener('pointermove',onAlbumMove,{passive:true});
+  album.addEventListener('pointerleave',function(){resetTilt(tEl);tEl=null;});
+  album.addEventListener('pointerdown',function(e){var cell=e.target.closest?e.target.closest('.st'):null;if(!cell)return;longT=setTimeout(function(){justCtx=true;openCtx(cell,e.clientX,e.clientY);},480);});
+  album.addEventListener('pointerup',function(){clearTimeout(longT);},{passive:true});
+  album.addEventListener('pointermove',function(){clearTimeout(longT);},{passive:true});
+  album.addEventListener('contextmenu',function(e){var cell=e.target.closest?e.target.closest('.st'):null;if(!cell)return;e.preventDefault();openCtx(cell,e.clientX,e.clientY);});
+  album.addEventListener('click',function(e){
+    if(justCtx){justCtx=false;return;}
+    var btn=e.target.closest('[data-act]');if(btn&&btn.dataset.act==='fill'){fillTeam(btn.dataset.team);return;}
+    var cell=e.target.closest('.st');if(cell)toggleGot(cell);
+  });
+  qi('#tabs').addEventListener('click',function(e){var tab=e.target.closest('.tab');if(!tab)return;curF=tab.dataset.f;qa('.tab').forEach(function(t){t.classList.toggle('active',t===tab);});posTabLine();applyFilter();updateCopyBar();});
+  qi('#cbCopyBtn').addEventListener('click',copyTabList);
+  qi('#searchToggle').addEventListener('click',function(){var sb=qi('#searchBar');sb.classList.toggle('show');if(sb.classList.contains('show'))qi('#searchInput').focus();else{qi('#searchInput').value='';query='';applyFilter();}});
+  qi('#searchInput').addEventListener('input',function(){query=norm(this.value);if(!fRAF)fRAF=requestAnimationFrame(function(){fRAF=0;applyFilter();});});
+  qa('.bn').forEach(function(b){b.addEventListener('click',function(){showPage(b.dataset.page);});});
+  qi('#periodTabs').addEventListener('click',function(e){var pt=e.target.closest('.pt');if(!pt)return;curPeriod=pt.dataset.p;qa('.pt').forEach(function(t){t.classList.toggle('active',t===pt);});drawProgressChart();});
+  qi('#missBtn2').addEventListener('click',openMiss);
+  qi('#ctxToggle').addEventListener('click',function(){var cell=document.querySelector('.st[data-id="'+ctxId+'"]');if(cell)toggleGot(cell);closeCtx();});
+  qi('#ctxPhoto').addEventListener('click',function(){var id=ctxId;closeCtx();if(id){pendPh={mode:'card',id:id};qi('#filePicker').value='';qi('#filePicker').click();}});
+  qi('#ctxEdit').addEventListener('click',function(){var id=ctxId;closeCtx();if(id)openEdit(id);});
+  qi('#ctxDm').addEventListener('click',function(){if(ctxId){dChange(ctxId,-1);st('#ctxDv',ST.dupes[ctxId]||0);}});
+  qi('#ctxDp').addEventListener('click',function(){if(ctxId){dChange(ctxId,1);st('#ctxDv',ST.dupes[ctxId]||0);}});
+  qi('#ctxBg').addEventListener('click',closeCtx);
+  qi('#ctxRemovePhoto').addEventListener('click',function(){
+    if(!ctxId)return;closeCtx();
+    delete photos[ctxId];idbDel(ctxId);
+    var cell=document.querySelector('.st[data-id="'+ctxId+'"]');
+    if(cell){var disk=cell.querySelector('.st-disk');var old=disk.querySelector('.st-ph-img');if(old)old.remove();var n2=disk.querySelector('.st-ph-name');if(n2)n2.remove();}
+    toast('Foto removida');
+  });
+  qi('#filePicker').addEventListener('change',function(){var f=this.files&&this.files[0];if(!f||!pendPh)return;resizeImg(f,function(d){if(!d)return;if(pendPh.mode==='card'){var id=pendPh.id;photos[id]=d;idbPut(id,d);var cell=document.querySelector('.st[data-id="'+id+'"]');if(cell){var disk=cell.querySelector('.st-disk');var old=disk.querySelector('.st-ph-img');if(old)old.remove();var img=document.createElement('img');img.className='st-ph-img';img.src=d;disk.insertBefore(img,disk.firstChild);}toast('Foto adicionada ✓');}pendPh=null;});});
+  qi('#editSave').addEventListener('click',doEditSave);
+  qi('#editRm').addEventListener('click',doEditRm);
+  qi('#addGastosBtn').addEventListener('click',function(){var today=new Date().toISOString().slice(0,10);qi('#g-date').value=today;qi('#g-packs').value='';qi('#g-price').value='7.00';qi('#g-received').value='';qi('#g-dupes').value='';qi('#g-calc').textContent='R$ 0,00';openOv('ov-gastos');});
+  function updateGCalc(){var p=parseFloat(qi('#g-packs').value)||0,pr=parseFloat(qi('#g-price').value)||0;qi('#g-calc').textContent=fmtBRL(p*pr);if(!qi('#g-received').value&&p>0)qi('#g-received').placeholder='auto: '+(p*5);}
+  qi('#g-packs').addEventListener('input',updateGCalc);qi('#g-price').addEventListener('input',updateGCalc);
+  qi('#g-save').addEventListener('click',function(){var p=parseInt(qi('#g-packs').value)||0;if(p<=0){toast('Informe a quantidade de pacotes');return;}var pr=parseFloat(qi('#g-price').value)||7;var rec=parseInt(qi('#g-received').value)||(p*5);var dup=parseInt(qi('#g-dupes').value)||0;var date=qi('#g-date').value||new Date().toISOString().slice(0,10);GASTOS.push({id:'g'+Date.now(),date:date,packs:p,pricePer:pr,received:rec,dupes:dup});saveGastos();calcGastos();closeAll();toast('Compra registrada ✓');});
+  qi('#gastosList').addEventListener('click',function(e){var btn=e.target.closest('[data-del]');if(!btn)return;var id=btn.dataset.del;if(!confirm('Remover esta compra?'))return;GASTOS=GASTOS.filter(function(g){return g.id!==id;});saveGastos();calcGastos();toast('Compra removida');});
+  qi('#copyMissBtn').addEventListener('click',copyMiss);
+  qi('#menuBtn').addEventListener('click',function(){openOv('ov-menu');});
+  qi('#exportBtn').addEventListener('click',exportBk);
+  qi('#importBtn').addEventListener('click',importBk);
+  qi('#resetBtn').addEventListener('click',resetAll);
+  qi('#fpsSwitch').addEventListener('click',function(){setFps(!fpsOn);});
+  /* ADD STICKERS */
+  qi('#addBtn').addEventListener('click',function(){openOv('ov-action');});
+  qi('#addMarkGotBtn').addEventListener('click',batchAdd);
+
+  /* ─── ACTION SHEET ─── */
+  var addInputMode='new'; /* 'new' ou 'dup' */
+  qi('#actNewBtn').addEventListener('click',function(){
+    addInputMode='new';
+    qi('#addInputTitle').textContent='Novas figurinhas';
+    qi('#addInputCodes').value='';
+    qi('#addInputResult').style.display='none';
+    qi('#addPhotoRefImg').style.display='none';
+    closeAll();openOv('ov-add-input');
+  });
+  qi('#actDupBtn').addEventListener('click',function(){
+    addInputMode='dup';
+    qi('#addInputTitle').textContent='Adicionar repetidas';
+    qi('#addInputCodes').value='';
+    qi('#addInputResult').style.display='none';
+    qi('#addPhotoRefImg').style.display='none';
+    closeAll();openOv('ov-add-input');
+  });
+  /* photo reference */
+  var addRefPicker=document.createElement('input');addRefPicker.type='file';addRefPicker.accept='image/*';
+  qi('#addPhotoRefBtn').addEventListener('click',function(){addRefPicker.value='';addRefPicker.click();});
+  addRefPicker.addEventListener('change',function(){
+    var f=this.files&&this.files[0];if(!f)return;
+    var wrap=qi('#ocrWrap'),img=qi('#addPhotoRefImg'),res=qi('#ocrResult');
+    if(res)res.style.display='none';
+    img.onload=function(){runOCR(img);};
+    img.src=URL.createObjectURL(f);
+    if(wrap)wrap.style.display='block';
+  });
+  /* confirm */
+  qi('#addInputConfirmBtn').addEventListener('click',function(){
+    var raw=qi('#addInputCodes').value;
+    if(!raw.trim()){toast('Digite os códigos das figurinhas');return;}
+    var tokens=raw.split(/[\s,;\n]+/).map(function(t){return t.trim().toUpperCase();}).filter(Boolean);
+    var found=0,already=0,notFound=[],dupAdded=0;
+    tokens.forEach(function(t){
+      var ss=AMAP[t];
+      if(!ss){var key=Object.keys(AMAP).find(function(k){return k.toUpperCase()===t;});if(key)ss=AMAP[key];}
+      if(ss){
+        if(addInputMode==='new'){
+          if(ST.got.has(ss.id)){already++;}
+          else{found++;ST.got.add(ss.id);logDay();
+            var cell=document.querySelector('.st[data-id="'+ss.id+'"]');
+            if(cell&&!cell.classList.contains('got')){cell.classList.add('got');}
+          }
+        } else {
+          var d=(ST.dupes[ss.id]||0)+1;ST.dupes[ss.id]=d;dupAdded++;
+          var cell=document.querySelector('.st[data-id="'+ss.id+'"]');
+          if(cell){var disk=cell.querySelector('.st-disk');var dd=disk.querySelector('.dup-dot');
+            if(dd)dd.textContent=d;else{var sp=document.createElement('span');sp.className='dup-dot';sp.textContent=d;disk.appendChild(sp);}
+          }
+        }
+      } else {notFound.push(t);}
+    });
+    if(found>0||dupAdded>0){save();calcStats();}
+    var res=qi('#addInputResult');res.style.display='block';
+    var msg='';
+    if(addInputMode==='new'){
+      if(found>0)msg+='<span style="color:var(--blue3)">✓ '+found+' marcada'+(found!==1?'s':'')+'</span> ';
+      if(already>0)msg+='<span style="color:var(--muted)">· '+already+' já tinha'+(already!==1?'s':'')+'</span> ';
+    } else {
+      if(dupAdded>0)msg+='<span style="color:var(--blue3)">✓ '+dupAdded+' repetida'+(dupAdded!==1?'s':'')+'</span> ';
+    }
+    if(notFound.length)msg+='<span style="color:var(--pink)">· não encontrada'+(notFound.length!==1?'s':'')+': '+notFound.slice(0,8).join(', ')+'</span>';
+    res.innerHTML=msg;
+    if((found>0||dupAdded>0)&&!rm){confettiBurst(false);toast((found||dupAdded)+' figurinha'+(((found||dupAdded))!==1?'s':'')+' '+(addInputMode==='new'?'marcada':'repetida')+(((found||dupAdded))!==1?'s':'')+'! ✓',true);}
+    updateCopyBar();
+  });
+
+  qa('[data-cl]').forEach(function(b){b.addEventListener('click',function(){closeAll();});});
+  qa('.ov').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)closeAll();});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAll();closeCtx();}});
+  window.addEventListener('resize',posTabLine,{passive:true});
+}
+
+/* ═══ INIT ═══ */
+function init(){
+  buildModel();load();loadGastos();renderAlbum();afterRender();wire();wireCollapse();
+  idbOpen().then(function(){return idbAll();}).then(function(p){photos=p||{};Object.keys(photos).forEach(function(id){applyPhotoToCell(id,photos[id]);});});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+
+/* ── SHIMMER + SPOTLIGHT (desktop) ── */
+if(window.innerWidth>=768){
+  document.querySelectorAll('.gc,.gs-t,.gasto-item,.sig-item').forEach(function(card){
+    var sh=document.createElement('span');sh.className='shimmer-el';card.appendChild(sh);
+    var sp=document.createElement('span');sp.className='spotlight-el';card.appendChild(sp);
+    var spF=false,sx=0,sy=0;
+    card.addEventListener('mousemove',function(e){sx=e.clientX;sy=e.clientY;if(spF)return;spF=true;requestAnimationFrame(function(){var r=card.getBoundingClientRect();sp.style.setProperty('--mx',((sx-r.left)/r.width*100).toFixed(1)+'%');sp.style.setProperty('--my',((sy-r.top)/r.height*100).toFixed(1)+'%');spF=false;});},{passive:true});
+  });
+}
+</script>
+</body>
+</html>
