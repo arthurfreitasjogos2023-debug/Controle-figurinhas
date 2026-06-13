@@ -1,0 +1,35 @@
+<svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="42" fill="url(#bg)"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="192" y2="192" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a3a8f"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="192" y2="192" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="white" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="white" stop-opacity=".95"/>
+      <stop offset="100%" stop-color="white" stop-opacity=".75"/>
+    </linearGradient>
+  </defs>
+  <!-- Trophy body -->
+  <path d="M128 44H152C152 44 148 100 118 118V44Z" fill="rgba(255,255,255,.35)"/>
+  <path d="M64 44H40C40 44 44 100 74 118V44Z" fill="rgba(255,255,255,.35)"/>
+  <path d="M64 44H128V112C128 130 111.8 144 96 144C80.2 144 64 130 64 112V44Z" fill="url(#white)"/>
+  <!-- Base -->
+  <rect x="80" y="144" width="32" height="14" rx="2" fill="rgba(255,255,255,.85)"/>
+  <rect x="66" y="158" width="60" height="12" rx="6" fill="rgba(255,255,255,.85)"/>
+  <!-- Star -->
+  <path d="M96 56L99.5 68H112L102 75.5L105.5 87.5L96 80.5L86.5 87.5L90 75.5L80 68H92.5L96 56Z" fill="url(#gold)"/>
+  <!-- Shine overlay -->
+  <rect width="192" height="96" rx="42" fill="url(#shine)" opacity=".12"/>
+  <defs>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
