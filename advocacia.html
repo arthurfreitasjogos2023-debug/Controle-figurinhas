@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="description" content="Advocacia especializada em direito previdenciário. Aposentadoria, INSS, BPC/LOAS, revisão de benefícios. Consulta gratuita."/>
+<meta name="theme-color" content="#07090f"/>
+<title>JC Advocacia Previdenciária — Seus Direitos, Nossa Missão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══ RESET & TOKENS ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07090f;--bg1:#0d1117;--bg2:#111827;--bg3:#1a2234;
+  --blue:#2563eb;--blue2:#3b82f6;--blue3:#60a5fa;--blue4:#93c5fd;
+  --gold:#d4a853;--gold2:#f0c060;
+  --text:#f8fafc;--text2:rgba(248,250,252,.72);--muted:rgba(248,250,252,.42);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.03);--glass2:rgba(255,255,255,.06);
+  --r:12px;--r2:20px;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-drawer:cubic-bezier(0.32,0.72,0,1);
+  --shadow:0 4px 24px rgba(0,0,0,.55);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.65);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+img{max-width:100%;display:block;}
+section{position:relative;}
+
+/* ─── SCROLL PROGRESS BAR ─── */
+#progBar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--blue),var(--gold));z-index:9999;transition:width .08s linear;pointer-events:none;}
+
+/* ─── GRID BG ─── */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(37,99,235,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.03) 1px,transparent 1px);
+  background-size:52px 52px;}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .3s,border-color .3s,backdrop-filter .3s;}
+.nav.scrolled{background:rgba(7,9,15,.88);border-bottom:1px solid var(--border);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;gap:16px;}
+.nav-logo{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+.nav-logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue2));display:grid;place-items:center;box-shadow:0 0 20px rgba(37,99,235,.4),inset 0 1px 0 rgba(255,255,255,.18);}
+.nav-logo-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;}
+.nav-logo b{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;letter-spacing:-.02em;color:#fff;}
+.nav-logo span{display:block;font-size:9px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:.06em;}
+.nav-links{display:flex;gap:6px;margin:0 auto;}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--text2);padding:7px 13px;border-radius:8px;transition:color .15s,background .15s;}
+.nav-links a:hover{color:#fff;background:var(--glass2);}
+.nav-cta{display:flex;align-items:center;gap:10px;margin-left:auto;}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-weight:700;font-size:13px;padding:9px 18px;border-radius:10px;transition:transform .14s var(--ease-out),box-shadow .14s;box-shadow:0 4px 18px rgba(37,211,102,.3);}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.4);}
+.btn-wa:active{transform:scale(.97);}
+.btn-wa svg{width:16px;height:16px;fill:currentColor;}
+.nav-ham{width:40px;height:40px;border-radius:10px;background:var(--glass2);border:1px solid var(--border);display:none;place-items:center;flex-direction:column;gap:5px;padding:10px;}
+.nav-ham span{display:block;width:18px;height:2px;background:#fff;border-radius:2px;transition:transform .22s var(--ease-out),opacity .22s;}
+.nav-ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-ham.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mob-menu{position:fixed;inset:68px 0 0 0;background:rgba(7,9,15,.97);backdrop-filter:blur(20px);z-index:99;display:flex;flex-direction:column;padding:24px;gap:8px;transform:translateX(-100%);transition:transform .32s var(--ease-drawer);}
+.mob-menu.open{transform:translateX(0);}
+.mob-menu a{font-size:18px;font-weight:600;color:var(--text2);padding:14px;border-radius:12px;transition:color .15s,background .15s;}
+.mob-menu a:hover{color:#fff;background:var(--glass2);}
+
+/* ─── HERO ─── */
+.hero{min-height:100svh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:68px;}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.hero-glow{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(37,99,235,.18),transparent 70%),
+             radial-gradient(ellipse 60% 50% at 80% 50%,rgba(212,168,83,.07),transparent 70%);}
+.hero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:80px 24px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.25);border-radius:99px;padding:6px 14px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--blue3);margin-bottom:28px;}
+.hero-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--blue3);animation:blink 1.8s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(36px,5.5vw,68px);font-weight:800;line-height:1.06;letter-spacing:-.03em;margin-bottom:20px;}
+.hero-h1 .grad{background:linear-gradient(135deg,#fff 0%,var(--blue3) 45%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--text2);font-weight:400;line-height:1.7;max-width:500px;margin-bottom:36px;}
+.hero-sub #typewriter{color:var(--blue3);font-weight:600;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-prim{display:inline-flex;align-items:center;gap:9px;background:var(--blue);color:#fff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:12px;box-shadow:0 4px 22px rgba(37,99,235,.4);transition:transform .14s var(--ease-out),box-shadow .14s;}
+.btn-prim:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(37,99,235,.55);}
+.btn-prim:active{transform:scale(.97);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px solid var(--border2);color:var(--text2);font-size:14px;font-weight:600;padding:13px 22px;border-radius:12px;transition:border-color .15s,color .15s,background .15s;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);color:#fff;background:var(--glass);}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;}
+.scales-wrap{position:relative;width:100%;max-width:420px;margin:0 auto;}
+.scales-card{background:var(--bg1);border:1px solid var(--border2);border-radius:24px;padding:32px;box-shadow:var(--shadow-lg),0 0 0 1px rgba(37,99,235,.08);position:relative;overflow:hidden;}
+.scales-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);}
+.scales-inner{display:flex;flex-direction:column;gap:18px;}
+.sc-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;background:var(--glass);border:1px solid var(--border);transition:background .2s,transform .2s var(--ease-out);}
+.sc-item:hover{background:rgba(37,99,235,.06);transform:translateX(5px);}
+.sc-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;}
+.sc-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.sc-text b{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;display:block;color:#fff;}
+.sc-text small{font-size:11.5px;color:var(--muted);}
+.hero-trust{margin-top:42px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);}
+.trust-item svg{width:14px;height:14px;stroke:var(--blue3);fill:none;stroke-width:2.5;}
+.trust-sep{width:1px;height:16px;background:var(--border);}
+
+/* ─── STATS ─── */
+.stats{padding:64px 0;position:relative;z-index:2;}
+.stats-grid{max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.stat-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r2);padding:28px 24px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s var(--ease-out);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue2),transparent);opacity:0;transition:opacity .3s;}
+.stat-card:hover{border-color:rgba(37,99,235,.3);transform:translateY(-4px);}
+.stat-card:hover::before{opacity:1;}
+.stat-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:1;letter-spacing:-.03em;background:linear-gradient(135deg,var(--blue3),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-suf{font-size:22px;-webkit-text-fill-color:rgba(96,165,250,.7);}
+.stat-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:8px;}
+.stat-icon{position:absolute;right:20px;top:20px;width:40px;height:40px;border-radius:10px;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.12);display:grid;place-items:center;}
+.stat-icon svg{width:18px;height:18px;stroke:var(--blue3);fill:none;stroke-width:2;}
+
+/* ─── SECTION COMMON ─── */
+.sec{padding:96px 0;position:relative;z-index:2;}
+.sec-inner{max-width:1180px;margin:0 auto;padding:0 24px;}
+.sec-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--blue3);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label::before{content:'';width:30px;height:1px;background:var(--blue3);}
+.sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin-bottom:18px;}
+.sec-sub{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;}
+
+/* ─── SERVICES ─── */
+.services-grid{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+.svc-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r2);padding:28px;position:relative;overflow:hidden;cursor:default;transition:border-color .25s,transform .22s var(--ease-out),box-shadow .25s;}
+.svc-card::after{content:'';position:absolute;inset:0;border-radius:var(--r2);background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(37,99,235,.06),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
+.svc-card:hover{border-color:rgba(37,99,235,.28);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(37,99,235,.1);}
+.svc-card:hover::after{opacity:1;}
+.svc-card-top{height:3px;border-radius:3px 3px 0 0;position:absolute;top:0;left:0;right:0;}
+.svc-ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;position:relative;}
+.svc-ico svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.svc-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:10px;}
+.svc-card p{font-size:13.5px;color:var(--text2);line-height:1.68;}
+.svc-arrow{position:absolute;right:24px;bottom:24px;width:32px;height:32px;border-radius:8px;background:var(--glass);border:1px solid var(--border);display:grid;place-items:center;transition:background .15s,transform .18s var(--ease-out);}
+.svc-card:hover .svc-arrow{background:var(--blue);border-color:var(--blue);transform:translate(2px,-2px);}
+.svc-arrow svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;}
+
+/* ─── WHY US ─── */
+.why-grid{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.why-visual{position:relative;}
+.why-card-big{background:var(--bg1);border:1px solid var(--border2);border-radius:24px;padding:36px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;}
+.why-card-big::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.why-trophy{font-size:80px;text-align:center;display:block;margin-bottom:20px;filter:drop-shadow(0 0 30px rgba(212,168,83,.35));}
+.why-pct-ring{display:flex;align-items:center;justify-content:center;margin-bottom:24px;}
+.why-pct-ring svg{width:140px;height:140px;}
+.ring-bg{fill:none;stroke:var(--border2);stroke-width:8;}
+.ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:8;stroke-linecap:round;stroke-dasharray:339;stroke-dashoffset:339;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1.5s cubic-bezier(0.23,1,0.32,1);}
+.why-pct-val{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;fill:var(--text);text-anchor:middle;dominant-baseline:central;}
+.why-pct-lbl{font-size:11px;fill:var(--muted);text-anchor:middle;font-family:Inter,sans-serif;}
+.why-list{display:flex;flex-direction:column;gap:18px;}
+.why-item{display:flex;align-items:flex-start;gap:16px;padding:18px;border-radius:16px;background:var(--glass);border:1px solid var(--border);transition:background .2s,border-color .2s;}
+.why-item:hover{background:rgba(37,99,235,.05);border-color:rgba(37,99,235,.22);}
+.why-item-icon{width:46px;height:46px;border-radius:12px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);display:grid;place-items:center;flex-shrink:0;}
+.why-item-icon svg{width:22px;height:22px;stroke:var(--blue3);fill:none;stroke-width:2;stroke-linecap:round;}
+.why-item-text b{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:block;margin-bottom:4px;color:#fff;}
+.why-item-text p{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* ─── PROCESS ─── */
+.process-steps{margin-top:60px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;}
+.process-steps::before{content:'';position:absolute;top:38px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),var(--border2),transparent);z-index:0;}
+.ps-item{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;padding:0 12px;}
+.ps-num{width:76px;height:76px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg1);display:flex;align-items:center;justify-content:center;flex-direction:column;margin-bottom:18px;position:relative;transition:border-color .3s,box-shadow .3s;}
+.ps-num.active{border-color:var(--blue);box-shadow:0 0 24px rgba(37,99,235,.35);}
+.ps-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--blue3);}
+.ps-ico{font-size:26px;}
+.ps-item h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:7px;}
+.ps-item p{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ─── TESTIMONIALS ─── */
+.test-track-wrap{margin-top:52px;overflow:hidden;position:relative;}
+.test-track-wrap::before,.test-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
+.test-track-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent);}
+.test-track-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent);}
+.test-track{display:flex;gap:20px;width:max-content;animation:scrollTest 38s linear infinite;}
+.test-track:hover{animation-play-state:paused;}
+@keyframes scrollTest{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.test-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r2);padding:24px 26px;width:310px;flex-shrink:0;transition:border-color .2s;}
+.test-card:hover{border-color:rgba(37,99,235,.3);}
+.test-stars{display:flex;gap:3px;margin-bottom:14px;}
+.test-stars span{color:var(--gold);font-size:14px;}
+.test-text{font-size:13.5px;color:var(--text2);line-height:1.7;margin-bottom:18px;font-style:italic;}
+.test-author{display:flex;align-items:center;gap:12px;}
+.test-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:#fff;flex-shrink:0;}
+.test-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;display:block;}
+.test-city{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--muted);}
+.test-tag{display:inline-flex;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin-top:4px;}
+
+/* ─── FAQ ─── */
+.faq-list{margin-top:48px;display:flex;flex-direction:column;gap:10px;max-width:800px;margin-left:auto;margin-right:auto;}
+.faq-item{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:border-color .2s;}
+.faq-item.open{border-color:rgba(37,99,235,.28);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;gap:16px;transition:background .15s;}
+.faq-q:hover{background:var(--glass);}
+.faq-q h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;line-height:1.4;}
+.faq-chev{width:28px;height:28px;border-radius:8px;background:var(--glass);border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:transform .22s var(--ease-out),background .15s,border-color .15s;}
+.faq-item.open .faq-chev{transform:rotate(45deg);background:rgba(37,99,235,.12);border-color:rgba(37,99,235,.25);}
+.faq-chev svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;}
+.faq-a{height:0;overflow:hidden;transition:height .28s var(--ease-out);}
+.faq-a-inner{padding:0 24px 20px;font-size:14px;color:var(--text2);line-height:1.75;border-top:1px solid var(--border);}
+
+/* ─── CTA ─── */
+.cta-sec{padding:96px 0;position:relative;z-index:2;}
+.cta-wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.cta-card{background:linear-gradient(135deg,rgba(37,99,235,.12) 0%,rgba(212,168,83,.06) 100%);border:1px solid rgba(37,99,235,.22);border-radius:32px;padding:72px 48px;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(37,99,235,.06),0 40px 100px rgba(0,0,0,.5);}
+.cta-card::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(37,99,235,.14),transparent 70%);pointer-events:none;}
+.cta-card h2{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,52px);font-weight:800;letter-spacing:-.025em;line-height:1.12;margin-bottom:18px;}
+.cta-card h2 span{background:linear-gradient(135deg,var(--blue3),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-card p{font-size:17px;color:var(--text2);max-width:520px;margin:0 auto 40px;line-height:1.7;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* ─── FOOTER ─── */
+footer{background:var(--bg1);border-top:1px solid var(--border);padding:56px 0 32px;position:relative;z-index:2;}
+.footer-inner{max-width:1180px;margin:0 auto;padding:0 24px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand b{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;display:block;margin-bottom:10px;color:#fff;}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.7;max-width:260px;}
+.footer-col h5{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;margin-bottom:16px;letter-spacing:.01em;}
+.footer-col a{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;transition:color .15s;}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;color:var(--muted);}
+.footer-badge{font-family:'Space Mono',monospace;font-size:9.5px;color:rgba(37,99,235,.6);background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);padding:4px 10px;border-radius:6px;}
+
+/* ─── FLOAT WA ─── */
+.float-wa{position:fixed;right:22px;bottom:28px;z-index:200;width:56px;height:56px;border-radius:50%;background:#25D366;box-shadow:0 4px 22px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;transition:transform .16s var(--ease-out),box-shadow .16s;}
+.float-wa::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(37,211,102,.35);animation:waPing 2.4s ease-out infinite;}
+.float-wa:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.55);}
+.float-wa:active{transform:scale(.95);}
+.float-wa svg{width:30px;height:30px;fill:#fff;}
+@keyframes waPing{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+
+/* ─── WAVE DIVIDERS ─── */
+.wave-div{overflow:hidden;line-height:0;position:relative;z-index:1;}
+.wave-div svg{display:block;width:100%;}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
+.reveal.up{transform:translateY(28px);}
+.reveal.left{transform:translateX(-28px);}
+.reveal.right{transform:translateX(28px);}
+.reveal.in{opacity:1;transform:translate(0);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding:60px 24px;}
+  .hero-visual{display:none;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:1fr;}
+  .why-visual{display:none;}
+  .process-steps{grid-template-columns:1fr;gap:20px;}
+  .process-steps::before{display:none;}
+  .ps-item{flex-direction:row;text-align:left;gap:18px;}
+  .ps-num{margin-bottom:0;flex-shrink:0;width:60px;height:60px;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .nav-links{display:none;}
+  .nav-ham{display:flex;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .cta-card{padding:40px 24px;}
+  .footer-grid{grid-template-columns:1fr;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+  .reveal{opacity:1!important;transform:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div id="progBar"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/><path d="M9 12l2 2 4-4" stroke-width="2.5"/></svg>
+      </div>
+      <div>
+        <b>JC Advocacia</b>
+        <span>Direito Previdenciário</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#porque">Por que nós</a>
+      <a href="#processo">Processo</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://wa.me/5500000000000?text=Olá%2C+gostaria+de+uma+consulta+gratuita" class="btn-wa" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.539 4.049 1.48 5.757L.025 23.496c-.099.386.049.795.37.987A.996.996 0 0 0 1 24.5l5.873-1.538A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        Consulta Gratuita
+      </a>
+      <button class="nav-ham" id="navHam" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#servicos" class="mob-link">Serviços</a>
+  <a href="#porque" class="mob-link">Por que nós</a>
+  <a href="#processo" class="mob-link">Processo</a>
+  <a href="#depoimentos" class="mob-link">Depoimentos</a>
+  <a href="#faq" class="mob-link">FAQ</a>
+  <a href="https://wa.me/5500000000000" class="btn-wa" style="margin-top:16px;justify-content:center" target="_blank">
+    <svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.539 4.049 1.48 5.757L.025 23.496c-.099.386.049.795.37.987A.996.996 0 0 0 1 24.5l5.873-1.538A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+    Consulta Gratuita
+  </a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge reveal">⚖️ ADVOCACIA ESPECIALIZADA · DESDE 2009</div>
+      <h1 class="hero-h1 reveal">
+        Seus <span class="grad">Direitos</span><br>
+        Previdenciários<br>Garantidos
+      </h1>
+      <p class="hero-sub reveal">
+        Especialistas em INSS, aposentadoria e revisão de benefícios.<br>
+        <span id="typewriter">Consulta gratuita e sem compromisso.</span>
+      </p>
+      <div class="hero-btns reveal">
+        <a href="https://wa.me/5500000000000?text=Olá%2C+gostaria+de+uma+consulta+gratuita" class="btn-prim" target="_blank">
+          <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.539 4.049 1.48 5.757L.025 23.496c-.099.386.049.795.37.987A.996.996 0 0 0 1 24.5l5.873-1.538A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          Falar com Advogado
+        </a>
+        <a href="#servicos" class="btn-ghost">
+          Ver serviços
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+      </div>
+      <div class="hero-trust reveal">
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>OAB Registrado</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Dados protegidos</div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Resposta em 24h</div>
+      </div>
+    </div>
+    <div class="hero-visual reveal right">
+      <div class="scales-wrap">
+        <div class="scales-card">
+          <div class="scales-inner">
+            <div class="sc-item">
+              <div class="sc-icon" style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2)">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+              </div>
+              <div class="sc-text"><b>Aposentadoria por Tempo</b><small>Contribuição e planejamento ideal</small></div>
+            </div>
+            <div class="sc-item">
+              <div class="sc-icon" style="background:rgba(212,168,83,.1);border:1px solid rgba(212,168,83,.2)">
+                <svg viewBox="0 0 24 24" style="stroke:var(--gold2)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="sc-text"><b>BPC / LOAS</b><small>Benefício garantido por lei</small></div>
+            </div>
+            <div class="sc-item">
+              <div class="sc-icon" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)">
+                <svg viewBox="0 0 24 24" style="stroke:#4ade80"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="sc-text"><b>Revisão de Benefícios</b><small>Aumento do que você já recebe</small></div>
+            </div>
+            <div class="sc-item">
+              <div class="sc-icon" style="background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.2)">
+                <svg viewBox="0 0 24 24" style="stroke:#f472b6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div class="sc-text"><b>Pensão por Morte</b><small>Suporte para sua família</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="stat-num" data-count="2800" data-suffix="+">0</div>
+      <div class="stat-lbl">Clientes Atendidos</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      <div class="stat-num" data-count="95" data-suffix="%">0</div>
+      <div class="stat-lbl">Taxa de Aprovação</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="stat-num" data-count="15" data-suffix="+">0</div>
+      <div class="stat-lbl">Anos de Experiência</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="stat-num" data-count="50" data-prefix="R$" data-suffix="M+">0</div>
+      <div class="stat-lbl">Recuperados p/ Clientes</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec" id="servicos">
+  <div class="sec-inner">
+    <div class="sec-label reveal">Nossos serviços</div>
+    <h2 class="sec-h reveal">Cada caso, <span style="color:var(--blue3)">uma solução</span><br>especializada</h2>
+    <p class="sec-sub reveal">Atuamos em todas as áreas do direito previdenciário com foco em resultado. Avaliamos seu caso gratuitamente.</p>
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-card-top" style="background:linear-gradient(90deg,#2563eb,#3b82f6)"></div>
+        <div class="svc-ico" style="background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);color:var(--blue3)">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.2 20A7 7 0 0 1 19 20"/><path d="M12 11v4"/><path d="M10 15h4"/></svg>
+        </div>
+        <h3>Aposentadoria por Tempo de Contribuição</h3>
+        <p>Planejamento completo para maximizar seu benefício. Analisamos toda a trajetória contributiva e garantimos a melhor data para aposentadoria.</p>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-top" style="background:linear-gradient(90deg,#9333ea,#c026d3)"></div>
+        <div class="svc-ico" style="background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.2);color:#c084fc">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Aposentadoria por Invalidez</h3>
+        <p>Incapacidade permanente para o trabalho não pode ser negada pelo INSS. Lutamos para garantir seu benefício com o máximo de rapidez.</p>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-top" style="background:linear-gradient(90deg,#d4a853,#f0c060)"></div>
+        <div class="svc-ico" style="background:rgba(212,168,83,.1);border:1px solid rgba(212,168,83,.2);color:var(--gold2)">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>BPC / LOAS</h3>
+        <p>Benefício de Prestação Continuada para pessoas com deficiência ou idosos de baixa renda. Avaliamos seu enquadramento gratuitamente.</p>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-top" style="background:linear-gradient(90deg,#059669,#10b981)"></div>
+        <div class="svc-ico" style="background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.2);color:#34d399">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <h3>Revisão de Benefícios</h3>
+        <p>Muitos aposentados recebem menos do que têm direito. Revisamos seu benefício e recuperamos os valores pagos a menor com correção.</p>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-top" style="background:linear-gradient(90deg,#ef4444,#f97316)"></div>
+        <div class="svc-ico" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#fca5a5">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Auxílio-Doença e Acidente</h3>
+        <p>Doença ou acidente incapacitante não precisa virar desespero financeiro. Garantimos o afastamento remunerado que você tem direito.</p>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-card-top" style="background:linear-gradient(90deg,#0891b2,#22d3ee)"></div>
+        <div class="svc-ico" style="background:rgba(8,145,178,.1);border:1px solid rgba(8,145,178,.2);color:#67e8f9">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        </div>
+        <h3>Pensão por Morte</h3>
+        <p>Perder um familiar é difícil. Nosso suporte jurídico garante que a família receba a pensão no menor tempo possível, sem burocracia.</p>
+        <div class="svc-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec" id="porque" style="background:rgba(255,255,255,.014);">
+  <div class="sec-inner">
+    <div class="why-grid">
+      <div class="why-visual reveal left">
+        <div class="why-card-big">
+          <span class="why-trophy">⚖️</span>
+          <div class="why-pct-ring">
+            <svg viewBox="0 0 140 140" id="ringChart">
+              <defs>
+                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#2563eb"/>
+                  <stop offset="100%" stop-color="#d4a853"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-bg" cx="70" cy="70" r="54"/>
+              <circle class="ring-fill" id="ringFill" cx="70" cy="70" r="54"/>
+              <text class="why-pct-val" x="70" y="66" id="ringVal">0%</text>
+              <text class="why-pct-lbl" x="70" y="84">aprovação</text>
+            </svg>
+          </div>
+          <p style="text-align:center;font-size:13px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.05em;">Taxa média de aprovação nos últimos 3 anos</p>
+        </div>
+      </div>
+      <div class="why-content reveal right">
+        <div class="sec-label">Por que escolher a JC</div>
+        <h2 class="sec-h" style="margin-top:10px">Especialistas que<br><span style="color:var(--blue3)">lutam por você</span></h2>
+        <p class="sec-sub" style="margin-bottom:32px">Não somos um escritório genérico. Cada advogado da nossa equipe tem pós-graduação em direito previdenciário e experiência comprovada.</p>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div class="why-item-text"><b>Sem cobranças antecipadas</b><p>Cobramos apenas em caso de êxito. Você não paga nada antes de ganhar seu benefício.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="why-item-text"><b>Acompanhamento em tempo real</b><p>Você recebe atualizações do processo via WhatsApp. Zero burocracia, total transparência.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="why-item-text"><b>Equipe 100% especializada</b><p>Apenas direito previdenciário — essa especializção nos permite resultados que escritórios gerais não entregam.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="why-item-text"><b>Atendimento rápido</b><p>Consulta gratuita em até 24 horas. Seu caso não espera — e nós tampouco.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec" id="processo">
+  <div class="sec-inner">
+    <div style="text-align:center">
+      <div class="sec-label reveal" style="justify-content:center">Como funciona</div>
+      <h2 class="sec-h reveal" style="text-align:center">Do primeiro contato<br><span style="color:var(--blue3)">ao seu benefício</span></h2>
+      <p class="sec-sub reveal" style="text-align:center;margin:0 auto 56px">Um processo simples, transparente e eficiente. Cuidamos de tudo enquanto você fica tranquilo.</p>
+    </div>
+    <div class="process-steps">
+      <div class="ps-item reveal">
+        <div class="ps-num active"><span class="ps-ico">💬</span></div>
+        <div><h4>Consulta Gratuita</h4><p>Você nos conta sua situação via WhatsApp ou ligação. Sem custo algum.</p></div>
+      </div>
+      <div class="ps-item reveal">
+        <div class="ps-num"><span class="ps-ico">📋</span></div>
+        <div><h4>Análise do Caso</h4><p>Nossa equipe avalia toda a sua documentação e histórico contributivo.</p></div>
+      </div>
+      <div class="ps-item reveal">
+        <div class="ps-num"><span class="ps-ico">⚖️</span></div>
+        <div><h4>Estratégia Jurídica</h4><p>Montamos a melhor estratégia para conquistar ou maximizar seu benefício.</p></div>
+      </div>
+      <div class="ps-item reveal">
+        <div class="ps-num"><span class="ps-ico">📤</span></div>
+        <div><h4>Protocolo e Acompanhamento</h4><p>Protocolamos o processo e mantemos você informado em cada etapa.</p></div>
+      </div>
+      <div class="ps-item reveal">
+        <div class="ps-num"><span class="ps-ico">🏆</span></div>
+        <div><h4>Benefício Aprovado</h4><p>Você recebe seu benefício. Só então existe custo com honorários.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="depoimentos" style="overflow:hidden;padding-bottom:40px">
+  <div class="sec-inner">
+    <div class="sec-label reveal">Depoimentos</div>
+    <h2 class="sec-h reveal">O que nossos clientes<br><span style="color:var(--blue3)">falam de nós</span></h2>
+  </div>
+  <div class="test-track-wrap" style="margin-top:40px">
+    <div class="test-track" id="testTrack"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq" style="background:rgba(255,255,255,.014)">
+  <div class="sec-inner">
+    <div style="text-align:center">
+      <div class="sec-label reveal" style="justify-content:center">Dúvidas frequentes</div>
+      <h2 class="sec-h reveal" style="text-align:center">Respondemos as<br><span style="color:var(--blue3)">perguntas mais comuns</span></h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-wrap">
+    <div class="cta-card reveal">
+      <h2>Você pode estar deixando<br>dinheiro na mesa. <span>Descubra agora.</span></h2>
+      <p>Milhões de brasileiros têm direito a benefícios previdenciários que nunca solicitaram ou recebem menos do que deveriam. Consulta gratuita, sem compromisso.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/5500000000000?text=Quero+verificar+meus+direitos+previdenciários" class="btn-prim" target="_blank" style="font-size:15px;padding:15px 28px">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.539 4.049 1.48 5.757L.025 23.496c-.099.386.049.795.37.987A.996.996 0 0 0 1 24.5l5.873-1.538A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          Verificar Meus Direitos Grátis
+        </a>
+        <a href="tel:+5500000000000" class="btn-ghost" style="font-size:15px;padding:15px 28px">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Ligar Agora
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <b>JC Advocacia Previdenciária</b>
+        <p>Especializados em direito previdenciário há mais de 15 anos. Seus direitos são nossa missão.</p>
+        <div style="margin-top:18px;display:flex;gap:10px">
+          <a href="#" style="width:36px;height:36px;border-radius:9px;background:var(--glass);border:1px solid var(--border);display:grid;place-items:center;" title="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" style="width:36px;height:36px;border-radius:9px;background:var(--glass);border:1px solid var(--border);display:grid;place-items:center;" title="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://wa.me/5500000000000" style="width:36px;height:36px;border-radius:9px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);display:grid;place-items:center;" title="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.539 4.049 1.48 5.757L.025 23.496c-.099.386.049.795.37.987A.996.996 0 0 0 1 24.5l5.873-1.538A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Serviços</h5>
+        <a href="#servicos">Aposentadoria</a>
+        <a href="#servicos">BPC / LOAS</a>
+        <a href="#servicos">Auxílio-Doença</a>
+        <a href="#servicos">Revisão de Benefícios</a>
+        <a href="#servicos">Pensão por Morte</a>
+      </div>
+      <div class="footer-col">
+        <h5>Escritório</h5>
+        <a href="#porque">Sobre nós</a>
+        <a href="#processo">Como funciona</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <a href="https://wa.me/5500000000000">(00) 00000-0000</a>
+        <a href="mailto:contato@jcprevidencia.com.br">contato@jcprevidencia.com.br</a>
+        <a href="#">Rua das Leis, 1234<br>São Paulo – SP</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 JC Advocacia Previdenciária. Todos os direitos reservados. OAB/SP 000.000</p>
+      <div class="footer-badge">JC Advocacia · OAB Registrado</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOAT WHATSAPP -->
+<a href="https://wa.me/5500000000000?text=Olá%2C+gostaria+de+uma+consulta+gratuita" class="float-wa" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.539 4.049 1.48 5.757L.025 23.496c-.099.386.049.795.37.987A.996.996 0 0 0 1 24.5l5.873-1.538A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+</a>
+
+<script>
+// ══ CANVAS PARTICLES ══
+(function(){
+  var canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d');
+  var W,H,particles=[];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+
+  function mkP(){
+    return{
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+      r:Math.random()*1.8+.5,
+      a:Math.random(),da:Math.random()*.008-.004
+    };
+  }
+  var n=window.innerWidth<600?45:90;
+  for(var i=0;i<n;i++)particles.push(mkP());
+
+  var mx=-999,my=-999;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p,i){
+      p.x+=p.vx;p.y+=p.vy;p.a+=p.da;
+      if(p.a<0||p.a>1)p.da*=-1;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+
+      // mouse repel
+      var dx=p.x-mx,dy=p.y-my,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<100){p.x+=dx/dist*.5;p.y+=dy/dist*.5;}
+
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(96,165,250,'+p.a.toFixed(2)+')';ctx.fill();
+
+      // connections
+      for(var j=i+1;j<particles.length;j++){
+        var q=particles[j],ddx=p.x-q.x,ddy=p.y-q.y,d=Math.sqrt(ddx*ddx+ddy*ddy);
+        if(d<110){
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle='rgba(37,99,235,'+(0.18*(1-d/110)).toFixed(3)+')';
+          ctx.lineWidth=.7;ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ══ NAV SCROLL ══
+var nav=document.getElementById('nav'),progBar=document.getElementById('progBar');
+window.addEventListener('scroll',function(){
+  var s=window.scrollY;
+  nav.classList.toggle('scrolled',s>50);
+  var total=document.body.scrollHeight-window.innerHeight;
+  progBar.style.width=(total>0?s/total*100:0)+'%';
+},{passive:true});
+
+// ══ MOBILE MENU ══
+var ham=document.getElementById('navHam'),mob=document.getElementById('mobMenu');
+ham.addEventListener('click',function(){ham.classList.toggle('open');mob.classList.toggle('open');document.body.style.overflow=mob.classList.contains('open')?'hidden':'';});
+document.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',function(){ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow='';});});
+
+// ══ TYPEWRITER ══
+var words=['Consulta gratuita e sem compromisso.','Sem cobrança antecipada.','Atendimento em todo o Brasil.','Resultado em até 90 dias.'];
+var tw=document.getElementById('typewriter'),wi=0,ci=0,isDeleting=false;
+function typeLoop(){
+  if(!tw)return;
+  var w=words[wi],full=w.length;
+  if(isDeleting){ci--;if(ci<0){isDeleting=false;wi=(wi+1)%words.length;setTimeout(typeLoop,400);return;}}
+  else{ci++;if(ci>full){isDeleting=true;setTimeout(typeLoop,2000);return;}}
+  tw.textContent=w.slice(0,ci);
+  setTimeout(typeLoop,isDeleting?40:70);
+}
+setTimeout(typeLoop,800);
+
+// ══ COUNTER ANIMATION ══
+function animateCounter(el){
+  var target=parseInt(el.dataset.count),prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'';
+  var start=0,duration=1800,step=target/duration*16;
+  var id=setInterval(function(){
+    start+=step;
+    if(start>=target){start=target;clearInterval(id);}
+    el.textContent=prefix+Math.round(start).toLocaleString('pt-BR')+suffix;
+  },16);
+}
+
+// ══ SCROLL REVEAL & COUNTER ══
+var revealEls=document.querySelectorAll('.reveal');
+var counterEls=document.querySelectorAll('.stat-num[data-count]');
+var countersTriggered=false;
+var ringTriggered=false;
+
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e,i){
+    if(e.isIntersecting){
+      setTimeout(function(){e.target.classList.add('in');},i*55);
+      io.unobserve(e.target);
+    }
+  });
+},{rootMargin:'0px 0px -8% 0px',threshold:.06});
+revealEls.forEach(function(el){io.observe(el);});
+
+var counterIO=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting&&!countersTriggered){countersTriggered=true;counterEls.forEach(animateCounter);counterIO.disconnect();}
+  });
+},{threshold:.3});
+if(counterEls.length)counterIO.observe(counterEls[0].closest('.stats'));
+
+// ══ RING CHART ══
+var ringIO=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting&&!ringTriggered){
+      ringTriggered=true;
+      var fill=document.getElementById('ringFill'),valEl=document.getElementById('ringVal');
+      var target=95,circumference=339;
+      var offset=circumference-(target/100*circumference);
+      fill.style.strokeDashoffset=offset;
+      var n=0,id=setInterval(function(){n+=1;if(n>=target){n=target;clearInterval(id);}if(valEl)valEl.textContent=n+'%';},18);
+      ringIO.disconnect();
+    }
+  });
+},{threshold:.3});
+var ringCard=document.getElementById('ringChart');
+if(ringCard)ringIO.observe(ringCard.closest('.why-card-big'));
+
+// ══ SERVICE CARDS 3D TILT ══
+document.querySelectorAll('.svc-card').forEach(function(card){
+  card.addEventListener('mousemove',function(e){
+    var r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    card.style.setProperty('--mx',x*100+'%');card.style.setProperty('--my',y*100+'%');
+    card.style.transform='perspective(800px) rotateX('+((.5-y)*6).toFixed(2)+'deg) rotateY('+((x-.5)*8).toFixed(2)+'deg) translateY(-5px)';
+  });
+  card.addEventListener('mouseleave',function(){card.style.transform='';card.style.setProperty('--mx','50%');card.style.setProperty('--my','50%');});
+});
+
+// ══ TESTIMONIALS ══
+var TESTS=[
+  {name:'Maria Aparecida',city:'São Paulo, SP',tag:'Aposentadoria',color:'#2563eb',text:'"Fui negada pelo INSS três vezes. Depois de contratar a JC Advocacia, minha aposentadoria foi aprovada em 60 dias. Atendimento incrível!"'},
+  {name:'José Carlos',city:'Belo Horizonte, MG',tag:'BPC/LOAS',color:'#9333ea',text:'"Não sabia que tinha direito ao BPC. A equipe identificou meu enquadramento e hoje recebo R$1.412 todo mês. Sou muito grato."'},
+  {name:'Antônia Ferreira',city:'Fortaleza, CE',tag:'Revisão',color:'#059669',text:'"Estava recebendo R$400 a menos por 8 anos. Recuperei R$38.000 em valores retroativos. Obrigada pela dedicação de toda equipe!"'},
+  {name:'Paulo Roberto',city:'Curitiba, PR',tag:'Auxílio-Doença',color:'#ef4444',text:'"Tive AVC e o INSS negou meu afastamento. Com a JC resolvi em 30 dias. Atendimento humanizado e resultado rápido."'},
+  {name:'Lucinéia Santos',city:'Salvador, BA',tag:'Pensão',color:'#0891b2',text:'"Perdi meu marido e precisei de suporte. A JC cuidou de tudo com carinho e profissionalismo. Pensão aprovada em 45 dias."'},
+  {name:'Raimundo Oliveira',city:'Manaus, AM',tag:'Aposentadoria',color:'#d4a853',text:'"Trabalhei 35 anos e merecia me aposentar bem. Graças à JC, recebi o melhor benefício possível. 100% recomendo!"'},
+];
+var track=document.getElementById('testTrack');
+if(track){
+  var doubled=TESTS.concat(TESTS);
+  doubled.forEach(function(t){
+    var avatar=t.name.split(' ').map(function(n){return n[0];}).join('').slice(0,2);
+    var card=document.createElement('div');card.className='test-card';
+    card.innerHTML='<div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>'
+      +'<p class="test-text">'+t.text+'</p>'
+      +'<div class="test-author">'
+      +'<div class="test-avatar" style="background:linear-gradient(135deg,'+t.color+','+t.color+'99)">'+avatar+'</div>'
+      +'<div><b class="test-name">'+t.name+'</b><span class="test-city">'+t.city+'</span>'
+      +'<span class="test-tag" style="background:'+t.color+'18;color:'+t.color+';border:1px solid '+t.color+'33">'+t.tag+'</span>'
+      +'</div></div>';
+    track.appendChild(card);
+  });
+}
+
+// ══ FAQ ══
+var FAQS=[
+  {q:'A consulta é realmente gratuita?',a:'Sim, 100% gratuita e sem compromisso. Avaliamos seu caso e só existe custo de honorários em caso de êxito — ou seja, você só paga quando ganhar o benefício.'},
+  {q:'Quanto tempo leva para receber meu benefício?',a:'Depende do tipo de benefício e da complexidade do caso. Em média, benefícios administrativos são resolvidos em 45 a 90 dias. Casos judiciais podem levar de 6 a 18 meses, mas sempre buscamos a via mais rápida.'},
+  {q:'Posso ser atendido mesmo estando em outro estado?',a:'Sim! Atendemos em todo o Brasil. Nosso atendimento é feito 100% online via WhatsApp, e-mail e videochamada. Você não precisa sair de casa.'},
+  {q:'O que é o BPC/LOAS e quem tem direito?',a:'O BPC é um benefício de 1 salário mínimo para pessoas com deficiência ou idosos acima de 65 anos com renda familiar per capita inferior a ¼ do salário mínimo. Muitas pessoas têm direito mas não sabem.'},
+  {q:'Posso revisar um benefício que já recebo?',a:'Sim! Muitos segurados recebem menos do que deveriam por erros no cálculo do INSS. Fazemos a análise gratuita e recuperamos os valores pagos a menor com atualização monetária.'},
+  {q:'Trabalhos informais contam para aposentadoria?',a:'Podem contar, desde que seja possível comprovar a atividade. Existem formas legais de reconhecer tempo de serviço rural, doméstico e informal. Consultamos cada caso individualmente.'},
+  {q:'Como funciona o pagamento dos honorários?',a:'Trabalhamos no modelo de êxito: você só paga honorários (percentual combinado sobre o benefício conquistado) após a aprovação. Se não ganharmos, não cobra nada.'},
+];
+var faqList=document.getElementById('faqList');
+if(faqList){
+  FAQS.forEach(function(faq,i){
+    var item=document.createElement('div');item.className='faq-item';
+    item.innerHTML='<div class="faq-q"><h4>'+faq.q+'</h4><span class="faq-chev"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></div>'
+      +'<div class="faq-a"><div class="faq-a-inner">'+faq.a+'</div></div>';
+    faqList.appendChild(item);
+    var q=item.querySelector('.faq-q'),aEl=item.querySelector('.faq-a'),aInner=item.querySelector('.faq-a-inner');
+    q.addEventListener('click',function(){
+      var open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(f){f.classList.remove('open');f.querySelector('.faq-a').style.height='0';});
+      if(!open){item.classList.add('open');aEl.style.height=aInner.offsetHeight+'px';}
+    });
+  });
+}
+
+// ══ SMOOTH SCROLL NAV ══
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var target=document.querySelector(a.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// ══ STAT CARD SPOTLIGHT ══
+document.querySelectorAll('.stat-card,.gs-t').forEach(function(card){
+  card.addEventListener('mousemove',function(e){
+    var r=card.getBoundingClientRect();
+    card.style.setProperty('--sx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--sy',(e.clientY-r.top)+'px');
+  });
+});
+</script>
+</body>
+</html>
