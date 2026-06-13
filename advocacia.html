@@ -43,10 +43,10 @@ body{
 
 /* ── SKIP LINK ── */
 .skip-link{
-  position:absolute;top:-100px;left:1rem;
+  position:fixed;top:-100px;left:1rem;
   background:var(--gold);color:var(--navy);
   padding:.5rem 1rem;border-radius:4px;
-  font-weight:700;font-size:.9rem;
+  font-weight:700;font-size:.9rem;white-space:nowrap;
   text-decoration:none;z-index:calc(var(--z-toast) + 1);
   transition:top .2s var(--ease-out);
 }
@@ -254,10 +254,15 @@ section{padding:6rem 5%;}
   display:inline-flex;align-items:center;gap:.4rem;
   margin-top:1.2rem;font-size:.8rem;color:var(--gold);
   font-weight:600;letter-spacing:.04em;
-  transition:color .2s var(--ease-out),gap .2s var(--ease-out);
+  transition:color .2s var(--ease-out);
+}
+.svc-arrow-icon{
+  display:inline-block;
+  transition:transform .22s var(--ease-out);
 }
 @media(hover:hover) and (pointer:fine){
-  .svc-card:hover .svc-arrow{color:var(--gold-light);gap:.6rem;}
+  .svc-card:hover .svc-arrow{color:var(--gold-light);}
+  .svc-card:hover .svc-arrow-icon{transform:translateX(4px);}
 }
 
 /* ── ABOUT ── */
@@ -551,8 +556,7 @@ a:focus-visible,button:focus-visible{
   <a href="https://wa.me/5511999999999" class="btn-primary" target="_blank" rel="noopener" onclick="closeMobileMenu()">Consulta Grátis</a>
 </div>
 
-<section id="hero" role="main">
-  <span id="main-content" tabindex="-1" style="position:absolute;top:0;"></span>
+<section id="hero" role="banner">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="hero-badge reveal">Advocacia Previdenciária</div>
@@ -570,6 +574,7 @@ a:focus-visible,button:focus-visible{
   </div>
 </section>
 
+<main id="main-content" tabindex="-1">
 <section id="services">
   <div class="section-inner">
     <p class="section-label reveal">Áreas de Atuação</p>
@@ -581,37 +586,37 @@ a:focus-visible,button:focus-visible{
         <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M8 10v11M12 10v11M16 10v11M20 10v11"/></svg></div>
         <h3>Aposentadoria</h3>
         <p>Por tempo de contribuição, por idade, especial e híbrida. Análise completa do seu histórico previdenciário para garantir o melhor benefício.</p>
-        <div class="svc-arrow">Saiba mais →</div>
+        <div class="svc-arrow">Saiba mais <span class="svc-arrow-icon" aria-hidden="true">→</span></div>
       </div>
       <div class="svc-card reveal">
         <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 0 2-2h2a2 2 0 0 0 2 2m-6 9 2 2 4-4"/></svg></div>
         <h3>Revisão de Benefícios INSS</h3>
         <p>Benefícios negados, com valor abaixo do devido ou calculados incorretamente. Revisamos todo o seu processo para corrigir o que é seu.</p>
-        <div class="svc-arrow">Saiba mais →</div>
+        <div class="svc-arrow">Saiba mais <span class="svc-arrow-icon" aria-hidden="true">→</span></div>
       </div>
       <div class="svc-card reveal">
         <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M9 20l1.5-6L8 11l3-3 3 3-2.5 3L13 20M6 9l6-1 6 1"/></svg></div>
         <h3>BPC / LOAS</h3>
         <p>Benefício de Prestação Continuada para pessoas com deficiência e idosos. Assessoria completa no processo administrativo e judicial.</p>
-        <div class="svc-arrow">Saiba mais →</div>
+        <div class="svc-arrow">Saiba mais <span class="svc-arrow-icon" aria-hidden="true">→</span></div>
       </div>
       <div class="svc-card reveal">
         <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <h3>Pensão por Morte</h3>
         <p>Orientação para dependentes que perderam um ente querido segurado. Garantimos o acesso rápido e correto ao benefício.</p>
-        <div class="svc-arrow">Saiba mais →</div>
+        <div class="svc-arrow">Saiba mais <span class="svc-arrow-icon" aria-hidden="true">→</span></div>
       </div>
       <div class="svc-card reveal">
         <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
         <h3>Auxílio por Incapacidade</h3>
         <p>Auxílio-doença e aposentadoria por invalidez. Defesa em perícias médicas e recursos junto ao INSS e à Justiça Federal.</p>
-        <div class="svc-arrow">Saiba mais →</div>
+        <div class="svc-arrow">Saiba mais <span class="svc-arrow-icon" aria-hidden="true">→</span></div>
       </div>
       <div class="svc-card reveal">
         <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <h3>Planejamento Previdenciário</h3>
         <p>Estratégia personalizada para otimizar o tempo de contribuição e garantir a melhor aposentadoria possível no menor prazo.</p>
-        <div class="svc-arrow">Saiba mais →</div>
+        <div class="svc-arrow">Saiba mais <span class="svc-arrow-icon" aria-hidden="true">→</span></div>
       </div>
     </div>
   </div>
@@ -779,6 +784,7 @@ a:focus-visible,button:focus-visible{
   </div>
 </section>
 
+</main>
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
