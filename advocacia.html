@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,11 @@
   --ease-out:cubic-bezier(0.23,1,0.32,1);
   --ease-in-out:cubic-bezier(0.77,0,0.175,1);
   --ease-drawer:cubic-bezier(0.32,0.72,0,1);
+  --z-card:10;
+  --z-sticky:100;
+  --z-nav:1000;
+  --z-overlay:9000;
+  --z-toast:9999;
 }
 html{scroll-behavior:smooth;font-size:16px}
 body{
@@ -33,12 +38,23 @@ body{
 #progress{
   position:fixed;top:0;left:0;height:3px;width:0%;
   background:linear-gradient(90deg,var(--gold),var(--gold-light));
-  z-index:9999;transition:width .1s linear;
+  z-index:var(--z-toast);transition:width .1s linear;
 }
+
+/* ── SKIP LINK ── */
+.skip-link{
+  position:absolute;top:-100px;left:1rem;
+  background:var(--gold);color:var(--navy);
+  padding:.5rem 1rem;border-radius:4px;
+  font-weight:700;font-size:.9rem;
+  text-decoration:none;z-index:calc(var(--z-toast) + 1);
+  transition:top .2s var(--ease-out);
+}
+.skip-link:focus{top:1rem;}
 
 /* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
+  position:fixed;top:0;left:0;right:0;z-index:var(--z-nav);
   padding:0 5%;
   display:flex;align-items:center;justify-content:space-between;
   height:70px;
@@ -58,15 +74,25 @@ nav.scrolled{
 .nav-links{display:flex;gap:2rem;list-style:none;}
 .nav-links a{
   color:var(--text-dim);text-decoration:none;font-size:.88rem;
-  letter-spacing:.04em;
+  letter-spacing:.04em;position:relative;
   transition:color .2s;
 }
-.nav-links a:hover{color:var(--gold);}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .22s var(--ease-out);
+}
+@media(hover:hover) and (pointer:fine){
+  .nav-links a:hover{color:var(--gold);}
+  .nav-links a:hover::after{transform:scaleX(1);}
+}
 .nav-cta{
   background:var(--gold);color:var(--navy);
   padding:.5rem 1.2rem;border-radius:4px;
   font-size:.82rem;font-weight:700;letter-spacing:.06em;
   text-decoration:none;text-transform:uppercase;
+  cursor:pointer;touch-action:manipulation;
   transition:background .2s,transform .12s var(--ease-out);
 }
 @media(hover:hover) and (pointer:fine){.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px);}}
@@ -81,7 +107,7 @@ nav.scrolled{
   .hamburger{display:flex;}
   .mobile-menu{
     position:fixed;inset:0;background:rgba(10,22,40,.98);
-    z-index:999;display:flex;flex-direction:column;
+    z-index:calc(var(--z-nav) - 1);display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:2.5rem;
     opacity:0;pointer-events:none;
     transition:opacity .3s var(--ease-out);
@@ -137,6 +163,7 @@ nav.scrolled{
   padding:.85rem 2rem;border-radius:6px;
   font-weight:700;font-size:.9rem;letter-spacing:.06em;
   text-decoration:none;text-transform:uppercase;
+  cursor:pointer;touch-action:manipulation;
   transition:background .2s,transform .12s var(--ease-out),box-shadow .2s;
 }
 @media(hover:hover) and (pointer:fine){.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.3);}}
@@ -146,6 +173,7 @@ nav.scrolled{
   padding:.85rem 2rem;border-radius:6px;
   font-weight:500;font-size:.9rem;letter-spacing:.06em;
   text-decoration:none;text-transform:uppercase;
+  cursor:pointer;touch-action:manipulation;
   transition:border-color .2s,color .2s,transform .12s var(--ease-out);
 }
 @media(hover:hover) and (pointer:fine){.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}}
@@ -182,10 +210,10 @@ section{padding:6rem 5%;}
 
 /* ── REVEAL ── */
 .reveal{
-  opacity:0;transform:translateY(28px);
-  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);
+  opacity:0;transform:translateY(8px) scale(0.98);
+  transition:opacity .45s var(--ease-out),transform .45s var(--ease-out);
 }
-.reveal.in{opacity:1;transform:none;}
+.reveal.in{opacity:1;transform:translateY(0) scale(1);}
 
 /* ── SERVICES ── */
 #services{background:var(--navy);}
@@ -218,14 +246,18 @@ section{padding:6rem 5%;}
   width:48px;height:48px;margin-bottom:1.2rem;
   background:rgba(201,168,76,.1);border-radius:10px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;
 }
+.svc-icon svg{width:24px;height:24px;stroke:var(--gold);}
 .svc-card h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.6rem;}
 .svc-card p{font-size:.87rem;color:var(--text-dim);line-height:1.65;}
 .svc-arrow{
   display:inline-flex;align-items:center;gap:.4rem;
   margin-top:1.2rem;font-size:.8rem;color:var(--gold);
   font-weight:600;letter-spacing:.04em;
+  transition:color .2s var(--ease-out),gap .2s var(--ease-out);
+}
+@media(hover:hover) and (pointer:fine){
+  .svc-card:hover .svc-arrow{color:var(--gold-light);gap:.6rem;}
 }
 
 /* ── ABOUT ── */
@@ -245,8 +277,10 @@ section{padding:6rem 5%;}
 .photo-icon{
   width:80px;height:80px;border-radius:50%;
   background:rgba(201,168,76,.1);border:2px solid var(--gold-dim);
-  display:flex;align-items:center;justify-content:center;font-size:2rem;
+  display:flex;align-items:center;justify-content:center;
 }
+.photo-icon svg{width:40px;height:40px;stroke:var(--gold);}
+.benefit-icon svg{width:20px;height:20px;stroke:var(--gold);}
 .about-photo-badge{
   position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;
   background:rgba(10,22,40,.9);border:1px solid rgba(201,168,76,.2);
@@ -314,7 +348,6 @@ section{padding:6rem 5%;}
 .benefit-icon{
   width:40px;height:40px;border-radius:8px;flex-shrink:0;
   background:rgba(201,168,76,.12);display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;
 }
 .benefit-item h4{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.25rem;}
 .benefit-item p{font-size:.82rem;color:var(--text-dim);line-height:1.55;}
@@ -340,13 +373,15 @@ section{padding:6rem 5%;}
   position:relative;z-index:1;
   transition:background .3s,border-color .3s,color .3s;
 }
-.step:hover .step-num{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+@media(hover:hover) and (pointer:fine){
+  .step:hover .step-num{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+}
 .step h4{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.4rem;}
 .step p{font-size:.8rem;color:var(--text-dim);line-height:1.55;}
 
 /* ── TESTIMONIALS ── */
 #testimonials{background:var(--navy2);overflow:hidden;}
-.testi-track-wrap{position:relative;overflow:hidden;margin:0 -5%;}
+.testi-track-wrap{position:relative;overflow:hidden;margin:0 -5%;min-height:200px;}
 .testi-track-wrap::before,
 .testi-track-wrap::after{
   content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
@@ -356,7 +391,7 @@ section{padding:6rem 5%;}
 .testi-track{
   display:flex;gap:1.5rem;width:max-content;
   animation:scrollTrack 40s linear infinite;
-  padding:1rem 60px;
+  padding:1rem 60px;will-change:transform;
 }
 .testi-track:hover{animation-play-state:paused;}
 @keyframes scrollTrack{
@@ -385,12 +420,12 @@ section{padding:6rem 5%;}
 .faq-item{border-bottom:1px solid rgba(201,168,76,.1);}
 .faq-q{
   display:flex;align-items:center;justify-content:space-between;
-  padding:1.3rem 0;cursor:pointer;
+  padding:1.3rem 0;cursor:pointer;touch-action:manipulation;
   font-size:.95rem;color:#fff;font-weight:600;
   gap:1rem;transition:color .2s;
   background:none;border:none;width:100%;text-align:left;
 }
-.faq-q:hover{color:var(--gold);}
+@media(hover:hover) and (pointer:fine){.faq-q:hover{color:var(--gold);}}
 .faq-icon{
   width:24px;height:24px;border-radius:50%;flex-shrink:0;
   border:1.5px solid var(--gold-dim);
@@ -457,7 +492,7 @@ footer{
 
 /* ── WHATSAPP ── */
 .whatsapp-btn{
-  position:fixed;bottom:2rem;right:2rem;z-index:900;
+  position:fixed;bottom:2rem;right:2rem;z-index:var(--z-sticky);
   width:56px;height:56px;border-radius:50%;
   background:#25d366;
   display:flex;align-items:center;justify-content:center;
@@ -489,11 +524,12 @@ a:focus-visible,button:focus-visible{
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 <div id="progress"></div>
 
 <nav id="nav">
   <a href="#" class="nav-logo">Liberato Reis<span>Advocacia Previdenciária</span></a>
-  <ul class="nav-links">
+  <ul class="nav-links" role="list">
     <li><a href="#services">Serviços</a></li>
     <li><a href="#about">A Dra.</a></li>
     <li><a href="#stats">Resultados</a></li>
@@ -515,7 +551,8 @@ a:focus-visible,button:focus-visible{
   <a href="https://wa.me/5511999999999" class="btn-primary" target="_blank" rel="noopener" onclick="closeMobileMenu()">Consulta Grátis</a>
 </div>
 
-<section id="hero">
+<section id="hero" role="main">
+  <span id="main-content" tabindex="-1" style="position:absolute;top:0;"></span>
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="hero-badge reveal">Advocacia Previdenciária</div>
@@ -541,37 +578,37 @@ a:focus-visible,button:focus-visible{
     <p class="section-desc reveal">Especialistas em direito previdenciário com foco em resultados. Lutamos para que você receba o benefício que é seu por direito.</p>
     <div class="services-grid">
       <div class="svc-card reveal">
-        <div class="svc-icon" aria-hidden="true">🏦</div>
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M8 10v11M12 10v11M16 10v11M20 10v11"/></svg></div>
         <h3>Aposentadoria</h3>
         <p>Por tempo de contribuição, por idade, especial e híbrida. Análise completa do seu histórico previdenciário para garantir o melhor benefício.</p>
         <div class="svc-arrow">Saiba mais →</div>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-icon" aria-hidden="true">📋</div>
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 0 2-2h2a2 2 0 0 0 2 2m-6 9 2 2 4-4"/></svg></div>
         <h3>Revisão de Benefícios INSS</h3>
         <p>Benefícios negados, com valor abaixo do devido ou calculados incorretamente. Revisamos todo o seu processo para corrigir o que é seu.</p>
         <div class="svc-arrow">Saiba mais →</div>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-icon" aria-hidden="true">♿</div>
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="M9 20l1.5-6L8 11l3-3 3 3-2.5 3L13 20M6 9l6-1 6 1"/></svg></div>
         <h3>BPC / LOAS</h3>
         <p>Benefício de Prestação Continuada para pessoas com deficiência e idosos. Assessoria completa no processo administrativo e judicial.</p>
         <div class="svc-arrow">Saiba mais →</div>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-icon" aria-hidden="true">🕊️</div>
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <h3>Pensão por Morte</h3>
         <p>Orientação para dependentes que perderam um ente querido segurado. Garantimos o acesso rápido e correto ao benefício.</p>
         <div class="svc-arrow">Saiba mais →</div>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-icon" aria-hidden="true">🏥</div>
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
         <h3>Auxílio por Incapacidade</h3>
         <p>Auxílio-doença e aposentadoria por invalidez. Defesa em perícias médicas e recursos junto ao INSS e à Justiça Federal.</p>
         <div class="svc-arrow">Saiba mais →</div>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-icon" aria-hidden="true">📊</div>
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <h3>Planejamento Previdenciário</h3>
         <p>Estratégia personalizada para otimizar o tempo de contribuição e garantir a melhor aposentadoria possível no menor prazo.</p>
         <div class="svc-arrow">Saiba mais →</div>
@@ -585,7 +622,7 @@ a:focus-visible,button:focus-visible{
     <div class="about-grid">
       <div class="about-photo reveal">
         <div class="about-photo-placeholder">
-          <div class="photo-icon" aria-hidden="true">👩‍⚖️</div>
+          <div class="photo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
           <p style="font-size:.8rem;text-align:center;">Foto da Dra. Jaqueline</p>
         </div>
         <div class="about-photo-badge">
@@ -664,28 +701,28 @@ a:focus-visible,button:focus-visible{
         <div class="gold-line reveal"></div>
         <h2 class="section-title reveal">Resultado comprovado,<br>atendimento humano</h2>
         <div class="benefit-item reveal">
-          <div class="benefit-icon" aria-hidden="true">⚡</div>
+          <div class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <div>
             <h4>Agilidade no processo</h4>
             <p>Trabalhamos com urgência para reduzir o tempo até o recebimento do seu benefício.</p>
           </div>
         </div>
         <div class="benefit-item reveal">
-          <div class="benefit-icon" aria-hidden="true">🔍</div>
+          <div class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
           <div>
             <h4>Análise minuciosa do caso</h4>
             <p>Estudamos cada detalhe do seu histórico previdenciário para encontrar a melhor estratégia.</p>
           </div>
         </div>
         <div class="benefit-item reveal">
-          <div class="benefit-icon" aria-hidden="true">💬</div>
+          <div class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <div>
             <h4>Comunicação transparente</h4>
             <p>Você é informado de cada etapa do processo, sem juridiquês e com linguagem clara.</p>
           </div>
         </div>
         <div class="benefit-item reveal">
-          <div class="benefit-icon" aria-hidden="true">🤝</div>
+          <div class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
           <div>
             <h4>Sem custo inicial</h4>
             <p>Trabalhamos com êxito: você só paga se ganhar. Consulta inicial totalmente gratuita.</p>
@@ -789,17 +826,20 @@ a:focus-visible,button:focus-visible{
 </a>
 
 <script>
-// ── SCROLL PROGRESS ──
+// ── SCROLL PROGRESS + NAV (throttled via RAF) ──
 var prog=document.getElementById('progress');
-window.addEventListener('scroll',function(){
-  var s=window.scrollY,h=document.body.scrollHeight-window.innerHeight;
-  prog.style.width=(h>0?(s/h*100):0)+'%';
-},{passive:true});
-
-// ── NAV ──
 var navEl=document.getElementById('nav');
+var scrollTicking=false;
 window.addEventListener('scroll',function(){
-  navEl.classList.toggle('scrolled',window.scrollY>60);
+  if(!scrollTicking){
+    requestAnimationFrame(function(){
+      var s=window.scrollY,h=document.body.scrollHeight-window.innerHeight;
+      prog.style.width=(h>0?(s/h*100):0)+'%';
+      navEl.classList.toggle('scrolled',s>60);
+      scrollTicking=false;
+    });
+    scrollTicking=true;
+  }
 },{passive:true});
 
 // ── MOBILE MENU ──
@@ -913,7 +953,7 @@ function closeMobileMenu(){
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
-        var d=batch?Math.min(bIdx++*55,360):0;
+        var d=batch?Math.min(bIdx++*40,240):0;
         setTimeout(function(){e.target.classList.add('in');},d);
         io.unobserve(e.target);
       }
